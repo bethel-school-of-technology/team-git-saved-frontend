@@ -8,7 +8,7 @@ import {
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
-const ChildProfile: React.FC = () => {
+const SignUp: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
@@ -24,4 +24,4 @@ const ChildProfile: React.FC = () => {
   );
 };
 
-export default ChildProfile;
+export default SignUp;
