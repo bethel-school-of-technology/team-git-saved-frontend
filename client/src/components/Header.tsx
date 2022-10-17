@@ -6,7 +6,7 @@ const Header: React.FC<ContainerProps> = () => {
   return (
     <IonHeader>
       <IonToolbar>
-        <IonTitle>HomeTasktic</IonTitle>
+        <IonTitle>HomeTasktic Header</IonTitle>
       </IonToolbar>
     </IonHeader>
   );

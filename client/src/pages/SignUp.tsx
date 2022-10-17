@@ -1,23 +1,13 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const SignUp: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>HomeTasktic</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Header />
       <IonContent fullscreen>
-        <Header />
+        
         <Footer />
       </IonContent>
     </IonPage>
