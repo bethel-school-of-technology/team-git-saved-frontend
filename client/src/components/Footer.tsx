@@ -6,7 +6,7 @@ const Footer: React.FC<ContainerProps> = () => {
   return (
     <IonFooter collapse="fade">
       <IonButton expand="full" color="secondary">
-        HomeTasktic
+        HomeTasktic Footer
       </IonButton>
     </IonFooter>
   );

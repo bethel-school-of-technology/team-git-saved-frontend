@@ -12,14 +12,9 @@ import "./Home.css";
 const Home: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>HomeTasktic</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Header />
       <IonContent fullscreen>
-        <Header />
-        <p>pizza</p>
+        <p>add grid here</p>
         <Footer />
       </IonContent>
     </IonPage>
