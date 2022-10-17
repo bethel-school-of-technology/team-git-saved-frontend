@@ -4,9 +4,9 @@ interface ContainerProps {}
 
 const Header: React.FC<ContainerProps> = () => {
   return (
-    <IonHeader collapse="condense">
+    <IonHeader>
       <IonToolbar>
-        <IonTitle size="large">Blank</IonTitle>
+        <IonTitle>HomeTasktic</IonTitle>
       </IonToolbar>
     </IonHeader>
   );
