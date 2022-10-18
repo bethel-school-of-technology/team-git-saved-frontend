@@ -1,9 +1,9 @@
 import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
+IonContent,
+IonPage,
+IonGrid,
+IonRow,
+IonCol,
 } from "@ionic/react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -11,13 +11,16 @@ import Header from "../components/Header";
 const Welcome: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>HomeTasktic</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Header />
       <IonContent fullscreen>
-        <Header />
+        
+        <IonGrid>
+            <IonRow>
+                <IonCol>
+
+                </IonCol>
+            </IonRow>
+        </IonGrid>
         <Footer />
       </IonContent>
     </IonPage>
