@@ -1,7 +1,20 @@
 import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
+import {
+  IonApp,
+  IonContent,
+  IonHeader,
+  IonItem,
+  IonList,
+  IonMenu,
+  IonMenuToggle,
+  IonRouterOutlet,
+  IonTitle,
+  IonToolbar,
+  setupIonicReact,
+} from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/Home";
+import Welcome from "./pages/Welcome";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -21,19 +34,55 @@ import "@ionic/react/css/display.css";
 
 /* Theme variables */
 import "./theme/variables.css";
-import Welcome from "./pages/Welcome";
+import "./pages/App.css";
+import ChildProfile from "./pages/ChildProfile";
+import ParentProfile from "./pages/ParentProfile";
+import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 setupIonicReact();
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
-      <IonRouterOutlet>
+      <IonMenu side="end" menuId="first" contentId="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Menu</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonList>
+            <IonMenuToggle>
+              <IonItem routerLink="home">Home</IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="childprofile">Child Profile</IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="parentprofile">Parent Profile</IonItem>
+            </IonMenuToggle>
+          </IonList>
+        </IonContent>
+      </IonMenu>
+      <IonRouterOutlet id="main">
         <Route exact path="/home">
           <Home />
         </Route>
         <Route exact path="/welcome">
           <Welcome />
+        </Route>
+        <Route exact path="/signup">
+          <SignUp />
+        </Route>
+        <Route exact path="/signin">
+          <SignIn />
+        </Route>
+        <Route exact path="/childprofile">
+          <ChildProfile />
+        </Route>
+        <Route exact path="/parentprofile">
+          <ParentProfile />
         </Route>
         <Route exact path="/">
           <Redirect to="/home" />
