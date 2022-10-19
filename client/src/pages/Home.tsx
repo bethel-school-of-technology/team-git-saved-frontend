@@ -1,9 +1,6 @@
 import {
   IonContent,
-  IonHeader,
   IonPage,
-  IonTitle,
-  IonToolbar,
 } from "@ionic/react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -14,7 +11,7 @@ const Home: React.FC = () => {
     <IonPage>
       <Header />
       <IonContent fullscreen>
-        <p>add grid here</p>
+        <p>Add Grid Here</p>
         <Footer />
       </IonContent>
     </IonPage>
