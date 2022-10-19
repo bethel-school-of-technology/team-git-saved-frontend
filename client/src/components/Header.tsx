@@ -7,6 +7,9 @@ const Header: React.FC<ContainerProps> = () => {
     <IonHeader>
       <IonToolbar>
         <IonTitle>HomeTasktic Header</IonTitle>
+        {/* <div>
+          <img src="./src/assets/logo.png" />
+        </div> */}
       </IonToolbar>
     </IonHeader>
   );
