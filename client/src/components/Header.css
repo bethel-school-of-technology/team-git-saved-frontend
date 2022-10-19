@@ -1,0 +1,18 @@
+ion-header {
+  --ion-toolbar-background: rgb(209, 245, 242);
+}
+
+ion-menu ion-header {
+  --ion-toolbar-background: rgb(0, 0, 0);
+}
+
+ion-menu-button,
+ion-title {
+  color: rgb(0, 0, 0);
+}
+
+ion-grid,
+ion-grid a {
+  background-color: rgb(209, 245, 242);
+  color: rgb(0, 0, 0);
+}
