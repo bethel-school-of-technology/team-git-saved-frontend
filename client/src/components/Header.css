@@ -16,3 +16,7 @@ ion-grid a {
   background-color: rgb(209, 245, 242);
   color: rgb(0, 0, 0);
 }
+
+ion-menu ion-title {
+  color: rgb(255, 255, 255);
+}
