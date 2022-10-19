@@ -1,4 +1,4 @@
-import { Navigate, Route } from 'react-router-dom';
+import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
@@ -39,7 +39,7 @@ const App: React.FC = () => (
         <Route path="/welcome">
           <Welcome />
         </Route>
-        <Route path="/signIn">
+        <Route  path="/signIn">
           <SignIn />
         </Route>
         <Route path="/signUp">
@@ -51,7 +51,8 @@ const App: React.FC = () => (
         <Route path="/parent">
           <ParentProfile />
         </Route>
-        <Route path="/" element={<Navigate to="/welcome" replace />}>
+        <Route  path="/">
+          <Redirect to="/welcome"/>
        
         </Route>
       </IonRouterOutlet>
