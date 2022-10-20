@@ -85,7 +85,7 @@ const App: React.FC = () => (
           <ParentProfile />
         </Route>
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/welcome" />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>
