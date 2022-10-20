@@ -1,3 +1,18 @@
 body {
   color: rgb(0, 0, 0);
 }
+
+ion-thumbnail {
+  --size: 280px;
+  --border-radius: 10px;
+  margin: 0 auto;
+}
+
+.tasklist ion-list {
+  background: none;
+}
+
+.tasklist ion-item {
+  --background: none;
+  color: rgb(0, 0, 0);
+}
