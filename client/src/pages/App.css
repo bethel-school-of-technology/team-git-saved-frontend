@@ -16,3 +16,10 @@ ion-thumbnail {
   --background: none;
   color: rgb(0, 0, 0);
 }
+
+.signupform{
+	max-width: 640px;
+	width:100%;
+	margin: o auto;
+  
+}
