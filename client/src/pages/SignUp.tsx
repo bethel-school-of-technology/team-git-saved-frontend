@@ -31,25 +31,30 @@ const SignUp: React.FC = () => {
                
                <div className="signupform">
                <IonLabel position="stacked">UserName: </IonLabel>
-		            <IonInput placeholder="Enter Username" type="text" name="username"/> <br></br>
+		            <IonInput class="color" placeholder="Enter Username" type="text" name="username"/> <br></br>
                 
                <IonLabel position="stacked">Password: </IonLabel>
-		            <IonInput placeholder="Enter Password" type="text" name="password" /> <br></br>
+		            <IonInput class="color" placeholder="Enter Password" type="text" name="password" /> <br></br>
               
-              <IonLabel position="stacked">First Name: </IonLabel>
-		            <IonInput placeholder="Enter First Name" type="text" name="first name"/> <br></br>
+                <IonLabel position="stacked">First Name: </IonLabel>
+		            <IonInput class="color" placeholder="Enter First Name" type="text" name="first name"/> <br></br>
              
                 
                 <IonLabel position="stacked">Last Name: </IonLabel>
-		            <IonInput placeholder="Enter Last Name" type="text" name="last name"/> <br></br>
+		            <IonInput class="color" placeholder="Enter Last Name" type="text" name="last name"/> <br></br>
                 
                 
                 <IonLabel position="stacked">Email: </IonLabel>
-		            <IonInput placeholder="Enter Email" type="text" name="email"/> <br></br>
+		            <IonInput class="color" placeholder="Enter Email" type="text" name="email"/> <br></br>
                </div>
                
 	            </IonCol>
             </IonRow>
+            <IonRow class="ion-padding ion-text-center">
+            <IonCol size="12">
+              <IonButton>Thank You For Signing Up</IonButton>
+            </IonCol>
+          </IonRow>
          
         </IonGrid>
         
