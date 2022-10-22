@@ -1,4 +1,5 @@
 import {
+  IonButton,
   IonCheckbox,
   IonCol,
   IonContent,
@@ -30,7 +31,16 @@ const ParentProfile: React.FC = () => {
             <IonCol size-lg="6" size-xs="12">
               <IonRow class="ion-padding">
                 <IonCol size-lg="6" size-xs="12">
-                  <h2>Incomplete Tasks</h2>
+                  <h2>Child 1</h2>
+                </IonCol>
+                <IonCol size-lg="6" size-xs="12">
+                  <IonButton>Send Reminder</IonButton>
+                  <IonButton color="danger">Edit</IonButton>
+                </IonCol>
+              </IonRow>
+              <IonRow class="ion-padding">
+                <IonCol size-lg="6" size-xs="12">
+                  <h3>Incomplete Tasks</h3>
                   <div className="tasklist">
                     <IonList>
                       <IonItem>
@@ -45,7 +55,7 @@ const ParentProfile: React.FC = () => {
                   </div>
                 </IonCol>
                 <IonCol size-lg="6" size-xs="12">
-                  <h2>Completed Tasks</h2>
+                  <h3>Completed Tasks</h3>
                   <div className="tasklist">
                     <IonList>
                       <IonItem>
@@ -63,36 +73,47 @@ const ParentProfile: React.FC = () => {
                     </IonList>
                   </div>
                 </IonCol>
+              </IonRow>
+              <IonRow class="ion-padding">
                 <IonCol size-lg="6" size-xs="12">
-                  <h2>Available Rewards</h2>
+                  <h2>Child 2</h2>
+                </IonCol>
+                <IonCol size-lg="6" size-xs="12">
+                  <IonButton>Send Reminder</IonButton>
+                  <IonButton color="danger">Edit</IonButton>
+                </IonCol>
+              </IonRow>
+              <IonRow class="ion-padding">
+                <IonCol size-lg="6" size-xs="12">
+                  <h3>Incomplete Tasks</h3>
                   <div className="tasklist">
                     <IonList>
                       <IonItem>
                         <IonCheckbox slot="start"></IonCheckbox>
-                        <IonLabel>Go to the park</IonLabel>
+                        <IonLabel>Pack Lunch</IonLabel>
                       </IonItem>
                       <IonItem>
                         <IonCheckbox slot="start"></IonCheckbox>
-                        <IonLabel>Go to friends house</IonLabel>
+                        <IonLabel>Make Bed</IonLabel>
                       </IonItem>
                       <IonItem>
                         <IonCheckbox slot="start"></IonCheckbox>
-                        <IonLabel>Get Ice Cream</IonLabel>
+                        <IonLabel>Rake Leaves</IonLabel>
                       </IonItem>
                     </IonList>
                   </div>
                 </IonCol>
                 <IonCol size-lg="6" size-xs="12">
-                  <h2>Redeemed Rewards</h2>
+                  <h3>Completed Tasks</h3>
                   <div className="tasklist">
                     <IonList>
                       <IonItem>
                         <IonCheckbox slot="start"></IonCheckbox>
-                        <IonLabel>Read A Book</IonLabel>
+                        <IonLabel>Fold Laumdry</IonLabel>
                       </IonItem>
                       <IonItem>
                         <IonCheckbox slot="start"></IonCheckbox>
-                        <IonLabel>Play Switch for 1 Hour</IonLabel>
+                        <IonLabel>Wash Dishes</IonLabel>
                       </IonItem>
                     </IonList>
                   </div>
@@ -100,12 +121,34 @@ const ParentProfile: React.FC = () => {
               </IonRow>
             </IonCol>
             <IonCol size-lg="6" size-xs="12" class="ion-text-center">
-              <IonThumbnail>
-                <img
-                  alt="placeholder"
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
-                />
-              </IonThumbnail>
+              <IonRow class="ion-padding">
+                <IonCol size="12">
+                  <IonThumbnail>
+                    <img
+                      alt="placeholder"
+                      src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+                    />
+                  </IonThumbnail>
+                </IonCol>
+              </IonRow>
+              <IonRow class="ion-padding">
+                <IonCol size="12">
+                  <h2>Options</h2>
+                  <div className="options">
+                    <IonList>
+                      <IonItem>
+                        <IonButton size="default">Dashboard</IonButton>
+                      </IonItem>
+                      <IonItem>
+                        <IonButton size="default">Add Child</IonButton>
+                      </IonItem>
+                      <IonItem>
+                        <IonButton size="default">Family Discussion</IonButton>
+                      </IonItem>
+                    </IonList>
+                  </div>
+                </IonCol>
+              </IonRow>
             </IonCol>
           </IonRow>
         </IonGrid>

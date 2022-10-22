@@ -8,7 +8,8 @@ ion-thumbnail {
   margin: 0 auto;
 }
 
-.tasklist ion-list {
+.tasklist ion-list,
+.options ion-list {
   background: none;
 }
 
@@ -17,17 +18,27 @@ ion-thumbnail {
   color: rgb(0, 0, 0);
 }
 
-.signupform{
-	max-width: 380px;
-	width:100%;
-	margin: 0 auto;
+.options {
+  max-width: 380px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.options ion-item {
+  --background: none;
+  --border: none;
+}
+
+.signupform {
+  max-width: 380px;
+  width: 100%;
+  margin: 0 auto;
   /* text-align: center; */
   background-color: rgb(88, 214, 245);
   padding: 3%;
   border-radius: 5px;
-  
 }
 
-.color{
-  background-color: white
+.color {
+  background-color: white;
 }

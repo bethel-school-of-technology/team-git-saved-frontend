@@ -17,7 +17,9 @@ const Header: React.FC<ContainerProps> = () => {
         <IonButtons slot="start">
           <IonBackButton></IonBackButton>
         </IonButtons>
-        <IonTitle>HomeTastic</IonTitle>
+        <IonTitle>
+          <a href="/home">HomeTastic</a>
+        </IonTitle>
         <IonButtons slot="end">
           <IonMenuButton></IonMenuButton>
         </IonButtons>
