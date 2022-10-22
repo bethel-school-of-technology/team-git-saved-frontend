@@ -46,15 +46,18 @@ const SignUp: React.FC = () => {
                 
                 <IonLabel position="stacked">Email: </IonLabel>
 		            <IonInput class="color" placeholder="Enter Email" type="text" name="email"/> <br></br>
+               
+                <IonRow class="ion-padding ion-text-center">
+                  <IonCol size="12">
+                    <IonButton>Thank You For Signing Up</IonButton>
+                  </IonCol>
+              </IonRow>
+               
                </div>
                
 	            </IonCol>
             </IonRow>
-            <IonRow class="ion-padding ion-text-center">
-            <IonCol size="12">
-              <IonButton>Thank You For Signing Up</IonButton>
-            </IonCol>
-          </IonRow>
+           
          
         </IonGrid>
         

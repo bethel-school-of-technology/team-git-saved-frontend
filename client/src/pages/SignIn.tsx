@@ -23,20 +23,24 @@ const SignIn: React.FC = () => {
               <h1>Sign In</h1></IonCol>
           </IonRow>
           <IonRow class="ion-padding">
-	            <IonCol size="12"><div className="signupform">
+	            <IonCol size="12">
+                <div className="signupform">
                <IonLabel position="stacked">UserName: </IonLabel>
 		            <IonInput class="color" placeholder="Enter Username" type="text" name="username"/> <br></br>
                 
                <IonLabel position="stacked">Password: </IonLabel>
 		            <IonInput class="color" placeholder="Enter Password" type="text" name="password" /> <br></br>
-               </div>
-	            </IonCol>
-            </IonRow>
-          <IonRow class="ion-padding ion-text-center">
+               
+            <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
               <IonButton>Sign In</IonButton>
             </IonCol>
           </IonRow>
+               
+               </div>
+	            </IonCol>
+            </IonRow>
+         
         </IonGrid>
 
         <Footer />
