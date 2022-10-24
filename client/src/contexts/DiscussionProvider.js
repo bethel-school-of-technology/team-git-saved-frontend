@@ -27,9 +27,9 @@ export const DiscussionProvider = (props) => {
         });
     }
 
-    function addTask(post) {
+    function addPost(post) {
         let myHeaders = {
-            Authorization: `Bearer ${localStorage.getItem('myPostToken')}`
+            Authorization: `Bearer ${localStorage.getItem('myTaskToken')}`
         };
 
         return axios.post(baseUrl, post, { headers: myHeaders })
@@ -42,7 +42,7 @@ export const DiscussionProvider = (props) => {
 
     function editPost(postId) {
         let myHeaders = {
-            Authorization: `Bearer ${localStorage.getItem('myPostToken')}`
+            Authorization: `Bearer ${localStorage.getItem('myTaskToken')}`
         };
         return axios.put(baseUrl + postId, task, { headers: myHeaders })
         .then(response => {
@@ -55,7 +55,7 @@ export const DiscussionProvider = (props) => {
     function deletePost(postId) {
 
         let myHeaders = {
-            Authorization: `Bearer ${localStorage.getItem('myPostToken')}`
+            Authorization: `Bearer ${localStorage.getItem('myTaskToken')}`
         };
         return axios.delete(baseUrl + postId, task, { headers: myHeaders })
         .then(response => {
@@ -72,7 +72,7 @@ export const DiscussionProvider = (props) => {
             post,
             getPost,
             getAllPosts,
-            addTask,
+            addPost,
             editPost,
             deletePost
           
