@@ -11,7 +11,7 @@ const Home: React.FC = () => {
     <IonPage>
       <Header />
       <IonContent fullscreen>
-        <p>Add Grid Here</p>
+       
         <Footer />
       </IonContent>
     </IonPage>
