@@ -3,11 +3,16 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import TaskContext from "./TaskContext";
+import DiscussionContext from "./DiscussionContext";
+
 
 export const DiscussionProvider = (props) => {
 
-    const [post, setPost] = useState([]);
+    const [post, setPost] = useState([
+        postId="",
+        headline="",
+        content=""
+    ]);
     const baseUrl = "http://localhost:3001/api/discussion/";
 
     useEffect(() => {
@@ -68,7 +73,7 @@ export const DiscussionProvider = (props) => {
     }
 
     return (
-        <TaskContext.Provider value={{
+        <DiscussionContext.Provider value={{
             post,
             getPost,
             getAllPosts,
@@ -78,6 +83,6 @@ export const DiscussionProvider = (props) => {
           
         }}>
             {props.children}
-        </TaskContext.Provider>
+        </DiscussionContext.Provider>
     )
 };
