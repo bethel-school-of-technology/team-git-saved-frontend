@@ -8,11 +8,8 @@ import DiscussionContext from "./DiscussionContext";
 
 export const DiscussionProvider = (props) => {
 
-    const [post, setPost] = useState([
-        postId="",
-        headline="",
-        content=""
-    ]);
+    const [post, setPost] = useState([]);
+    
     const baseUrl = "http://localhost:3001/api/discussion/";
 
     useEffect(() => {
@@ -49,7 +46,7 @@ export const DiscussionProvider = (props) => {
         let myHeaders = {
             Authorization: `Bearer ${localStorage.getItem('myTaskToken')}`
         };
-        return axios.put(baseUrl + postId, task, { headers: myHeaders })
+        return axios.put(baseUrl + postId, post, { headers: myHeaders })
         .then(response => {
             getAllPosts();
             return new Promise(resolve => resolve(response.data));
@@ -62,7 +59,7 @@ export const DiscussionProvider = (props) => {
         let myHeaders = {
             Authorization: `Bearer ${localStorage.getItem('myTaskToken')}`
         };
-        return axios.delete(baseUrl + postId, task, { headers: myHeaders })
+        return axios.delete(baseUrl + postId, post, { headers: myHeaders })
         .then(response => {
             getAllPosts();
             return new Promise(resolve => resolve(response.data));

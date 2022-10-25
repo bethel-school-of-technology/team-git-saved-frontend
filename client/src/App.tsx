@@ -40,10 +40,12 @@ import ParentProfile from "./pages/ParentProfile";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Discussionboard from "./pages/DiscussionBoard";
+import { DiscussionProvider } from "./contexts/DiscussionProvider";
 
 setupIonicReact();
 
 const App: React.FC = () => (
+  <DiscussionProvider>
   <IonApp>
     <IonReactRouter>
       <IonMenu side="end" menuId="first" contentId="main">
@@ -94,6 +96,7 @@ const App: React.FC = () => (
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
+  </DiscussionProvider>
 );
 
 export default App;
