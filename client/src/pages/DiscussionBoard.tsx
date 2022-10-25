@@ -8,12 +8,14 @@ import {
   IonLabel,
   IonInput,
   IonItem,
+  IonList,
 } from "@ionic/react";
 import { useContext, useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { useDialog } from "../hooks/usedialog";
 import DiscussionContext from "../contexts/DiscussionContext";
+import { DiscussionProvider } from "../contexts/DiscussionProvider";
 
 
 const DiscussionBoard: React.FC = () => {
@@ -50,7 +52,7 @@ const DiscussionBoard: React.FC = () => {
       }
     };
   }
-};
+;
 return (
   <IonPage>
     <Header />
@@ -61,7 +63,7 @@ return (
           <IonCol size="12">
             <h1>Discussion Board</h1></IonCol>
         </IonRow>
-        <IonList>{displayPosts()}</IonList>
+        <IonList>{displayPosts}</IonList>
         <IonItem>
           <IonLabel position="stacked">Join Discussion Here</IonLabel>
           <IonInput placeholder="Start Post"></IonInput>
@@ -75,6 +77,7 @@ return (
       <Footer />
     </IonContent>
   </IonPage>
+
 );
   };
 
