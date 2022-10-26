@@ -46,56 +46,57 @@ setupIonicReact();
 
 const App: React.FC = () => (
   <DiscussionProvider>
-  <IonApp>
-    <IonReactRouter>
-      <IonMenu side="end" menuId="first" contentId="main">
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Menu</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonList>
-            <IonMenuToggle>
-              <IonItem routerLink="home">Home</IonItem>
-            </IonMenuToggle>
-            <IonMenuToggle>
-              <IonItem routerLink="childprofile">Child Profile</IonItem>
-            </IonMenuToggle>
-            <IonMenuToggle>
-              <IonItem routerLink="parentprofile">Parent Profile</IonItem>
-            </IonMenuToggle>
-          </IonList>
-        </IonContent>
-      </IonMenu>
-      <IonRouterOutlet id="main">
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/welcome">
-          <Welcome />
-        </Route>
-        <Route exact path="/signup">
-          <SignUp />
-        </Route>
-        <Route exact path="/signin">
-          <SignIn />
-        </Route>
-        <Route exact path="/childprofile">
-          <ChildProfile />
-        </Route>
-        <Route exact path="/parentprofile">
-          <ParentProfile />
-        </Route>
-        <Route exact path="/discussionBoard">
-          <Discussionboard />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/welcome" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
+    <IonApp>
+      <IonReactRouter>
+        <IonMenu side="end" menuId="first" contentId="main">
+          <IonHeader>
+            <IonToolbar>
+              <IonTitle>Menu</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent>
+            <IonList>
+              <IonMenuToggle>
+                <IonItem routerLink="home">Home</IonItem>
+              </IonMenuToggle>
+              <IonMenuToggle>
+                <IonItem routerLink="childprofile">Child Profile</IonItem>
+              </IonMenuToggle>
+              <IonMenuToggle>
+                <IonItem routerLink="parentprofile">Parent Profile</IonItem>
+              </IonMenuToggle>
+            </IonList>
+          </IonContent>
+        </IonMenu>
+        <IonRouterOutlet id="main">
+          <Route exact path="/home">
+            <Home />
+          </Route>
+          <Route exact path="/welcome">
+            <Welcome />
+          </Route>
+          <Route exact path="/signup">
+            <SignUp />
+          </Route>
+          <Route exact path="/signin">
+            <SignIn />
+          </Route>
+          <Route exact path="/childprofile">
+            <ChildProfile />
+          </Route>
+          <Route exact path="/parentprofile">
+            <ParentProfile />
+          </Route>
+
+          <Route exact path="/discussionBoard">
+            <Discussionboard />
+          </Route>
+          <Route exact path="/">
+            <Redirect to="/welcome" />
+          </Route>
+        </IonRouterOutlet>
+      </IonReactRouter>
+    </IonApp>
   </DiscussionProvider>
 );
 
