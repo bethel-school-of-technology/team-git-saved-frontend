@@ -6,7 +6,7 @@ import DiscussionContext from "./DiscussionContext";
 export const DiscussionProvider = (props) => {
   const [post, setPost] = useState([]);
 
-  const baseUrl = "http://localhost:3001/api/discussion/";
+  const baseUrl = "http://localhost:3001/discussion/";
 
   useEffect(() => {
     async function fetchData() {

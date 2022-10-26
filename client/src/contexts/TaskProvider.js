@@ -1,84 +1,78 @@
-
-
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import TaskContext from "./TaskContext";
 
 export const TaskProvider = (props) => {
+  const [task, setTask] = useState([]);
+  const baseUrl = "http://localhost:3001/tasks/";
 
-    const [task, setTask] = useState([]);
-    const baseUrl = "http://localhost:3001/api/task/";
-
-    useEffect(() => {
-        async function fetchData() {
-            await getAllTask();
-        }
-        fetchData();
-    }, []);
-
-    function getAllTasks() {
-        return axios.get(baseUrl).then(response => setTask(response.data));
+  useEffect(() => {
+    async function fetchData() {
+      await getAllTasks();
     }
+    fetchData();
+  }, []);
 
-    function getTask(taskId) {
-        return axios.get(baseUrl + taskId).then(response =>{
-            return new Promise(resolve => resolve(response.data))
-        });
-    }
+  function getAllTasks() {
+    return axios.get(baseUrl).then((response) => setTask(response.data));
+  }
 
-    function addTask(task) {
-        let myHeaders = {
-            Authorization: `Bearer ${localStorage.getItem('myTaskToken')}`
-        };
+  function getTask(taskId) {
+    return axios.get(baseUrl + taskId).then((response) => {
+      return new Promise((resolve) => resolve(response.data));
+    });
+  }
 
-        return axios.post(baseUrl, task, { headers: myHeaders })
-            .then(response => {
-                getAllTasks();
-                return new Promise(resolve => resolve(response.data));
-            }
-            );
-    }
+  function addTask(task) {
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
 
-    function editTask(taskId) {
-        let myHeaders = {
-            Authorization: `Bearer ${localStorage.getItem('myTaskToken')}`
-        };
-        return axios.put(baseUrl + taskId, task, { headers: myHeaders })
-        .then(response => {
-            getAllTasks();
-            return new Promise(resolve => resolve(response.data));
-        }
-        );
-    }
+    return axios
+      .post(baseUrl, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
+  }
 
-    function deleteTask(taskId) {
+  function editTask(taskId) {
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
+    return axios
+      .put(baseUrl + taskId, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
+  }
 
-        let myHeaders = {
-            Authorization: `Bearer ${localStorage.getItem('myTaskToken')}`
-        };
-        return axios.delete(baseUrl + taskId, task, { headers: myHeaders })
-        .then(response => {
-            getAllTasks();
-            return new Promise(resolve => resolve(response.data));
-        }
-        );
+  function deleteTask(taskId) {
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
+    return axios
+      .delete(baseUrl + taskId, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
+  }
 
-
-    }
-
-
-    return (
-        <TaskContext.Provider value={{
-            task,
-            getTask,
-            getAllTasks,
-            addTask,
-            editTask,
-            deleteTask
-          
-        }}>
-            {props.children}
-        </TaskContext.Provider>
-    )
+  return (
+    <TaskContext.Provider
+      value={{
+        task,
+        getTask,
+        getAllTasks,
+        addTask,
+        editTask,
+        deleteTask,
+      }}
+    >
+      {props.children}
+    </TaskContext.Provider>
+  );
 };
