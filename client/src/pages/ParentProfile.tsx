@@ -130,6 +130,13 @@ const ParentProfile: React.FC = () => {
                     />
                   </IonThumbnail>
                 </IonCol>
+                <IonCol size="12">
+                  <div>
+                    <span>Age: add me</span>
+                    <span>Household Size: add me</span>
+                    <span>Bio: add me</span>
+                  </div>
+                </IonCol>
               </IonRow>
               <IonRow class="ion-padding">
                 <IonCol size="12">
