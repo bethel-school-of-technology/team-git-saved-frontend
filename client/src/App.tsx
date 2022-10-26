@@ -39,6 +39,8 @@ import ChildProfile from "./pages/ChildProfile";
 import ParentProfile from "./pages/ParentProfile";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import Discussionboard from "./pages/DiscussionBoard";
+import { DiscussionProvider } from "./contexts/DiscussionProvider";
 
 setupIonicReact();
 
@@ -83,6 +85,12 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/parentprofile">
           <ParentProfile />
+        </Route>
+
+        <Route exact path="/discussionBoard">
+          <DiscussionProvider>
+            <Discussionboard />
+          </DiscussionProvider>
         </Route>
         <Route exact path="/">
           <Redirect to="/welcome" />

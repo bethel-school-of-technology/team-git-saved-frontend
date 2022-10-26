@@ -51,7 +51,7 @@ export const TaskProvider = (props) => {
 
   function deleteTask(taskId) {
     let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myBandanaToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
     };
     return axios
       .delete(baseUrl + taskId, task, { headers: myHeaders })
