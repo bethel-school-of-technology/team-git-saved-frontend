@@ -41,6 +41,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Discussionboard from "./pages/DiscussionBoard";
 import { DiscussionProvider } from "./contexts/DiscussionProvider";
+import Rewards from "./pages/Rewards";
 
 setupIonicReact();
 
@@ -86,7 +87,9 @@ const App: React.FC = () => (
         <Route exact path="/parentprofile">
           <ParentProfile />
         </Route>
-
+        <Route exact path="/rewards">
+          <Rewards />
+        </Route>
         <Route exact path="/discussionBoard">
           <DiscussionProvider>
             <Discussionboard />
