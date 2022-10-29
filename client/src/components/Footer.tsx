@@ -1,4 +1,4 @@
-import { IonCol, IonFooter, IonGrid, IonRow, IonToolbar } from "@ionic/react";
+import { IonCol, IonFooter, IonGrid, IonImg, IonRow, IonToolbar } from "@ionic/react";
 import "./Footer.css";
 
 interface ContainerProps {}
@@ -16,9 +16,14 @@ const Footer: React.FC<ContainerProps> = () => {
               <a href="/home">Back To Top</a>
             </IonCol>
           </IonRow>
-          <IonRow class="ion-padding footerLogo ion-text-center">
+          <IonRow class="footerLogo ion-text-center">
             <IonCol size="12">
-              <img src="/" alt="HomeTastic Logo" />
+            <a href="/home">
+            <IonImg
+              src="../../assets/HomeTasktic-Logo-Bottom.png"
+              alt="HomeTasktic Logo"
+            ></IonImg>
+          </a>
             </IonCol>
           </IonRow>
         </IonGrid>
