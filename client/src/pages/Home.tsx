@@ -43,15 +43,14 @@ const Home: React.FC = () => {
   }
 
   function handleUpdate(event: any) {
-    let isChecked = event.target.checked;
-    let checkedToString = isChecked.toString();
+    event.preventDefault();
     if (event.target.checked) {
-      console.log("✅ Checkbox is checked");
+      let isChecked = event.target.value;
+      let isCheckedToString = isChecked.toString();
+      console.log(isCheckedToString);
+      setUpdateTask(isCheckedToString);
     } else {
-      console.log("⛔️ Checkbox is NOT checked");
     }
-    console.log(checkedToString);
-    setUpdateTask(checkedToString);
   }
 
   function handleSubmit(event: any) {
