@@ -26,6 +26,9 @@ const Home: React.FC = () => {
     title: "",
     pointValue: "",
     assignedTo: "",
+  });
+
+  let [updateTask, setUpdateTask] = useState({
     completed: "",
   });
 
@@ -37,6 +40,18 @@ const Home: React.FC = () => {
     setNewTask((prevValue) => {
       return { ...prevValue, [event.target.name]: event.target.value };
     });
+  }
+
+  function handleUpdate(event: any) {
+    let isChecked = event.target.checked;
+    let checkedToString = isChecked.toString();
+    if (event.target.checked) {
+      console.log("✅ Checkbox is checked");
+    } else {
+      console.log("⛔️ Checkbox is NOT checked");
+    }
+    console.log(checkedToString);
+    setUpdateTask(checkedToString);
   }
 
   function handleSubmit(event: any) {
@@ -59,8 +74,10 @@ const Home: React.FC = () => {
       });
   }
 
+  console.log(updateTask);
+
   function markComplete(taskId: any) {
-    editTask(newTask, taskId).then(() => {
+    editTask(updateTask, taskId).then(() => {
       history.push("/home");
       window.location.reload();
     });
@@ -127,6 +144,7 @@ const Home: React.FC = () => {
                                 <IonCheckbox
                                   slot="start"
                                   checked={t.completed}
+                                  onIonChange={handleUpdate}
                                   onClick={() => markComplete(`${t.taskId}`)}
                                 ></IonCheckbox>
                                 <IonButton
