@@ -42,6 +42,7 @@ import SignIn from "./pages/SignIn";
 import Discussionboard from "./pages/DiscussionBoard";
 import { DiscussionProvider } from "./contexts/DiscussionProvider";
 import Rewards from "./pages/Rewards";
+import { UserProvider } from "./contexts/UserProvider";
 
 setupIonicReact();
 
@@ -76,8 +77,10 @@ const App: React.FC = () => (
           <Welcome />
         </Route>
         <Route exact path="/signup">
+          <UserProvider>
           <SignUp />
-        </Route>
+          </UserProvider>
+         </Route>
         <Route exact path="/signin">
           <SignIn />
         </Route>
