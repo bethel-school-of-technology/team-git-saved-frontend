@@ -41,6 +41,7 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Discussionboard from "./pages/DiscussionBoard";
 import { DiscussionProvider } from "./contexts/DiscussionProvider";
+import AddDiscussion from "./components/addDiscussion";
 
 setupIonicReact();
 
@@ -92,6 +93,9 @@ const App: React.FC = () => (
             <Discussionboard />
           </DiscussionProvider>
         </Route>
+        <Route exact path="/discussionBoard/add">
+        <AddDiscussion /> 
+          </Route> 
         <Route exact path="/">
           <Redirect to="/welcome" />
         </Route>
