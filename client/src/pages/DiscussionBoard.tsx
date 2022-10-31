@@ -10,17 +10,14 @@ import {
   IonItem,
   IonList,
 } from "@ionic/react";
-import { useContext, useEffect, useState } from "react";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
-import UserContext from "../contexts/UserContext";
-import AddDiscussion from "../components/addDiscussion";
-
 
 const DiscussionBoard: React.FC = () => {
-  let { deletePost,post } = useContext(DiscussionContext);
+  let { deletePost, addPost } = useContext(DiscussionContext);
 
   let history = useHistory();
  
@@ -39,44 +36,18 @@ const DiscussionBoard: React.FC = () => {
         }
         fetch();
 
-    },[])
+  function removePost(postId: any) {
+    deletePost(postId).then(() => {
+      history.push("/discussionBoard");
+    });
+  }
 
-    function authCreate() {
-
-        if (userId) {
-           return (<div><Link to="/discussionBoard/add">Add New Post</Link></div>)
-
-        } else {
-
-        return (<div>
-           <p>Not Authorized to add Post</p>
-        //     </div>);
-        }
-
-    }
-    function authLink() {
-
-        let myToken = localStorage.getItem("myTaskToken")
-        console.log(myToken)
-
-        console.log(userId)
-        if (userId) {
-        return (<div><Link to={`/profile/${userId}`}>Profile Link: {localStorage.username}</Link>
-        //         <button><Link to={`/discussionBoard/edit/${postId}`}>EditBandana</Link> </button>
-        //         <form onsubmit={deletePost()}>
-        //             <button type="submit">Delete</button>
-        //         </form>
-        //     </div>)
-
-        // } else {
-
-        //     return (<div>
-        //         <p>Login to View Creator</p>
-        //     </div>);
-        // }
-
-    }
-
+  function addDiscussion(postId: any) {
+    //change this function
+    addPost(postId).then(() => {
+      history.push("/discussionBoard");
+    });
+  }
 
   return (
     <IonPage>
@@ -86,25 +57,38 @@ const DiscussionBoard: React.FC = () => {
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
               <h1>Discussion Board</h1>
-              <AddDiscussion />
+            </IonCol>
+          </IonRow>
+          <IonRow class="ion-padding ion-text-center">
+            <IonCol size="12">
+              <IonList>
+                <IonItem>
+                  <IonLabel position="stacked">Join Discussion Here</IonLabel>
+                  <IonInput placeholder="Start Post"></IonInput>
+                </IonItem>
+                <IonItem>
+                  <IonButton onClick={addDiscussion} expand="block">
+                    Add Post
+                  </IonButton>
+                </IonItem>
+              </IonList>
             </IonCol>
           </IonRow>
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
               <IonList>
                 <DiscussionContext.Consumer>
-                  {({ post }) => {
+                  {({ discussion }) => {
                     return (
-                     <div>
+                      <div>
                         {post.map((p: any) => {
                           return (
                             <IonItem key={p.postId}>
                               <p>{p.headline}remove me</p>
                               <p>{p.content}remove me</p>
-                              {authLink}
                               <IonButton
                                 color="danger"
-                                href={`/discussionBoard/${p.postId}`}
+                                href={`/tasks/${p.postId}`}
                               >
                                 Edit Post
                               </IonButton>

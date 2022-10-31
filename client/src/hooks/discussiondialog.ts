@@ -1,6 +1,6 @@
 import { Dialog } from "@capacitor/dialog";
 
-const newPostPrompt = async (title: string, message: string) => {
+const editPostPrompt = async (title: string, message: string) => {
   const { value } = await Dialog.prompt({
     title,
     message,
@@ -11,6 +11,6 @@ const newPostPrompt = async (title: string, message: string) => {
 
 export function postDialog() {
   return {
-    newPostPrompt,
+    editPostPrompt,
   };
 }

@@ -41,7 +41,10 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Discussionboard from "./pages/DiscussionBoard";
 import { DiscussionProvider } from "./contexts/DiscussionProvider";
-import AddDiscussion from "./components/addDiscussion";
+import Rewards from "./pages/Rewards";
+import { TaskProvider } from "./contexts/TaskProvider";
+import EditTask from "./components/EditTask";
+import EditPost from "./components/EditDiscussion";
 
 setupIonicReact();
 
@@ -70,32 +73,38 @@ const App: React.FC = () => (
       </IonMenu>
       <IonRouterOutlet id="main">
         <Route exact path="/home">
-          <Home />
+          <TaskProvider>
+            <Home />
+          </TaskProvider>
         </Route>
-        <Route exact path="/welcome">
+        <Route path="/tasks/:id">
+          <TaskProvider>
+            <EditTask />
+          </TaskProvider>
+        </Route>
+        <Route path="/welcome">
           <Welcome />
         </Route>
-        <Route exact path="/signup">
+        <Route path="/signup">
           <SignUp />
         </Route>
-        <Route exact path="/signin">
+        <Route path="/signin">
           <SignIn />
         </Route>
-        <Route exact path="/childprofile">
+        <Route path="/childprofile">
           <ChildProfile />
         </Route>
-        <Route exact path="/parentprofile">
+        <Route path="/parentprofile">
           <ParentProfile />
         </Route>
-
-        <Route exact path="/discussionBoard">
+        <Route path="/rewards">
+          <Rewards />
+        </Route>
+        <Route path="/discussion">
           <DiscussionProvider>
             <Discussionboard />
           </DiscussionProvider>
         </Route>
-        <Route exact path="/discussionBoard/add">
-        <AddDiscussion /> 
-          </Route> 
         <Route exact path="/">
           <Redirect to="/welcome" />
         </Route>

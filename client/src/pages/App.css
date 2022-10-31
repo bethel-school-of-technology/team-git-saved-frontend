@@ -1,11 +1,41 @@
-body {
+body,
+h1,
+h2 {
   color: rgb(0, 0, 0);
+}
+
+ion-content {
+  --background: rgb(209, 245, 242);
+}
+
+ion-menu ion-content {
+  --background: rgb(255, 255, 255);
 }
 
 ion-thumbnail {
   --size: 280px;
   --border-radius: 10px;
   margin: 0 auto;
+}
+
+ion-list.homeTasklist {
+  background: none;
+}
+
+ion-list.homeTasklist ion-label span {
+  padding: 5px;
+}
+
+ion-list.homeTasklist ion-item {
+  --background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  --border-radius: 2px;
+  padding: 5px 0;
+}
+
+ion-list.homeTasklist ion-checkbox {
+  --background: rgb(240, 234, 214);
+  --border-color: rgb(8, 74, 87);
 }
 
 .tasklist ion-list,
@@ -41,4 +71,8 @@ ion-thumbnail {
 
 .color {
   background-color: white;
+}
+
+ion-modal ion-header {
+  --ion-toolbar-background: white;
 }

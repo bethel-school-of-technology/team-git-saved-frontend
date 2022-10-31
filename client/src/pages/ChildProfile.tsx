@@ -122,8 +122,8 @@ const ChildProfile: React.FC = () => {
           </IonRow>
           {/* End Progess Bar */}
         </IonGrid>
-        <Footer />
       </IonContent>
+      <Footer />
     </IonPage>
   );
 };

@@ -2,6 +2,7 @@ import {
   IonBackButton,
   IonButtons,
   IonHeader,
+  IonImg,
   IonMenuButton,
   IonTitle,
   IonToolbar,
@@ -18,7 +19,12 @@ const Header: React.FC<ContainerProps> = () => {
           <IonBackButton></IonBackButton>
         </IonButtons>
         <IonTitle>
-          <a href="/home">HomeTastic</a>
+          <a href="/home">
+            <IonImg
+              src="../../assets/HomeTasktic-Logo-Top.png"
+              alt="HomeTasktic Logo"
+            ></IonImg>
+          </a>
         </IonTitle>
         <IonButtons slot="end">
           <IonMenuButton></IonMenuButton>
