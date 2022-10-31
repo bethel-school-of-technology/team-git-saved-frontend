@@ -71,8 +71,8 @@ const Home: React.FC = () => {
   //Checkbox Functions
   function markComplete(taskId: any) {
     editTask(updateTask, taskId).then(() => {
-      history.push("/home");
-      window.location.reload();
+      // history.push("/home");
+      // window.location.reload();
     });
   }
 
