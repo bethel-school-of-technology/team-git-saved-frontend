@@ -3,13 +3,12 @@ ion-footer {
 }
 
 ion-footer ion-img {
-  max-width: 230px;
+  max-width: 130px;
   margin: 0 auto;
-  padding: 10px;
 }
 
 ion-footer ion-grid,
-ion-footer  ion-grid a {
+ion-footer ion-grid a {
   color: rgb(255, 255, 255);
   text-decoration: none;
 }

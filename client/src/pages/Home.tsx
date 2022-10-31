@@ -40,12 +40,14 @@ const Home: React.FC = () => {
   }
 
   function handleSubmit(event: any) {
-    event.preventDefault();
+    //event.preventDefault();
     addTask(newTask).then(() => {
       history.push("/home");
       window.location.reload();
     });
   }
+
+  console.log(newTask);
 
   //Edit Task Functions
   let [updateTask, setUpdateTask] = useState({
@@ -97,7 +99,7 @@ const Home: React.FC = () => {
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
               <h1>Your Tasks</h1>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="taskSubmit">
                 <IonItem>
                   <IonLabel position="stacked">Enter task title</IonLabel>
                   <IonInput
@@ -139,14 +141,29 @@ const Home: React.FC = () => {
                       <div>
                         <h2>To Do</h2>
                         {task.map((t: any) => {
-                          if (t.completed === false) {
+                          if (t.completed === false || t.completed === null) {
                             return (
                               <IonItemSliding key={t.taskId}>
                                 <IonItem>
                                   <IonLabel>
-                                    <span>{t.title}</span>
-                                    <span>Points: {t.pointValue}</span>
-                                    <span>Assigned To: {t.assignedTo}</span>
+                                    <span className="labelTitle">
+                                      Task:
+                                      <span className="labelValue">
+                                        {t.title}
+                                      </span>
+                                    </span>
+                                    <span className="labelTitle">
+                                      Points:{" "}
+                                      <span className="labelValue">
+                                        {t.pointValue}
+                                      </span>
+                                    </span>
+                                    <span className="labelTitle">
+                                      Assigned To:{" "}
+                                      <span className="labelValue">
+                                        {t.assignedTo}
+                                      </span>
+                                    </span>
                                   </IonLabel>
                                   <IonCheckbox
                                     slot="start"
@@ -159,7 +176,7 @@ const Home: React.FC = () => {
                                 </IonItem>
                                 <IonItemOptions side="end">
                                   <IonItemOption
-                                    color="success"
+                                    color="tertiary"
                                     onClick={() => viewEditPage(`${t.taskId}`)}
                                   >
                                     Edit
@@ -192,9 +209,24 @@ const Home: React.FC = () => {
                               <IonItemSliding key={t.taskId}>
                                 <IonItem>
                                   <IonLabel>
-                                    <span>{t.title}</span>
-                                    <span>Points: {t.pointValue}</span>
-                                    <span>Assigned To: {t.assignedTo}</span>
+                                    <span className="labelTitle">
+                                      Task:
+                                      <span className="labelValue">
+                                        {t.title}
+                                      </span>
+                                    </span>
+                                    <span className="labelTitle">
+                                      Points:{" "}
+                                      <span className="labelValue">
+                                        {t.pointValue}
+                                      </span>
+                                    </span>
+                                    <span className="labelTitle">
+                                      Assigned To:{" "}
+                                      <span className="labelValue">
+                                        {t.assignedTo}
+                                      </span>
+                                    </span>
                                   </IonLabel>
                                   <IonCheckbox
                                     slot="start"
@@ -207,7 +239,7 @@ const Home: React.FC = () => {
                                 </IonItem>
                                 <IonItemOptions side="end">
                                   <IonItemOption
-                                    color="success"
+                                    color="tertiary"
                                     onClick={() => viewEditPage(`${t.taskId}`)}
                                   >
                                     Edit
