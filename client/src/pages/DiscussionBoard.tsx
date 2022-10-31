@@ -19,22 +19,11 @@ import DiscussionContext from "../contexts/DiscussionContext";
 const DiscussionBoard: React.FC = () => {
   let { deletePost, addPost } = useContext(DiscussionContext);
 
-  let history = useHistory();
- 
-    let { getUser } = useContext(UserContext)
-    let userId = useParams()
-    let postId = useParams()
-    let myToken = localStorage.getItem("myBandanaToken")
+  let history = useHistory()
 
 
 
-    useEffect(() => {
-        function fetch() {
-            getUser(myToken).then(response => {
-                console.log(response)
-            })
-        }
-        fetch();
+   
 
   function removePost(postId: any) {
     deletePost(postId).then(() => {
@@ -81,7 +70,7 @@ const DiscussionBoard: React.FC = () => {
                   {({ discussion }) => {
                     return (
                       <div>
-                        {post.map((p: any) => {
+                        {discussion.map((p: any) => {
                           return (
                             <IonItem key={p.postId}>
                               <p>{p.headline}remove me</p>
