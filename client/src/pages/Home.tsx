@@ -22,14 +22,11 @@ import TaskContext from "../contexts/TaskContext";
 import "./Home.css";
 
 const Home: React.FC = () => {
+  // Create Task Functions
   let [newTask, setNewTask] = useState({
     title: "",
     pointValue: "",
     assignedTo: "",
-  });
-
-  let [updateTask, setUpdateTask] = useState({
-    completed: "",
   });
 
   let { deleteTask, addTask, editTask } = useContext(TaskContext);
@@ -42,17 +39,6 @@ const Home: React.FC = () => {
     });
   }
 
-  function handleUpdate(event: any) {
-    event.preventDefault();
-    if (event.target.checked) {
-      let isChecked = event.target.value;
-      let isCheckedToString = isChecked.toString();
-      console.log(isCheckedToString);
-      setUpdateTask(isCheckedToString);
-    } else {
-    }
-  }
-
   function handleSubmit(event: any) {
     event.preventDefault();
     addTask(newTask).then(() => {
@@ -61,6 +47,36 @@ const Home: React.FC = () => {
     });
   }
 
+  //Edit Task Functions
+  let [updateTask, setUpdateTask] = useState({
+    completed: false,
+  });
+
+  const isChecked = (event: any) => {
+    const { checked } = event.target;
+
+    console.log("checked " + checked);
+
+    setUpdateTask((updateTask) => ({
+      ...updateTask,
+      completed: checked,
+    }));
+  };
+
+  function viewEditPage(taskId: any) {
+    history.push(`/tasks/${taskId}`);
+    window.location.reload();
+  }
+
+  //Checkbox Functions
+  function markComplete(taskId: any) {
+    editTask(updateTask, taskId).then(() => {
+      // history.push("/home");
+      // window.location.reload();
+    });
+  }
+
+  //Delete Task Functions
   function removeTask(taskId: any) {
     deleteTask(taskId)
       .then(() => {
@@ -71,15 +87,6 @@ const Home: React.FC = () => {
         history.push("/signin");
         console.log(error);
       });
-  }
-
-  console.log(updateTask);
-
-  function markComplete(taskId: any) {
-    editTask(updateTask, taskId).then(() => {
-      history.push("/home");
-      window.location.reload();
-    });
   }
 
   return (
@@ -132,27 +139,31 @@ const Home: React.FC = () => {
                       <div>
                         <h2>To Do</h2>
                         {task.map((t: any) => {
-                          return (
-                            <IonItemSliding key={t.taskId}>
-                              <IonItem>
-                                <IonLabel>
-                                  <span>{t.title}</span>
-                                  <span>Points: {t.pointValue}</span>
-                                  <span>Assigned To: {t.assignedTo}</span>
-                                </IonLabel>
-                                <IonCheckbox
-                                  slot="start"
-                                  checked={t.completed}
-                                  onIonChange={handleUpdate}
-                                  onClick={() => markComplete(`${t.taskId}`)}
-                                ></IonCheckbox>
-                                <IonButton
-                                  color="danger"
-                                  href={`/tasks/${t.taskId}`}
-                                >
-                                  Edit
-                                </IonButton>
-                                <IonItemOptions>
+                          if (t.completed === false) {
+                            return (
+                              <IonItemSliding key={t.taskId}>
+                                <IonItem>
+                                  <IonLabel>
+                                    <span>{t.title}</span>
+                                    <span>Points: {t.pointValue}</span>
+                                    <span>Assigned To: {t.assignedTo}</span>
+                                  </IonLabel>
+                                  <IonCheckbox
+                                    slot="start"
+                                    onIonChange={isChecked}
+                                    checked={updateTask.completed}
+                                    name={`completed`}
+                                    value={updateTask.completed}
+                                    onClick={() => markComplete(`${t.taskId}`)}
+                                  ></IonCheckbox>
+                                </IonItem>
+                                <IonItemOptions side="end">
+                                  <IonItemOption
+                                    color="success"
+                                    onClick={() => viewEditPage(`${t.taskId}`)}
+                                  >
+                                    Edit
+                                  </IonItemOption>
                                   <IonItemOption
                                     color="danger"
                                     onClick={() => removeTask(`${t.taskId}`)}
@@ -160,9 +171,57 @@ const Home: React.FC = () => {
                                     Delete
                                   </IonItemOption>
                                 </IonItemOptions>
-                              </IonItem>
-                            </IonItemSliding>
-                          );
+                              </IonItemSliding>
+                            );
+                          }
+                        })}
+                      </div>
+                    );
+                  }}
+                </TaskContext.Consumer>
+              </IonList>
+              <IonList className="homeTasklist">
+                <TaskContext.Consumer>
+                  {({ task }) => {
+                    return (
+                      <div>
+                        <h2>Complete</h2>
+                        {task.map((t: any) => {
+                          if (t.completed === true) {
+                            return (
+                              <IonItemSliding key={t.taskId}>
+                                <IonItem>
+                                  <IonLabel>
+                                    <span>{t.title}</span>
+                                    <span>Points: {t.pointValue}</span>
+                                    <span>Assigned To: {t.assignedTo}</span>
+                                  </IonLabel>
+                                  <IonCheckbox
+                                    slot="start"
+                                    onIonChange={isChecked}
+                                    checked={updateTask.completed}
+                                    name={`completed`}
+                                    value={updateTask.completed}
+                                    onClick={() => markComplete(`${t.taskId}`)}
+                                  ></IonCheckbox>
+                                </IonItem>
+                                <IonItemOptions side="end">
+                                  <IonItemOption
+                                    color="success"
+                                    onClick={() => viewEditPage(`${t.taskId}`)}
+                                  >
+                                    Edit
+                                  </IonItemOption>
+                                  <IonItemOption
+                                    color="danger"
+                                    onClick={() => removeTask(`${t.taskId}`)}
+                                  >
+                                    Delete
+                                  </IonItemOption>
+                                </IonItemOptions>
+                              </IonItemSliding>
+                            );
+                          }
                         })}
                       </div>
                     );
