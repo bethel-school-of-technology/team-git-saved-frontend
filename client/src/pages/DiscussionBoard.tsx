@@ -10,29 +10,51 @@ import {
   IonItem,
   IonList,
 } from "@ionic/react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
+import UserContext from "../contexts/UserContext";
+import { postDialog } from "../hooks/discussiondialog";
 
 const DiscussionBoard: React.FC = () => {
-  let { deletePost, addPost } = useContext(DiscussionContext);
+ 
+  let [newPost, setNewPost] = useState({
+    headline: "",
+    content: ""
+  });
+
+  let { deletePost, addPost} = useContext(DiscussionContext);
 
   let history = useHistory();
 
-  function removePost(postId: any) {
-    deletePost(postId).then(() => {
-      history.push("/discussionBoard");
+  function handleChange(event: any) {
+    setNewPost((prevValue) => {
+      return { ...prevValue, [event.target.name]: event.target.value };
     });
   }
 
-  function addDiscussion(postId: any) {
-    //change this function
-    addPost(postId).then(() => {
-      history.push("/discussionBoard");
+  function handleSubmit(event: any) {
+    event.preventDefault();
+    addPost(newPost).then(() => {
+      history.push("/discussion");
+      window.location.reload();
     });
   }
+
+  function removePost(discussionId: any) {
+    deletePost(discussionId)
+      .then(() => {
+        history.push("/discussion");
+        window.location.reload();
+      })
+        .catch((error: any) => {
+          history.push("/discussion");
+          console.log(error);
+     });
+  }
+
 
   return (
     <IonPage>
@@ -42,38 +64,46 @@ const DiscussionBoard: React.FC = () => {
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
               <h1>Discussion Board</h1>
-            </IonCol>
-          </IonRow>
-          <IonRow class="ion-padding ion-text-center">
-            <IonCol size="12">
-              <IonList>
+              <form onSubmit={handleSubmit}>
                 <IonItem>
-                  <IonLabel position="stacked">Join Discussion Here</IonLabel>
-                  <IonInput placeholder="Start Post"></IonInput>
+                  <IonLabel position="stacked">Discussion Headline</IonLabel>
+                  <IonInput
+                    type="text"
+                    placeholder="headline"
+                    name="headline"
+                    value={newPost.headline}
+                    onIonChange={handleChange}
+                  />
+                  <IonLabel position="stacked">Content</IonLabel>
+                  <IonInput
+                    type="text"
+                    placeholder="Start Post Here"
+                    name="content"
+                    value={newPost.content}
+                    onIonChange={handleChange}
+                  />
                 </IonItem>
-                <IonItem>
-                  <IonButton onClick={addDiscussion} expand="block">
-                    Add Post
-                  </IonButton>
-                </IonItem>
-              </IonList>
+                <IonButton type="submit" expand="block">
+                  Add Task
+                </IonButton>
+              </form>
             </IonCol>
           </IonRow>
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
               <IonList>
                 <DiscussionContext.Consumer>
-                  {({ post }) => {
+                  {({ discussion }) => {
                     return (
                       <div>
-                        {post.map((p: any) => {
+                        {discussion.map((p: any) => {
                           return (
                             <IonItem key={p.postId}>
-                              <p>{p.headline}remove me</p>
-                              <p>{p.content}remove me</p>
+                              <p>{p.headline}</p>
+                              <p>{p.content}</p>
                               <IonButton
                                 color="danger"
-                                href={`/tasks/${p.postId}`}
+                                href={`/discussion/${p.discussionId}`}
                               >
                                 Edit Post
                               </IonButton>

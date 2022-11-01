@@ -159,8 +159,8 @@ const ParentProfile: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-        <Footer />
       </IonContent>
+      <Footer />
     </IonPage>
   );
 };

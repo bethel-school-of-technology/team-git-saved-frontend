@@ -38,9 +38,8 @@ const Welcome: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
-
-        <Footer />
       </IonContent>
+      <Footer />
     </IonPage>
   );
 };

@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import DiscussionContext from "./DiscussionContext";
 
 export const DiscussionProvider = (props) => {
-  const [post, setPost] = useState([]);
+  const [discussion, setPost] = useState([]);
 
-  const baseUrl = "http://localhost:3001/discussion/";
+  const baseUrl = "http://localhost:3000/discussion/";
 
   useEffect(() => {
     async function fetchData() {
@@ -19,43 +19,43 @@ export const DiscussionProvider = (props) => {
     return axios.get(baseUrl).then((response) => setPost(response.data));
   }
 
-  function getPost(postId) {
-    return axios.get(baseUrl + postId).then((response) => {
+  function getPost(discussionId) {
+    return axios.get(baseUrl + discussionId).then((response) => {
       return new Promise((resolve) => resolve(response.data));
     });
   }
 
-  function addPost(post) {
-    let myHeaders = {
+  function addPost(discussion) {
+    /*   let myHeaders = {
       Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    };
+    }; */
 
     return axios
-      .post(baseUrl, post, { headers: myHeaders })
+      .post(baseUrl, discussion /* { headers: myHeaders } */)
       .then((response) => {
         getAllPosts();
         return new Promise((resolve) => resolve(response.data));
       });
   }
 
-  function editPost(postId) {
-    let myHeaders = {
+  function editPost(discussionId) {
+    /*  let myHeaders = {
       Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    };
+    }; */
     return axios
-      .put(baseUrl + postId, post, { headers: myHeaders })
+      .put(baseUrl + discussionId, discussion /* { headers: myHeaders } */)
       .then((response) => {
         getAllPosts();
         return new Promise((resolve) => resolve(response.data));
       });
   }
 
-  function deletePost(postId) {
-    let myHeaders = {
+  function deletePost(discussionId) {
+    /*  let myHeaders = {
       Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    };
+    }; */
     return axios
-      .delete(baseUrl + postId, post, { headers: myHeaders })
+      .delete(baseUrl + discussionId, discussion /* { headers: myHeaders } */)
       .then((response) => {
         getAllPosts();
         return new Promise((resolve) => resolve(response.data));
@@ -65,7 +65,7 @@ export const DiscussionProvider = (props) => {
   return (
     <DiscussionContext.Provider
       value={{
-        post,
+        discussion,
         getPost,
         getAllPosts,
         addPost,
