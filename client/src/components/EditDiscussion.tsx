@@ -7,7 +7,7 @@ const EditPost: React.FC = (props) => {
 
     let params = useParams()
   let [ changePost, setProduct ] = useState({
-    id:  params.discussionId,
+    id:  "",
     headline: "",
      content: "" 
   })
