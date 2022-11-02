@@ -18,12 +18,12 @@ import DiscussionContext from "../contexts/DiscussionContext";
 
 const DiscussionBoard: React.FC = () => {
   let { deletePost, addPost } = useContext(DiscussionContext);
-
+ 
   let history = useHistory()
 
 
 
-   
+
 
   function removePost(postId: any) {
     deletePost(postId).then(() => {
@@ -35,7 +35,7 @@ const DiscussionBoard: React.FC = () => {
     //change this function
     addPost(postId).then(() => {
       history.push("/discussionBoard");
-    });
+     });
   }
 
   return (
@@ -58,7 +58,7 @@ const DiscussionBoard: React.FC = () => {
                 <IonItem>
                   <IonButton onClick={addDiscussion} expand="block">
                     Add Post
-                  </IonButton>
+                </IonButton>
                 </IonItem>
               </IonList>
             </IonCol>

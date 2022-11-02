@@ -44,7 +44,7 @@ import { DiscussionProvider } from "./contexts/DiscussionProvider";
 import Rewards from "./pages/Rewards";
 import { TaskProvider } from "./contexts/TaskProvider";
 import EditTask from "./components/EditTask";
-import EditPost from "./components/EditDiscussion";
+
 
 setupIonicReact();
 
