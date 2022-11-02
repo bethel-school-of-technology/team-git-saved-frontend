@@ -29,18 +29,22 @@ const Home: React.FC = () => {
     assignedTo: "",
   });
 
+  //use the TaskContext
   let { deleteTask, addTask, editTask } = useContext(TaskContext);
 
+  //set history variable to useHistory for Navigation
   let history = useHistory();
 
+  //Listen for the input value of the task creation form
   function handleChange(event: any) {
     setNewTask((prevValue) => {
       return { ...prevValue, [event.target.name]: event.target.value };
     });
   }
 
+  // Addtaks Function
   function handleSubmit(event: any) {
-    //event.preventDefault();
+    event.preventDefault();
     addTask(newTask).then(() => {
       history.push("/home");
       window.location.reload();
@@ -55,10 +59,12 @@ const Home: React.FC = () => {
   });
 
   const isChecked = (event: any) => {
+    // Crreate Variable to save checkbox selection
     const { checked } = event.target;
 
     console.log("checked " + checked);
 
+    //update the state of completed value
     setUpdateTask((updateTask) => ({
       ...updateTask,
       completed: checked,
@@ -153,13 +159,13 @@ const Home: React.FC = () => {
                                       </span>
                                     </span>
                                     <span className="labelTitle">
-                                      Points:{" "}
+                                      Points:
                                       <span className="labelValue">
                                         {t.pointValue}
                                       </span>
                                     </span>
                                     <span className="labelTitle">
-                                      Assigned To:{" "}
+                                      Assigned To:
                                       <span className="labelValue">
                                         {t.assignedTo}
                                       </span>

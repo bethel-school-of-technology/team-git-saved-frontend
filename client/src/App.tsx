@@ -35,8 +35,6 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./pages/App.css";
-import ChildProfile from "./pages/ChildProfile";
-import ParentProfile from "./pages/ParentProfile";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Discussionboard from "./pages/DiscussionBoard";
@@ -45,6 +43,10 @@ import Rewards from "./pages/Rewards";
 import { TaskProvider } from "./contexts/TaskProvider";
 import EditTask from "./components/EditTask";
 import EditPost from "./components/EditDiscussion";
+import EditProfile from "./components/EditProfile";
+import Profile from "./pages/Profile";
+import { UserProvider } from "./contexts/UserProvider";
+import { RewardsProvider } from "./contexts/RewardsProvider";
 
 setupIonicReact();
 
@@ -63,10 +65,10 @@ const App: React.FC = () => (
               <IonItem routerLink="home">Home</IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
-              <IonItem routerLink="childprofile">Child Profile</IonItem>
+              <IonItem routerLink="profile">Profile</IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
-              <IonItem routerLink="parentprofile">Parent Profile</IonItem>
+              <IonItem routerLink="rewards">Rewards</IonItem>
             </IonMenuToggle>
           </IonList>
         </IonContent>
@@ -91,14 +93,25 @@ const App: React.FC = () => (
         <Route path="/signin">
           <SignIn />
         </Route>
-        <Route path="/childprofile">
-          <ChildProfile />
+        <Route path="/profile">
+          <UserProvider>
+            <Profile />
+          </UserProvider>
         </Route>
-        <Route path="/parentprofile">
-          <ParentProfile />
+        <Route path="/profile/:id">
+          <UserProvider>
+            <EditProfile />
+          </UserProvider>
         </Route>
         <Route path="/rewards">
-          <Rewards />
+          <RewardsProvider>
+            <Rewards />
+          </RewardsProvider>
+        </Route>
+        <Route path="/rewards/:id">
+          <RewardsProvider>
+            <Rewards />
+          </RewardsProvider>
         </Route>
         <Route path="/discussion">
           <DiscussionProvider>
@@ -107,7 +120,7 @@ const App: React.FC = () => (
         </Route>
         <Route path="/discussion/:id">
           <DiscussionProvider>
-            <EditPost/>
+            <EditPost />
           </DiscussionProvider>
         </Route>
         <Route exact path="/">
