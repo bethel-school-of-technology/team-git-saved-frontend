@@ -144,7 +144,7 @@ const Home: React.FC = () => {
                           if (t.completed === false || t.completed === null) {
                             return (
                               <IonItemSliding key={t.taskId}>
-                                <IonItem>
+                                <IonItem lines="none">
                                   <IonLabel>
                                     <span className="labelTitle">
                                       Task:
@@ -207,7 +207,7 @@ const Home: React.FC = () => {
                           if (t.completed === true) {
                             return (
                               <IonItemSliding key={t.taskId}>
-                                <IonItem>
+                                <IonItem lines="none">
                                   <IonLabel>
                                     <span className="labelTitle">
                                       Task:
