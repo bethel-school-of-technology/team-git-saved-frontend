@@ -62,13 +62,13 @@ const App: React.FC = () => (
         <IonContent>
           <IonList>
             <IonMenuToggle>
-              <IonItem routerLink="home">Home</IonItem>
+              <IonItem routerLink="/home">Home</IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
-              <IonItem routerLink="profile">Profile</IonItem>
+              <IonItem routerLink="/profile/:userId">Profile</IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
-              <IonItem routerLink="rewards">Rewards</IonItem>
+              <IonItem routerLink="/rewards">Rewards</IonItem>
             </IonMenuToggle>
           </IonList>
         </IonContent>
@@ -95,10 +95,12 @@ const App: React.FC = () => (
         </Route>
         <Route path="/profile">
           <UserProvider>
-            <Profile />
+            <TaskProvider>
+              <Profile />
+            </TaskProvider>
           </UserProvider>
         </Route>
-        <Route path="/profile/:id">
+        <Route path="/profile/:userId">
           <UserProvider>
             <EditProfile />
           </UserProvider>

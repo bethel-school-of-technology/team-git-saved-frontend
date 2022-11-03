@@ -27,6 +27,7 @@ const Home: React.FC = () => {
     title: "",
     pointValue: "",
     assignedTo: "",
+    completed: false,
   });
 
   //use the TaskContext
@@ -59,7 +60,7 @@ const Home: React.FC = () => {
   });
 
   const isChecked = (event: any) => {
-    // Crreate Variable to save checkbox selection
+    //Create Variable to save checkbox selection
     const { checked } = event.target;
 
     console.log("checked " + checked);
@@ -69,6 +70,10 @@ const Home: React.FC = () => {
       ...updateTask,
       completed: checked,
     }));
+
+    // const item = event.target.name;
+    // const isChecked = event.target.checked;
+    // this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
   };
 
   function viewEditPage(taskId: any) {
@@ -147,7 +152,7 @@ const Home: React.FC = () => {
                       <div>
                         <h2>To Do</h2>
                         {task.map((t: any) => {
-                          if (t.completed === false || t.completed === null) {
+                          if (t.completed === false) {
                             return (
                               <IonItemSliding key={t.taskId}>
                                 <IonItem lines="none">
@@ -222,13 +227,13 @@ const Home: React.FC = () => {
                                       </span>
                                     </span>
                                     <span className="labelTitle">
-                                      Points:{" "}
+                                      Points:
                                       <span className="labelValue">
                                         {t.pointValue}
                                       </span>
                                     </span>
                                     <span className="labelTitle">
-                                      Assigned To:{" "}
+                                      Assigned To:
                                       <span className="labelValue">
                                         {t.assignedTo}
                                       </span>
