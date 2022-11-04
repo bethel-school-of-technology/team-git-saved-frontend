@@ -56,8 +56,17 @@ const Home: React.FC = () => {
 
   //Edit Task Functions
   let [updateTask, setUpdateTask] = useState({
-    completed: false,
+    completed: true,
   });
+
+  //Checkbox Functions
+  function markComplete(taskId: any) {
+    console.log(updateTask);
+    editTask(updateTask, taskId).then(() => {
+      history.push("/home");
+      //window.location.reload();
+    });
+  }
 
   const isChecked = (event: any) => {
     //Create Variable to save checkbox selection
@@ -70,23 +79,11 @@ const Home: React.FC = () => {
       ...updateTask,
       completed: checked,
     }));
-
-    // const item = event.target.name;
-    // const isChecked = event.target.checked;
-    // this.setState(prevState => ({ checkedItems: prevState.checkedItems.set(item, isChecked) }));
   };
 
   function viewEditPage(taskId: any) {
     history.push(`/tasks/${taskId}`);
     window.location.reload();
-  }
-
-  //Checkbox Functions
-  function markComplete(taskId: any) {
-    editTask(updateTask, taskId).then(() => {
-      // history.push("/home");
-      // window.location.reload();
-    });
   }
 
   //Delete Task Functions
@@ -179,9 +176,8 @@ const Home: React.FC = () => {
                                   <IonCheckbox
                                     slot="start"
                                     onIonChange={isChecked}
-                                    checked={updateTask.completed}
                                     name={`completed`}
-                                    value={updateTask.completed}
+                                    value={t.completed}
                                     onClick={() => markComplete(`${t.taskId}`)}
                                   ></IonCheckbox>
                                 </IonItem>
@@ -244,7 +240,7 @@ const Home: React.FC = () => {
                                     onIonChange={isChecked}
                                     checked={updateTask.completed}
                                     name={`completed`}
-                                    value={updateTask.completed}
+                                    value={t.completed}
                                     onClick={() => markComplete(`${t.taskId}`)}
                                   ></IonCheckbox>
                                 </IonItem>

@@ -5,7 +5,7 @@ import RewardsContext from "./RewardsContext";
 
 export const RewardsProvider = (props) => {
   const [reward, setReward] = useState([]);
-  const baseUrl = "http://localhost:3000/rewards/";
+  const baseUrl = "http://localhost:3001/rewards/";
 
   useEffect(() => {
     async function fetchData() {

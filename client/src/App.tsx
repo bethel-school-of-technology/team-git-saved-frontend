@@ -1,9 +1,11 @@
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
+  IonAvatar,
   IonContent,
   IonHeader,
   IonItem,
+  IonLabel,
   IonList,
   IonMenu,
   IonMenuToggle,
@@ -61,11 +63,19 @@ const App: React.FC = () => (
         </IonHeader>
         <IonContent>
           <IonList>
-            <IonMenuToggle>
-              <IonItem routerLink="/home">Home</IonItem>
+          <IonMenuToggle>
+              <IonItem routerLink="/profile/:userId">
+                <IonAvatar slot="end">
+                  <img
+                    alt="Silhouette of a person's head"
+                    src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                  />
+                </IonAvatar>
+                <IonLabel>Profile</IonLabel>
+              </IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
-              <IonItem routerLink="/profile/:userId">Profile</IonItem>
+              <IonItem routerLink="/home">Home</IonItem>
             </IonMenuToggle>
             <IonMenuToggle>
               <IonItem routerLink="/rewards">Rewards</IonItem>
