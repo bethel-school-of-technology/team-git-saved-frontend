@@ -53,6 +53,7 @@ import { RewardsProvider } from "./contexts/RewardsProvider";
 setupIonicReact();
 
 const App: React.FC = () => (
+  <UserProvider>
   <IonApp>
     <IonReactRouter>
       <IonMenu side="end" menuId="first" contentId="main">
@@ -104,16 +105,12 @@ const App: React.FC = () => (
           <SignIn />
         </Route>
         <Route path="/profile">
-          <UserProvider>
             <TaskProvider>
               <Profile />
             </TaskProvider>
-          </UserProvider>
         </Route>
-        <Route path="/profile/:userId">
-          <UserProvider>
+        <Route path="/profile/:userId"> 
             <EditProfile />
-          </UserProvider>
         </Route>
         <Route path="/rewards">
           <RewardsProvider>
@@ -141,6 +138,7 @@ const App: React.FC = () => (
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
+  </UserProvider>
 );
 
 export default App;
