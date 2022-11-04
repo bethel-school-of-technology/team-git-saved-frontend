@@ -6,7 +6,7 @@ import DiscussionContext from "./DiscussionContext";
 export const DiscussionProvider = (props) => {
   const [discussion, setPost] = useState([]);
 
-  const baseUrl = "http://localhost:3000/discussion/";
+  const baseUrl = "http://localhost:3000/discussion";
 
   useEffect(() => {
     async function fetchData() {
@@ -30,9 +30,7 @@ export const DiscussionProvider = (props) => {
       Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
     }; */
 
-    return axios
-      .post(baseUrl, discussion /* { headers: myHeaders } */)
-      .then((response) => {
+    return axios.post(baseUrl, discussion).then((response) => {
         getAllPosts();
         return new Promise((resolve) => resolve(response.data));
       });
