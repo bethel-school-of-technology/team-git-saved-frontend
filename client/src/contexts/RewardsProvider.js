@@ -25,34 +25,40 @@ export const RewardsProvider = (props) => {
   }
 
   function addReward(reward) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
 
-    return axios.post(baseUrl, reward).then((response) => {
-      getAllRewards();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    return axios
+      .post(baseUrl, reward, { headers: myHeaders })
+      .then((response) => {
+        getAllRewards();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   function editReward(reward, rewardId) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
-    return axios.put(baseUrl + rewardId, reward).then((response) => {
-      getAllRewards();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
+    return axios
+      .put(baseUrl + rewardId, reward, { headers: myHeaders })
+      .then((response) => {
+        getAllRewards();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   function deleteReward(rewardId) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
-    return axios.delete(baseUrl + rewardId, reward).then((response) => {
-      getAllRewards();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
+    return axios
+      .delete(baseUrl + rewardId, reward, { headers: myHeaders })
+      .then((response) => {
+        getAllRewards();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   return (

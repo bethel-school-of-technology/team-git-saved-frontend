@@ -25,34 +25,40 @@ export const TaskProvider = (props) => {
   }
 
   function addTask(task) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
 
-    return axios.post(baseUrl, task).then((response) => {
-      getAllTasks();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    return axios
+      .post(baseUrl, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   function editTask(task, taskId) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
-    return axios.put(baseUrl + taskId, task).then((response) => {
-      getAllTasks();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
+    return axios
+      .put(baseUrl + taskId, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   function deleteTask(taskId) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
-    return axios.delete(baseUrl + taskId, task).then((response) => {
-      getAllTasks();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    };
+    return axios
+      .delete(baseUrl + taskId, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   return (

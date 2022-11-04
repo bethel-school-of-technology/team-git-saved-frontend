@@ -14,7 +14,7 @@ import {
   IonPage,
   IonRow,
 } from "@ionic/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -23,8 +23,37 @@ import UserContext from "../contexts/UserContext";
 import "./Home.css";
 
 const Home: React.FC = () => {
+  /* Start User Info */
+
   //Use User Context
-  let { user } = useContext(UserContext);
+  let { user, getUsers } = useContext(UserContext);
+
+  useEffect(() => {
+    async function fetch() {
+      await getUsers().then((user) => setUsers(user));
+    }
+    fetch();
+  }, []);
+
+  let { userId, username, roleId } = user;
+
+  const [users, setUsers] = useState({
+    userId: userId,
+    username: username,
+    roleId: roleId,
+  });
+
+  //Check if logged in
+  function hasJWT() {
+    let flag = false;
+
+    //check user has JWT token
+    localStorage.getItem("myRantToken") ? (flag = true) : (flag = false);
+
+    return flag;
+  }
+
+  /* End User Info */
 
   // Create Task Functions
   let [newTask, setNewTask] = useState({
@@ -115,7 +144,7 @@ const Home: React.FC = () => {
           </IonRow>
           <UserContext.Consumer>
             {({ user }) => {
-              if (user && user.roleId === "parent") {
+              if (hasJWT()&& user.roleId === "parent") {
                 return (
                   <div>
                     <IonRow class="ion-padding ion-text-center">
@@ -219,10 +248,8 @@ const Home: React.FC = () => {
                                           </IonItemOptions>
                                         </IonItemSliding>
                                       );
-                                    }else{
-                                      return(
-                                        <div>No Tasks Left</div>
-                                      )
+                                    } else {
+                                      return <div>No Tasks Left</div>;
                                     }
                                   })}
                                 </div>
@@ -303,7 +330,7 @@ const Home: React.FC = () => {
                     </IonRow>
                   </div>
                 );
-              }else{
+              } else {
                 return (
                   <div>
                     <IonRow class="ion-padding ion-text-center">
@@ -335,7 +362,7 @@ const Home: React.FC = () => {
                                               <span className="labelTitle">
                                                 Assigned To:
                                                 <span className="labelValue">
-                                                **add username**
+                                                  **add username**
                                                 </span>
                                               </span>
                                             </IonLabel>
