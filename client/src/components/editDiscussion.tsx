@@ -1,46 +1,25 @@
-import {
-  IonButton,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonInput,
-  IonItem,
-  IonLabel,
-  IonRow,
-} from "@ionic/react";
-import { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
-import DiscussionContext from "../contexts/DiscussionContext";
+import { IonButton, IonContent, IonGrid, IonInput, IonItem, IonLabel, IonPage } from '@ionic/react';
+import React, { useContext, useState } from 'react';
+import { useHistory, useParams } from 'react-router-dom';
+import DiscussionContext from '../contexts/DiscussionContext';
+
+const EditPost: React.FC = (props) => {
+
+    let params = useParams()
+  let [ changePost, setProduct ] = useState({
+    id:  "",
+    headline: "",
+     content: "" 
+  })
+    let { editPost } = useContext(DiscussionContext);
+    let history = useHistory()
 
 
-const EditDiscussion: React.FC = (props) => {
-  let { id } = useParams<{ id: string }>();
-  let history = useHistory();
+    let {id, headline, content } = changePost
 
-  let { editPost, getPost, discussion } = useContext(DiscussionContext);
-
-  useEffect(() => {
-    async function fetch() {
-      await getPost(id).then((discussion: any) => setChangePost(discussion));
-    }
-    fetch();
-  }, [id, getPost]);
-
-  let { discussionId, headline, content } = discussion;
-
-  let [changePost, setChangePost] = useState({
-    discussionId: discussionId,
-    headline: headline,
-    content: content
-
-  });
-
-  console.log(changePost.discussionId);
-
-  function handleChange(event: any) {
-    setChangePost((prevValue) => {
-      return { ...prevValue, [event.target.name]: event.target.value };
-    });
+    function handleChange(event:any) {
+      setProduct((preValue) => {
+        return { ...preValue, [event.target.name]: event.target.value }})
   }
 
   function handleSubmit(event: any) {
