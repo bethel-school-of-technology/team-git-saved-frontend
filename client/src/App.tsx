@@ -52,86 +52,88 @@ import { RewardsProvider } from "./contexts/RewardsProvider";
 setupIonicReact();
 
 const App: React.FC = () => (
-  <UserProvider>
-    <IonApp>
-      <IonReactRouter>
-        <IonMenu side="end" menuId="first" contentId="main">
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Menu</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent>
-            <IonList>
-              <IonMenuToggle>
-                <IonItem routerLink="/profile/:userId">
-                  <IonLabel>Profile</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-              <IonMenuToggle>
-                <IonItem routerLink="/home">Home</IonItem>
-              </IonMenuToggle>
-              <IonMenuToggle>
-                <IonItem routerLink="/rewards">Rewards</IonItem>
-              </IonMenuToggle>
-            </IonList>
-          </IonContent>
-        </IonMenu>
-        <IonRouterOutlet id="main">
-          <Route exact path="/home">
-            <TaskProvider>
-              <Home />
-            </TaskProvider>
-          </Route>
-          <Route path="/tasks/:id">
-            <TaskProvider>
-              <EditTask />
-            </TaskProvider>
-          </Route>
-          <Route path="/welcome">
-            <Welcome />
-          </Route>
-          <Route path="/signup">
+  <IonApp>
+    <IonReactRouter>
+      <IonMenu side="end" menuId="first" contentId="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Menu</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <IonList>
+            <IonMenuToggle>
+              <IonItem routerLink="/profile/:userId">
+                <IonLabel>Profile</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="/home">Home</IonItem>
+            </IonMenuToggle>
+            <IonMenuToggle>
+              <IonItem routerLink="/rewards">Rewards</IonItem>
+            </IonMenuToggle>
+          </IonList>
+        </IonContent>
+      </IonMenu>
+      <IonRouterOutlet id="main">
+        <Route exact path="/home">
+          <TaskProvider>
+            <Home />
+          </TaskProvider>
+        </Route>
+        <Route path="/tasks/:id">
+          <TaskProvider>
+            <EditTask />
+          </TaskProvider>
+        </Route>
+        <Route path="/welcome">
+          <Welcome />
+        </Route>
+        <Route path="/signup">
+          <UserProvider>
             <SignUp />
-          </Route>
-          <Route path="/signin">
+          </UserProvider>
+        </Route>
+        <Route path="/signin">
+          <UserProvider>
             <SignIn />
-          </Route>
-          <Route path="/profile">
-            <TaskProvider>
-              <Profile />
-            </TaskProvider>
-          </Route>
-          <Route path="/profile/:userId">
-            <EditProfile />
-          </Route>
-          <Route path="/rewards">
-            <RewardsProvider>
-              <Rewards />
-            </RewardsProvider>
-          </Route>
-          <Route path="/rewards/:id">
-            <RewardsProvider>
-              <Rewards />
-            </RewardsProvider>
-          </Route>
-          <Route path="/discussion">
-            <DiscussionProvider>
-              <Discussionboard />
-            </DiscussionProvider>
-          </Route>
-          <Route path="/discussion/:id">
-            <DiscussionProvider>
-              <EditPost />
-            </DiscussionProvider>
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/welcome" />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
-  </UserProvider>
+          </UserProvider>
+        </Route>
+        <Route path="/profile">
+          <TaskProvider>
+            <Profile />
+          </TaskProvider>
+        </Route>
+        <Route path="/profile/:userId">
+          <EditProfile />
+        </Route>
+        <Route path="/rewards">
+          <RewardsProvider>
+            <Rewards />
+          </RewardsProvider>
+        </Route>
+        <Route path="/rewards/:id">
+          <RewardsProvider>
+            <Rewards />
+          </RewardsProvider>
+        </Route>
+        <Route path="/discussion">
+          <DiscussionProvider>
+            <Discussionboard />
+          </DiscussionProvider>
+        </Route>
+        <Route path="/discussion/:id">
+          <DiscussionProvider>
+            <EditPost />
+          </DiscussionProvider>
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/welcome" />
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
 );
 
 export default App;
