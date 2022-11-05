@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
                   placeholder="Enter Username"
                   type="text"
                   name="username"
-                  onIonChange={(e) => setUsername(e.target.value)}
+                  onIonChange={(e: any) => setUsername(e.target.value)}
                 />{" "}
                 <br></br>
                 <IonLabel position="stacked">Password: </IonLabel>
@@ -66,7 +66,7 @@ const SignIn: React.FC = () => {
                   placeholder="Enter Password"
                   type="text"
                   name="password"
-                  onIonChange={(e) => setPassword(e.target.value)}
+                  onIonChange={(e: any) => setPassword(e.target.value)}
                 />{" "}
                 <br></br>
                 <IonRow class="ion-padding ion-text-center">
