@@ -18,6 +18,11 @@ ion-thumbnail {
   margin: 0 auto;
 }
 
+ion-button {
+  --background: rgb(8, 74, 87);
+  color: rgb(255, 255, 255);
+}
+
 /*****************
 Task Page Styles
 ****************/
@@ -112,13 +117,16 @@ ion-list.homeTasklist ion-checkbox {
   width: 100%;
   margin: 0 auto;
   /* text-align: center; */
-  background-color: rgb(88, 214, 245);
+  background-color: rgb(253, 248, 232);
   padding: 3%;
-  border-radius: 5px;
+  border: 2px solid gray;
+  border-radius: 10px;
 }
 
 .color {
   background-color: white;
+  color:rgb(0, 0, 0);
+  border: 2px solid gray;
 }
 
 ion-modal ion-header {

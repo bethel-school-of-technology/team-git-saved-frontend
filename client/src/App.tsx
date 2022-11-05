@@ -1,7 +1,6 @@
 import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
-  IonAvatar,
   IonContent,
   IonHeader,
   IonItem,
@@ -64,14 +63,8 @@ const App: React.FC = () => (
         </IonHeader>
         <IonContent>
           <IonList>
-          <IonMenuToggle>
+            <IonMenuToggle>
               <IonItem routerLink="/profile/:userId">
-                <IonAvatar slot="end">
-                  <img
-                    alt="Silhouette of a person's head"
-                    src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                  />
-                </IonAvatar>
                 <IonLabel>Profile</IonLabel>
               </IonItem>
             </IonMenuToggle>
@@ -99,7 +92,9 @@ const App: React.FC = () => (
           <Welcome />
         </Route>
         <Route path="/signup">
-          <SignUp />
+          <UserProvider>
+            <SignUp />
+          </UserProvider>
         </Route>
         <Route path="/signin">
           <UserProvider>
@@ -107,16 +102,12 @@ const App: React.FC = () => (
           </UserProvider>
         </Route>
         <Route path="/profile">
-          <UserProvider>
-            <TaskProvider>
-              <Profile />
-            </TaskProvider>
-          </UserProvider>
+          <TaskProvider>
+            <Profile />
+          </TaskProvider>
         </Route>
         <Route path="/profile/:userId">
-          <UserProvider>
-            <EditProfile />
-          </UserProvider>
+          <EditProfile />
         </Route>
         <Route path="/rewards">
           <RewardsProvider>

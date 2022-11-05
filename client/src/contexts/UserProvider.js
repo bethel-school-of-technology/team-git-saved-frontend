@@ -1,12 +1,31 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import UserContext from "./UserContext";
 
 export const UserProvider = (props) => {
   const baseUrl = "http://localhost:3001/users/";
 
-  function createUser(username, password) {
-    let user = { username, password };
+  const [user, setUser] = useState([]);
 
+  useEffect(() => {
+    async function fetchData() {
+      await getUsers();
+    }
+    fetchData();
+  }, []);
+
+  function getUsers() {
+    return axios.get(`${baseUrl}`).then((response) => setUser(response.data));
+  }
+
+  // Get One User
+  function getOneUser(id) {
+    return axios.get(`${baseUrl}/profile/${id}`).then((response) => {
+      return new Promise((resolve) => resolve(response.data));
+    });
+  }
+
+  function createUser(user) {
     return axios.post(baseUrl, user).then((response) => {
       return new Promise((resolve) => resolve(response.data));
     });
@@ -21,11 +40,41 @@ export const UserProvider = (props) => {
     });
   }
 
+  // User Profile Access
+  function userProfilePage(user, id) {
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myRantToken")}`,
+    };
+
+    return axios
+      .get(`${baseUrl}/profile/${id}`, user, { headers: myHeaders })
+      .then((response) => {
+        return new Promise((resolve) => resolve(response.data));
+      });
+  }
+
+  function editUser(user, id) {
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myRantToken")}`,
+    };
+
+    return axios
+      .put(`${baseUrl}/profile/${id}`, user, { headers: myHeaders })
+      .then((response) => {
+        getUsers();
+        return new Promise((resolve) => resolve(response.data));
+      });
+  }
+
   return (
     <UserContext.Provider
       value={{
+        user,
+        getOneUser,
         createUser,
         signInUser,
+        userProfilePage,
+        editUser,
       }}
     >
       {props.children}
