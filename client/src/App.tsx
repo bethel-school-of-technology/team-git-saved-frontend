@@ -45,6 +45,7 @@ import Rewards from "./pages/Rewards";
 import { TaskProvider } from "./contexts/TaskProvider";
 import EditTask from "./components/EditTask";
 import EditPost from "./components/EditDiscussion";
+import { UserProvider } from "./contexts/UserProvider";
 
 setupIonicReact();
 
@@ -89,7 +90,9 @@ const App: React.FC = () => (
           <SignUp />
         </Route>
         <Route path="/signin">
+          <UserProvider>
           <SignIn />
+          </UserProvider>
         </Route>
         <Route path="/childprofile">
           <ChildProfile />
