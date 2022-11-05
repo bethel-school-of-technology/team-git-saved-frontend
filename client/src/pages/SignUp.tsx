@@ -27,22 +27,22 @@ const SignUp: React.FC = () => {
   let { createUser } = useContext(UserContext);
   let navigate = useHistory();
 
-  function handleChange(event) {
+  function handleChange(event: any) {
     setNewUser((prevValue) => {
       return { ...prevValue, [event.target.name]: event.target.value };
     });
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: any) {
     event.preventDefault();
     createUser(newUser)
       .then(() => {
         navigate.push("/signin");
       })
-      .catch((error) => {
-        console.log(error);
-        window.alert("Failed registration: error creating user");
-      });
+      // .catch((error) => {
+      //   console.log(error);
+      //   window.alert("Failed registration: error creating user");
+      // });
   }
 
   return (
