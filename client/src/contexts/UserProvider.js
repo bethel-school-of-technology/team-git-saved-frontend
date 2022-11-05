@@ -15,9 +15,7 @@ export const UserProvider = (props) => {
   }, []);
 
   function getUsers() {
-    return axios
-      .get(`${baseUrl}`)
-      .then((response) => setUser(response.data));
+    return axios.get(`${baseUrl}`).then((response) => setUser(response.data));
   }
 
   // Get One User
@@ -27,9 +25,7 @@ export const UserProvider = (props) => {
     });
   }
 
-  function createUser(username, password) {
-    let user = { username, password };
-
+  function createUser(user) {
     return axios.post(baseUrl, user).then((response) => {
       return new Promise((resolve) => resolve(response.data));
     });
