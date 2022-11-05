@@ -10,14 +10,14 @@ import {
   IonThumbnail,
   IonLabel,
 } from "@ionic/react";
-import { useContext } from "react";
-import { useHistory } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 import UserContext from "../contexts/UserContext";
-//import TaskContext from "../contexts/TaskContext";
+import TaskContext from "../contexts/TaskContext";
 
 const Profile: React.FC = () => {
   //Check for token
@@ -30,11 +30,45 @@ const Profile: React.FC = () => {
     return flag;
   }
 
-  //use the TaskContext
-  let { deleteUser } = useContext(UserContext);
+  // Get Url Params
+  let { id } = useParams<{ id: string }>();
 
   //set history variable to useHistory for Navigation
   let history = useHistory();
+
+  //Use UserContext
+  let { user, getUserTasks, deleteUser } = useContext(UserContext);
+
+  //Use TaskContext
+  let { task } = useContext(TaskContext);
+
+  useEffect(() => {
+    async function fetch() {
+      await getUserTasks(id).then((user) => setUserInfo(user));
+    }
+    fetch();
+  }, [id, getUserTasks]);
+
+  //Get Profile data
+  let { userId, username, name, bio, roleId, householdName } = user;
+
+  let { taskId, title } = task;
+
+  let taskUserId = task.userId;
+
+  //Set User Info
+  let [userInfo, setUserInfo] = useState({
+    id: userId,
+    username: username,
+    name: name,
+    bio: bio,
+    householdName: householdName,
+    roleId: roleId,
+    taskId: taskId,
+    taskUserId: taskUserId,
+    title: title,
+    //createdAt: createdAt
+  });
 
   function editProfile(userId: any) {
     history.push(`/users/${userId}`);
@@ -67,20 +101,16 @@ const Profile: React.FC = () => {
           {/* Start Parent Profile Content */}
           <UserContext.Consumer>
             {({ user }) => {
-              if (hasJWT()) {
-                return (
-                  <div>
-                    {user.map((u: any) => {
-                      if (user.roleId === "parent") {
+              if (hasJWT() && userInfo.roleId === "parent") {
                         return (
                           <IonRow
                             class="ion-padding ion-text-center"
-                            key={u.userId}
+                            
                           >
                             <IonCol size-lg="6" size-xs="12">
                               <IonRow class="ion-padding">
                                 <IonCol size-lg="6" size-xs="12">
-                                  <h2>{u.username}</h2>
+                                  <h2>{userInfo.username}</h2>
                                 </IonCol>
                                 <IonCol size-lg="6" size-xs="12">
                                   <IonButton>Send Reminder</IonButton>
@@ -113,8 +143,8 @@ const Profile: React.FC = () => {
                                 <IonCol size="12">
                                   <div>
                                     <span>Age: add me</span>
-                                    <span>Household: {u.householdName}</span>
-                                    <span>Bio: {u.bio}</span>
+                                    <span>Household: {userInfo.householdName}</span>
+                                    <span>Bio: {userInfo.bio}</span>
                                   </div>
                                 </IonCol>
                               </IonRow>
@@ -124,8 +154,23 @@ const Profile: React.FC = () => {
                                   <div className="options">
                                     <IonList>
                                       <IonItem>
-                                        <IonButton size="default">
-                                          Dashboard
+                                        <IonButton
+                                          size="default"
+                                          onClick={() =>
+                                            editProfile(`${userInfo.id}`)
+                                          }
+                                        >
+                                          Edit Profile
+                                        </IonButton>
+                                      </IonItem>
+                                      <IonItem>
+                                        <IonButton
+                                          size="default"
+                                          onClick={() =>
+                                            deleteProfile(`${userInfo.id}`)
+                                          }
+                                        >
+                                          Delete Profile
                                         </IonButton>
                                       </IonItem>
                                       <IonItem>
@@ -144,16 +189,8 @@ const Profile: React.FC = () => {
                               </IonRow>
                             </IonCol>
                           </IonRow>
-                        );
-                      }
-                    })}
-                  </div>
-                );
-              } else {
-                return (
-                  <div>
-                    {user.map((u: any) => {
-                      if (user.roleId === "child") {
+  )
+                      } else if (user.roleId === "child") {
                         return (
                           <IonRow class="ion-padding">
                             <IonCol size-lg="6" size-xs="12">
@@ -245,10 +282,6 @@ const Profile: React.FC = () => {
                           </IonRow>
                         );
                       }
-                    })}
-                  </div>
-                );
-              }
             }}
           </UserContext.Consumer>
           {/* End Parent Profile Content */}

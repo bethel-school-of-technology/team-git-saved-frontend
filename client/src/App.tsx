@@ -97,7 +97,7 @@ const App: React.FC = () => (
           <Route path="/signin">
             <SignIn />
           </Route>
-          <Route path="/users">
+          <Route path="/users/:userId">
             <TaskProvider>
               <Profile />
             </TaskProvider>
