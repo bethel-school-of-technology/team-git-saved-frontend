@@ -41,11 +41,6 @@ const SignUp: React.FC = () => {
     { value: "child", text: "Child" },
   ];
 
-  const selectChange = (event) => {
-    console.log(event.target.value);
-    setNewUser(event.target.value);
-  };
-
   // Set Role Values
 
   function handleSubmit(event: any) {
