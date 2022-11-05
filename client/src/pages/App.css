@@ -59,7 +59,13 @@ ion-list.homeTasklist ion-label span.labelValue {
 
 ion-list.homeTasklist ion-item {
   --background: rgb(255, 255, 255);
-  background: rgb(255, 255, 255);
+  background: none;
+  --background-activated: solid;
+  --background-focused: rgb(8, 74, 87);
+  --background-hover: rgb(8, 74, 87);
+  --background-activated-opacity: 0;
+  --background-focused-opacity: 1;
+  --background-hover-opacity: 1;
   color: rgb(0, 0, 0);
   --border-radius: 20px;
   margin: 10px 0 10px 0;
@@ -77,6 +83,7 @@ ion-list.homeTasklist ion-item-options {
 ion-list.homeTasklist ion-checkbox {
   --background: rgb(253, 248, 232);
   --border-color: rgb(8, 74, 87);
+  --border-radius: 20px;
 }
 
 .tasklist ion-list,

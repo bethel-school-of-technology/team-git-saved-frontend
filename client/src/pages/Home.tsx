@@ -27,20 +27,25 @@ const Home: React.FC = () => {
     title: "",
     pointValue: "",
     assignedTo: "",
+    completed: false,
   });
 
+  //use the TaskContext
   let { deleteTask, addTask, editTask } = useContext(TaskContext);
 
+  //set history variable to useHistory for Navigation
   let history = useHistory();
 
+  //Listen for the input value of the task creation form
   function handleChange(event: any) {
     setNewTask((prevValue) => {
       return { ...prevValue, [event.target.name]: event.target.value };
     });
   }
 
+  // Addtaks Function
   function handleSubmit(event: any) {
-    //event.preventDefault();
+    event.preventDefault();
     addTask(newTask).then(() => {
       history.push("/home");
       window.location.reload();
@@ -51,14 +56,25 @@ const Home: React.FC = () => {
 
   //Edit Task Functions
   let [updateTask, setUpdateTask] = useState({
-    completed: false,
+    completed: true,
   });
 
+  //Checkbox Functions
+  function markComplete(taskId: any) {
+    console.log(updateTask);
+    editTask(updateTask, taskId).then(() => {
+      history.push("/home");
+      //window.location.reload();
+    });
+  }
+
   const isChecked = (event: any) => {
+    //Create Variable to save checkbox selection
     const { checked } = event.target;
 
     console.log("checked " + checked);
 
+    //update the state of completed value
     setUpdateTask((updateTask) => ({
       ...updateTask,
       completed: checked,
@@ -68,14 +84,6 @@ const Home: React.FC = () => {
   function viewEditPage(taskId: any) {
     history.push(`/tasks/${taskId}`);
     window.location.reload();
-  }
-
-  //Checkbox Functions
-  function markComplete(taskId: any) {
-    editTask(updateTask, taskId).then(() => {
-      // history.push("/home");
-      // window.location.reload();
-    });
   }
 
   //Delete Task Functions
@@ -141,7 +149,7 @@ const Home: React.FC = () => {
                       <div>
                         <h2>To Do</h2>
                         {task.map((t: any) => {
-                          if (t.completed === false || t.completed === null) {
+                          if (t.completed === false) {
                             return (
                               <IonItemSliding key={t.taskId}>
                                 <IonItem lines="none">
@@ -153,13 +161,13 @@ const Home: React.FC = () => {
                                       </span>
                                     </span>
                                     <span className="labelTitle">
-                                      Points:{" "}
+                                      Points:
                                       <span className="labelValue">
                                         {t.pointValue}
                                       </span>
                                     </span>
                                     <span className="labelTitle">
-                                      Assigned To:{" "}
+                                      Assigned To:
                                       <span className="labelValue">
                                         {t.assignedTo}
                                       </span>
@@ -168,9 +176,8 @@ const Home: React.FC = () => {
                                   <IonCheckbox
                                     slot="start"
                                     onIonChange={isChecked}
-                                    checked={updateTask.completed}
                                     name={`completed`}
-                                    value={updateTask.completed}
+                                    value={t.completed}
                                     onClick={() => markComplete(`${t.taskId}`)}
                                   ></IonCheckbox>
                                 </IonItem>
@@ -216,13 +223,13 @@ const Home: React.FC = () => {
                                       </span>
                                     </span>
                                     <span className="labelTitle">
-                                      Points:{" "}
+                                      Points:
                                       <span className="labelValue">
                                         {t.pointValue}
                                       </span>
                                     </span>
                                     <span className="labelTitle">
-                                      Assigned To:{" "}
+                                      Assigned To:
                                       <span className="labelValue">
                                         {t.assignedTo}
                                       </span>
@@ -233,7 +240,7 @@ const Home: React.FC = () => {
                                     onIonChange={isChecked}
                                     checked={updateTask.completed}
                                     name={`completed`}
-                                    value={updateTask.completed}
+                                    value={t.completed}
                                     onClick={() => markComplete(`${t.taskId}`)}
                                   ></IonCheckbox>
                                 </IonItem>
