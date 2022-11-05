@@ -64,7 +64,7 @@ const App: React.FC = () => (
           <IonContent>
             <IonList>
               <IonMenuToggle>
-                <IonItem routerLink="/profile/:userId">
+                <IonItem routerLink="/users">
                   <IonLabel>Profile</IonLabel>
                 </IonItem>
               </IonMenuToggle>
@@ -97,12 +97,12 @@ const App: React.FC = () => (
           <Route path="/signin">
             <SignIn />
           </Route>
-          <Route path="/profile">
+          <Route path="/users">
             <TaskProvider>
               <Profile />
             </TaskProvider>
           </Route>
-          <Route path="/profile/:userId">
+          <Route path="/users/:userId">
             <EditProfile />
           </Route>
           <Route path="/rewards">

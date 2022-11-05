@@ -26,29 +26,29 @@ const Home: React.FC = () => {
   /* Start User Info */
 
   //Use User Context
-  let { user, getUsers } = useContext(UserContext);
+  let { user } = useContext(UserContext);
 
-  useEffect(() => {
-    async function fetch() {
-      await getUsers().then((user) => setUsers(user));
-    }
-    fetch();
-  }, []);
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getUsers().then((user) => setUsers(user));
+  //   }
+  //   fetch();
+  // }, []);
 
-  let { userId, username, roleId } = user;
+  // let { userId, username, roleId } = user;
 
-  const [users, setUsers] = useState({
-    userId: userId,
-    username: username,
-    roleId: roleId,
-  });
+  // const [users, setUsers] = useState({
+  //   userId: userId,
+  //   username: username,
+  //   roleId: roleId,
+  // });
 
   //Check if logged in
   function hasJWT() {
     let flag = false;
 
     //check user has JWT token
-    localStorage.getItem("myRantToken") ? (flag = true) : (flag = false);
+    localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
 
     return flag;
   }
@@ -144,7 +144,7 @@ const Home: React.FC = () => {
           </IonRow>
           <UserContext.Consumer>
             {({ user }) => {
-              if (hasJWT()&& user.roleId === "parent") {
+              if (hasJWT()) {
                 return (
                   <div>
                     <IonRow class="ion-padding ion-text-center">
@@ -197,7 +197,7 @@ const Home: React.FC = () => {
                                     if (t.completed === false) {
                                       return (
                                         <IonItemSliding key={t.taskId}>
-                                          <IonItem lines="none">
+                                          <IonItem key={t.taskId} lines="none">
                                             <IonLabel>
                                               <span className="labelTitle">
                                                 Task:

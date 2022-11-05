@@ -34,8 +34,8 @@ export const UserProvider = (props) => {
   function signInUser(username, password) {
     let user = { username, password };
 
-    return axios.post(`${baseUrl}/signIn`, user).then((response) => {
-      localStorage.setItem("myTaskToken", response.data.token);
+    return axios.post(`${baseUrl}login`, user).then((response) => {
+      localStorage.setItem("myUserToken", response.data.token);
       return new Promise((resolve) => resolve(response.data));
     });
   }
@@ -43,7 +43,7 @@ export const UserProvider = (props) => {
   // User Profile Access
   function userProfilePage(user, id) {
     let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myRantToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("myUserToken")}`,
     };
 
     return axios
@@ -55,7 +55,7 @@ export const UserProvider = (props) => {
 
   function editUser(user, id) {
     let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myRantToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("myUserToken")}`,
     };
 
     return axios
