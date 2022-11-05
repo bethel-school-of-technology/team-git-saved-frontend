@@ -7,6 +7,8 @@ import {
   IonButton,
   IonLabel,
   IonInput,
+  IonSelect,
+  IonSelectOption,
 } from "@ionic/react";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router";
@@ -17,15 +19,16 @@ import UserContext from "../contexts/UserContext";
 const SignUp: React.FC = () => {
   let [newUser, setNewUser] = useState({
     username: "",
-    password: "",
     name: "",
+    password: "",
     householdName: "",
     roleId: "",
-    email: "",
   });
 
   let { createUser } = useContext(UserContext);
   let navigate = useHistory();
+
+  console.log(newUser);
 
   function handleChange(event: any) {
     setNewUser((prevValue) => {
@@ -33,16 +36,28 @@ const SignUp: React.FC = () => {
     });
   }
 
+  const options = [
+    { value: "parent", text: "Parent" },
+    { value: "child", text: "Child" },
+  ];
+
+  const selectChange = (event) => {
+    console.log(event.target.value);
+    setNewUser(event.target.value);
+  };
+
+  // Set Role Values
+
   function handleSubmit(event: any) {
     event.preventDefault();
     createUser(newUser)
       .then(() => {
         navigate.push("/signin");
       })
-      // .catch((error) => {
-      //   console.log(error);
-      //   window.alert("Failed registration: error creating user");
-      // });
+      .catch((error) => {
+        console.log(error);
+        window.alert("Failed registration: error creating user");
+      });
   }
 
   return (
@@ -65,16 +80,6 @@ const SignUp: React.FC = () => {
                     value={newUser.username}
                   />
                   <br></br>
-                  <IonLabel position="stacked">Password: </IonLabel>
-                  <IonInput
-                    class="color"
-                    onIonChange={handleChange}
-                    placeholder="Enter Password"
-                    type="text"
-                    name="password"
-                    value={newUser.password}
-                  />
-                  <br></br>
                   <IonLabel position="stacked">Name: </IonLabel>
                   <IonInput
                     class="color"
@@ -85,14 +90,30 @@ const SignUp: React.FC = () => {
                     value={newUser.name}
                   />
                   <br></br>
-                  <IonLabel position="stacked">Role: </IonLabel>
+                  <IonLabel position="stacked">Password: </IonLabel>
                   <IonInput
                     class="color"
                     onIonChange={handleChange}
-                    placeholder="Select Your Role"
+                    placeholder="Enter Password"
                     type="text"
-                    name="roleId"
+                    name="password"
+                    value={newUser.password}
                   />
+                  <br></br>
+                  <IonLabel position="stacked">Role: </IonLabel>
+                  <IonSelect
+                    value={newUser.roleId}
+                    placeholder="Chose Your Role"
+                    name="roleId"
+                    onIonChange={handleChange}
+                    className="color"
+                  >
+                    {options.map((option) => (
+                      <IonSelectOption key={option.value} value={option.value}>
+                        {option.text}
+                      </IonSelectOption>
+                    ))}
+                  </IonSelect>
                   <br></br>
                   <IonLabel position="stacked">Household: </IonLabel>
                   <IonInput
@@ -106,7 +127,9 @@ const SignUp: React.FC = () => {
                   <br></br>
                   <IonRow class="ion-padding ion-text-center">
                     <IonCol size="12">
-                      <IonButton>Sign Up</IonButton>
+                      <IonButton type="submit" expand="block">
+                        Sign Up
+                      </IonButton>
                     </IonCol>
                   </IonRow>
                 </form>
