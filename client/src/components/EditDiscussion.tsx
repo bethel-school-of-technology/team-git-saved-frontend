@@ -40,7 +40,7 @@ const EditDiscussion: React.FC = (props) => {
         history.push("/discussion");
       })
       .catch((error: any) => {
-        history.push("/signin");
+        history.push("/discussion");
         console.log(error);
       });
   }
