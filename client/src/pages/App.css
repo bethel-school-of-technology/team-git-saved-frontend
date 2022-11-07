@@ -125,7 +125,8 @@ ion-list.homeTasklist ion-checkbox {
 }
 
 /** SignUp and SignIn Page **/
-.signupform {
+.signupform,
+.signinform {
   max-width: 380px;
   width: 100%;
   margin: 0 auto;

@@ -38,40 +38,38 @@ const SignIn: React.FC = () => {
       <Header />
       <IonContent fullscreen>
         <IonGrid>
-          <IonRow class="ion-padding ion-text-center">
-            <IonCol size="12">
-              <h1>Sign In</h1>
-            </IonCol>
-          </IonRow>
           <IonRow class="ion-padding">
             <IonCol size="12">
-              <form className="form" onSubmit={handleSubmit}>
-                <IonLabel position="stacked">UserName: </IonLabel>
-                <IonInput
-                  class="color"
-                  placeholder="Enter Username"
-                  type="text"
-                  name="username"
-                  onIonChange={(e: any) => setUsername(e.target.value)}
-                />
-                <br></br>
-                <IonLabel position="stacked">Password: </IonLabel>
-                <IonInput
-                  class="color"
-                  placeholder="Enter Password"
-                  type="text"
-                  name="password"
-                  onIonChange={(e: any) => setPassword(e.target.value)}
-                />
-                <br></br>
-                <IonRow class="ion-padding ion-text-center">
-                  <IonCol size="12">
-                    <IonButton type="submit" expand="block">
-                      Sign In
-                    </IonButton>
-                  </IonCol>
-                </IonRow>
-              </form>
+              <div className="signinform">
+                <h1 className="ion-text-center">Sign In</h1>
+                <form className="form" onSubmit={handleSubmit}>
+                  <IonLabel position="stacked">UserName: </IonLabel>
+                  <IonInput
+                    class="color"
+                    placeholder="Enter Username"
+                    type="text"
+                    name="username"
+                    onIonChange={(e: any) => setUsername(e.target.value)}
+                  />
+                  <br></br>
+                  <IonLabel position="stacked">Password: </IonLabel>
+                  <IonInput
+                    class="color"
+                    placeholder="Enter Password"
+                    type="text"
+                    name="password"
+                    onIonChange={(e: any) => setPassword(e.target.value)}
+                  />
+                  <br></br>
+                  <IonRow class="ion-padding ion-text-center">
+                    <IonCol size="12">
+                      <IonButton type="submit" expand="block">
+                        Sign In
+                      </IonButton>
+                    </IonCol>
+                  </IonRow>
+                </form>
+              </div>
             </IonCol>
           </IonRow>
         </IonGrid>
