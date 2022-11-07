@@ -44,7 +44,7 @@ const DiscussionBoard: React.FC = () => {
     });
   }
 
-  function removePost(discussionId: any) {
+  function removeDiscussion(discussionId: any) {
     deletePost(discussionId)
       .then(() => {
         history.push("/discussion");
@@ -111,7 +111,7 @@ const DiscussionBoard: React.FC = () => {
                               <IonButton
                                 color="danger"
                                 href="#"
-                                onClick={() => removePost(`${p.discussionId}`)}
+                                onClick= {removeDiscussion}
                               >
                                 Delete Post
                               </IonButton>

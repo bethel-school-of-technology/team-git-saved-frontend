@@ -94,12 +94,12 @@ const App: React.FC = () => (
         <Route path="/signin">
           <SignIn />
         </Route>
-        <Route path="/childprofile">
-          <ChildProfile />
+         <Route path="/childprofile">
+          {/* <ChildProfile /> */}
         </Route>
         <Route path="/parentprofile">
-          <ParentProfile />
-        </Route>
+        {/* <ParentProfile /> */}
+        </Route> 
         <Route path="/rewards">
           <Rewards />
         </Route>
@@ -110,7 +110,7 @@ const App: React.FC = () => (
         </Route>
         <Route path="/discussion/:id">
           <DiscussionProvider>
-            <EditPost/>
+            <EditDiscussion/>
           </DiscussionProvider>
         </Route>
         <Route exact path="/">

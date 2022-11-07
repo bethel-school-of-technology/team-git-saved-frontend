@@ -6,7 +6,7 @@ import DiscussionContext from "./DiscussionContext";
 export const DiscussionProvider = (props) => {
   const [discussion, setPost] = useState([]);
 
-  const baseUrl = "http://localhost:3000/discussion";
+  const baseUrl = "http://localhost:3001/discussion";
 
   useEffect(() => {
     async function fetchData() {
@@ -26,22 +26,23 @@ export const DiscussionProvider = (props) => {
   }
 
   function addPost(discussion) {
-    /*   let myHeaders = {
+      let myHeaders = {
       Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    }; */
+    }; 
 
-    return axios.post(baseUrl, discussion).then((response) => {
+    return axios.post(baseUrl, discussion, { headers: myHeaders } ).then((response) => {
         getAllPosts();
         return new Promise((resolve) => resolve(response.data));
       });
   }
 
   function editPost(discussionId) {
-    /*  let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    }; */
+    //  let myHeaders = {
+    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    // }; 
     return axios
-      .put(baseUrl + discussionId, discussion /* { headers: myHeaders } */)
+      .put(baseUrl + discussionId, discussion)
+        // { headers: myHeaders } )
       .then((response) => {
         getAllPosts();
         return new Promise((resolve) => resolve(response.data));
@@ -49,11 +50,12 @@ export const DiscussionProvider = (props) => {
   }
 
   function deletePost(discussionId) {
-    /*  let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    }; */
+    //   let myHeaders = {
+    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    // }; 
     return axios
-      .delete(baseUrl + discussionId, discussion /* { headers: myHeaders } */)
+      .delete(baseUrl + discussionId, discussion) 
+        // { headers: myHeaders } )
       .then((response) => {
         getAllPosts();
         return new Promise((resolve) => resolve(response.data));
