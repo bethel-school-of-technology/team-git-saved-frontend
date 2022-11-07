@@ -25,7 +25,7 @@ const SignIn: React.FC = () => {
     event.preventDefault();
     signInUser(username, password)
       .then(() => {
-        history.push("/home");
+        history.push("/tasks");
       })
       .catch((error) => {
         console.log(error);

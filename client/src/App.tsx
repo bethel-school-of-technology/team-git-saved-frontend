@@ -11,7 +11,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import Home from "./pages/Home";
+import Tasks from "./pages/Tasks";
 import Welcome from "./pages/Welcome";
 
 /* Core CSS required for Ionic components to work properly */
@@ -68,7 +68,7 @@ const App: React.FC = () => (
         <IonRouterOutlet id="main">
           <Route exact path="/tasks">
             <TaskProvider>
-              <Home />
+              <Tasks />
             </TaskProvider>
           </Route>
           <Route path="/tasks/:id">
