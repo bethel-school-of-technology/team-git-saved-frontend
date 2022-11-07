@@ -55,7 +55,6 @@ const DiscussionBoard: React.FC = () => {
         console.log(error);
       });
   }
-
   return (
     <IonPage>
       <Header />
@@ -110,8 +109,9 @@ const DiscussionBoard: React.FC = () => {
                               </IonButton>
                               <IonButton
                                 color="danger"
-                                href="#"
-                                onClick= {removeDiscussion}
+                                onClick= {() =>
+                                  removeDiscussion(`${p.discussionId}`)
+                                }
                               >
                                 Delete Post
                               </IonButton>
