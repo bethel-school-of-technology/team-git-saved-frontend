@@ -3,11 +3,7 @@ import {
   IonApp,
   IonContent,
   IonHeader,
-  IonItem,
-  IonLabel,
-  IonList,
   IonMenu,
-  IonMenuToggle,
   IonRouterOutlet,
   IonTitle,
   IonToolbar,
@@ -48,6 +44,7 @@ import { UserProvider } from "./contexts/UserProvider";
 import EditProfile from "./components/EditProfile";
 import Profile from "./pages/Profile";
 import { RewardsProvider } from "./contexts/RewardsProvider";
+import AppMenu from "./components/AppMenu";
 
 setupIonicReact();
 
@@ -62,19 +59,7 @@ const App: React.FC = () => (
             </IonToolbar>
           </IonHeader>
           <IonContent>
-            <IonList>
-              <IonMenuToggle>
-                <IonItem routerLink="/users">
-                  <IonLabel>Profile</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-              <IonMenuToggle>
-                <IonItem routerLink="/home">Home</IonItem>
-              </IonMenuToggle>
-              <IonMenuToggle>
-                <IonItem routerLink="/rewards">Rewards</IonItem>
-              </IonMenuToggle>
-            </IonList>
+            <AppMenu />
           </IonContent>
         </IonMenu>
         <IonRouterOutlet id="main">

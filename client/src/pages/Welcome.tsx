@@ -5,6 +5,7 @@ import {
   IonRow,
   IonCol,
   IonButton,
+  IonThumbnail,
 } from "@ionic/react";
 
 import Footer from "../components/Footer";
@@ -17,24 +18,28 @@ const Welcome: React.FC = () => {
 
       <IonContent fullscreen>
         <IonGrid>
-          <IonRow class="ion-padding ion-text-center">
+          <IonRow class="ion-padding ion-text-center welcomeText">
             <IonCol size="12">
               <h1>Welcome To HomeTasktic!</h1>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-                sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </p>
+              <h2>The one stop place to manage your house chores</h2>
+            </IonCol>
+            <IonCol size="12">
+              <IonThumbnail>
+                <img
+                  alt="placeholder"
+                  src="https://media.giphy.com/media/3o7TKU8RvQuomFfUUU/giphy.gif"
+                />
+              </IonThumbnail>
             </IonCol>
           </IonRow>
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
-              <IonButton href="SignIn">Sign In</IonButton>
-              <IonButton href="SignUp">Sign Up</IonButton>
+              <IonButton href="signin" size="large">
+                Sign In
+              </IonButton>
+              <IonButton href="signup" size="large">
+                Sign Up
+              </IonButton>
             </IonCol>
           </IonRow>
         </IonGrid>
