@@ -53,7 +53,7 @@ const AppMenu: React.FC = () => {
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/home">Home</IonItem>
+            <IonItem routerLink="/tasks">Tasks</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
             <IonItem routerLink="/rewards">Rewards</IonItem>

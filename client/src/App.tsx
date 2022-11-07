@@ -63,7 +63,7 @@ const App: React.FC = () => (
           </IonContent>
         </IonMenu>
         <IonRouterOutlet id="main">
-          <Route exact path="/home">
+          <Route exact path="/tasks">
             <TaskProvider>
               <Home />
             </TaskProvider>
