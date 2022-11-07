@@ -3,6 +3,7 @@ import {
   IonApp,
   IonContent,
   IonHeader,
+  IonIcon,
   IonMenu,
   IonRouterOutlet,
   IonTitle,
@@ -55,7 +56,9 @@ const App: React.FC = () => (
         <IonMenu side="end" menuId="first" contentId="main">
           <IonHeader>
             <IonToolbar>
-              <IonTitle>Menu</IonTitle>
+              <IonTitle>
+                Menu <IonIcon name="menu-outline"></IonIcon>
+              </IonTitle>
             </IonToolbar>
           </IonHeader>
           <IonContent>
