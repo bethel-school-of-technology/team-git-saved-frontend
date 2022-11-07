@@ -19,13 +19,14 @@ import UserContext from "../contexts/UserContext";
 import { postDialog } from "../hooks/discussiondialog";
 
 const DiscussionBoard: React.FC = () => {
- 
   let [newPost, setNewPost] = useState({
     headline: "",
-    content: ""
+    content: "",
   });
 
-  let { deletePost, addPost} = useContext(DiscussionContext);
+  console.log(newPost);
+
+  let { deletePost, addPost } = useContext(DiscussionContext);
 
   let history = useHistory();
 
@@ -49,12 +50,11 @@ const DiscussionBoard: React.FC = () => {
         history.push("/discussion");
         window.location.reload();
       })
-        .catch((error: any) => {
-          history.push("/discussion");
-          console.log(error);
-     });
+      .catch((error: any) => {
+        history.push("/discussion");
+        console.log(error);
+      });
   }
-
 
   return (
     <IonPage>

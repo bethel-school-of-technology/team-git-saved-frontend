@@ -5,7 +5,7 @@ import TaskContext from "./TaskContext";
 
 export const TaskProvider = (props) => {
   const [task, setTask] = useState([]);
-  const baseUrl = "http://localhost:3000/tasks/";
+  const baseUrl = "http://localhost:3001/tasks/";
 
   useEffect(() => {
     async function fetchData() {
@@ -24,35 +24,42 @@ export const TaskProvider = (props) => {
     });
   }
 
+  // Add Task
   function addTask(task) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myUserToken")}`,
+    };
 
-    return axios.post(baseUrl, task).then((response) => {
-      getAllTasks();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    return axios
+      .post(baseUrl, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   function editTask(task, taskId) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
-    return axios.put(baseUrl + taskId, task).then((response) => {
-      getAllTasks();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myUserToken")}`,
+    };
+    return axios
+      .put(baseUrl + taskId, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   function deleteTask(taskId) {
-    // let myHeaders = {
-    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    // };
-    return axios.delete(baseUrl + taskId, task).then((response) => {
-      getAllTasks();
-      return new Promise((resolve) => resolve(response.data));
-    });
+    let myHeaders = {
+      Authorization: `Bearer ${localStorage.getItem("myUserToken")}`,
+    };
+    return axios
+      .delete(baseUrl + taskId, task, { headers: myHeaders })
+      .then((response) => {
+        getAllTasks();
+        return new Promise((resolve) => resolve(response.data));
+      });
   }
 
   return (

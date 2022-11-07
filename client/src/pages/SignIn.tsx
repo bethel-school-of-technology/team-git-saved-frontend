@@ -8,10 +8,31 @@ import {
   IonLabel,
   IonInput,
 } from "@ionic/react";
+import { useContext, useState } from "react";
+import { useHistory } from "react-router";
+import UserContext from "../contexts/UserContext";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const SignIn: React.FC = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  let { signInUser } = useContext(UserContext);
+  let history = useHistory();
+
+  function handleSubmit(event: any) {
+    event.preventDefault();
+    signInUser(username, password)
+      .then(() => {
+        history.push("/home");
+      })
+      .catch((error) => {
+        console.log(error);
+        window.alert("Failed login");
+      });
+  }
+
   return (
     <IonPage>
       <Header />
@@ -24,14 +45,15 @@ const SignIn: React.FC = () => {
           </IonRow>
           <IonRow class="ion-padding">
             <IonCol size="12">
-              <div className="signupform">
+              <form className="form" onSubmit={handleSubmit}>
                 <IonLabel position="stacked">UserName: </IonLabel>
                 <IonInput
                   class="color"
                   placeholder="Enter Username"
                   type="text"
                   name="username"
-                />{" "}
+                  onIonChange={(e: any) => setUsername(e.target.value)}
+                />
                 <br></br>
                 <IonLabel position="stacked">Password: </IonLabel>
                 <IonInput
@@ -39,14 +61,17 @@ const SignIn: React.FC = () => {
                   placeholder="Enter Password"
                   type="text"
                   name="password"
-                />{" "}
+                  onIonChange={(e: any) => setPassword(e.target.value)}
+                />
                 <br></br>
                 <IonRow class="ion-padding ion-text-center">
                   <IonCol size="12">
-                    <IonButton>Sign In</IonButton>
+                    <IonButton type="submit" expand="block">
+                      Sign In
+                    </IonButton>
                   </IonCol>
                 </IonRow>
-              </div>
+              </form>
             </IonCol>
           </IonRow>
         </IonGrid>

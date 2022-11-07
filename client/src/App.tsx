@@ -4,6 +4,7 @@ import {
   IonContent,
   IonHeader,
   IonItem,
+  IonLabel,
   IonList,
   IonMenu,
   IonMenuToggle,
@@ -35,8 +36,6 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./pages/App.css";
-import ChildProfile from "./pages/ChildProfile";
-import ParentProfile from "./pages/ParentProfile";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import Discussionboard from "./pages/DiscussionBoard";
@@ -45,7 +44,10 @@ import Rewards from "./pages/Rewards";
 import { TaskProvider } from "./contexts/TaskProvider";
 import EditTask from "./components/EditTask";
 import EditDiscussion from "./components/editDiscussion";
-
+import { UserProvider } from "./contexts/UserProvider";
+import EditProfile from "./components/EditProfile";
+import Profile from "./pages/Profile";
+import { RewardsProvider } from "./contexts/RewardsProvider";
 
 setupIonicReact();
 
@@ -108,8 +110,8 @@ const App: React.FC = () => (
         </Route>
         <Route path="/discussion/:id">
           <DiscussionProvider>
-       <EditDiscussion/>
-       </DiscussionProvider>
+            <EditPost/>
+          </DiscussionProvider>
         </Route>
         <Route exact path="/">
           <Redirect to="/welcome" />
