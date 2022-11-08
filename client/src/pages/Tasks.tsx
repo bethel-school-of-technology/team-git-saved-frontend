@@ -115,7 +115,7 @@ const Tasks: React.FC = () => {
   };
 
   function viewEditPage(taskId: any) {
-    history.push(`/tasks/${taskId}/update`);
+    history.push(`/tasks/${taskId}`);
     window.location.reload();
   }
 
@@ -144,7 +144,7 @@ const Tasks: React.FC = () => {
           </IonRow>
           <UserContext.Consumer>
             {({ user }) => {
-              if (hasJWT() && users.roleId === "parent") {
+              if (hasJWT()) {
                 return (
                   <div>
                     <IonRow class="ion-padding ion-text-center">
@@ -223,7 +223,7 @@ const Tasks: React.FC = () => {
                                                   <a
                                                     href={`/users/${t.userId}`}
                                                   >
-                                                    {t.userId}
+                                                    {user.username}
                                                   </a>
                                                 </span>
                                               </span>
@@ -303,7 +303,7 @@ const Tasks: React.FC = () => {
                                                   <a
                                                     href={`/users/${t.userId}`}
                                                   >
-                                                    {t.userId}
+                                                    {username}
                                                   </a>
                                                 </span>
                                               </span>
@@ -393,7 +393,7 @@ const Tasks: React.FC = () => {
                                                   <a
                                                     href={`/users/${t.userId}`}
                                                   >
-                                                    {t.userId}
+                                                    {username}
                                                   </a>
                                                 </span>
                                               </span>
@@ -410,6 +410,8 @@ const Tasks: React.FC = () => {
                                           </IonItem>
                                         </IonItemSliding>
                                       );
+                                    }else {
+                                      return <div>No Tasks Complete</div>;
                                     }
                                   })}
                                 </div>
@@ -453,7 +455,7 @@ const Tasks: React.FC = () => {
                                                   <a
                                                     href={`/users/${t.userId}`}
                                                   >
-                                                    {t.userId}
+                                                    {username}
                                                   </a>
                                                 </span>
                                               </span>
@@ -471,6 +473,8 @@ const Tasks: React.FC = () => {
                                           </IonItem>
                                         </IonItemSliding>
                                       );
+                                    }else {
+                                      return <div>No Tasks Complete</div>;
                                     }
                                   })}
                                 </div>

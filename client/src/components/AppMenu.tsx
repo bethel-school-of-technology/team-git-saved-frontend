@@ -56,7 +56,13 @@ const AppMenu: React.FC = () => {
             <IonItem routerLink="/tasks">Tasks</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
+            <IonItem routerLink="/discussion">Discussion</IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
             <IonItem routerLink="/rewards">Rewards</IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/signout">Sign Out</IonItem>
           </IonMenuToggle>
         </IonList>
       ) : (
@@ -65,10 +71,10 @@ const AppMenu: React.FC = () => {
             <IonItem routerLink="/welcome">Welcome</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/signin">SignIn</IonItem>
+            <IonItem routerLink="/signin">Sign In</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/signup">SignUp</IonItem>
+            <IonItem routerLink="/signup">Sign Up</IonItem>
           </IonMenuToggle>
         </IonList>
       )}
