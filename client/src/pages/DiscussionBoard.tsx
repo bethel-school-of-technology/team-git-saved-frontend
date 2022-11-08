@@ -55,6 +55,11 @@ const DiscussionBoard: React.FC = () => {
         console.log(error);
       });
   }
+  function viewEditDiscussion(discussionId: any) {
+    history.push(`/discussion/${discussionId}`);
+    window.location.reload();
+  }
+
   return (
     <IonPage>
       <Header />
@@ -103,7 +108,9 @@ const DiscussionBoard: React.FC = () => {
                               <p>{p.content}</p>
                               <IonButton
                                 color="danger"
-                                href={`/discussion/${p.discussionId}`}
+                                onClick= {() =>
+                                  viewEditDiscussion(`${p.discussionId}`)
+                                }
                               >
                                 Edit Post
                               </IonButton>

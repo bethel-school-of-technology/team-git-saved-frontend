@@ -11,7 +11,7 @@ const EditDiscussion: React.FC = (props) => {
 
   useEffect(() => {
     async function fetch() {
-      await getPost(id).then((task: any) => setChangePost(discussion));
+      await getPost(id).then((discussion: any) => setChangePost(discussion));
     }
     fetch();
   }, [id, getPost]);

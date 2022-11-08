@@ -6,7 +6,7 @@ import DiscussionContext from "./DiscussionContext";
 export const DiscussionProvider = (props) => {
   const [discussion, setPost] = useState([]);
 
-  const baseUrl = "http://localhost:3000/discussion";
+  const baseUrl = "http://localhost:3001/discussion/";
 
   useEffect(() => {
     async function fetchData() {
@@ -36,7 +36,7 @@ export const DiscussionProvider = (props) => {
       });
   }
 
-  function editPost(discussionId) {
+  function editPost(discussion,discussionId) {
     //  let myHeaders = {
     //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
     // }; 
