@@ -44,7 +44,11 @@ import { UserProvider } from "./contexts/UserProvider";
 import EditProfile from "./components/EditProfile";
 import Profile from "./pages/Profile";
 import { RewardsProvider } from "./contexts/RewardsProvider";
+
+import EditReward from "./components/EditReward";
+
 import AppMenu from "./components/AppMenu";
+
 
 setupIonicReact();
 
@@ -98,6 +102,11 @@ const App: React.FC = () => (
           <Route path="/rewards/:id">
             <RewardsProvider>
               <Rewards />
+            </RewardsProvider>
+          </Route>
+          <Route path="/rewards/:id">
+            <RewardsProvider>
+              <EditReward />
             </RewardsProvider>
           </Route>
           <Route path="/discussion">
