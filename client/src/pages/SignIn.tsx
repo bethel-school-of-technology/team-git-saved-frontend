@@ -25,7 +25,7 @@ const SignIn: React.FC = () => {
     event.preventDefault();
     signInUser(username, password)
       .then(() => {
-        history.push("/home");
+        history.push("/tasks");
       })
       .catch((error) => {
         console.log(error);
@@ -56,7 +56,7 @@ const SignIn: React.FC = () => {
                   <IonInput
                     class="color"
                     placeholder="Enter Password"
-                    type="text"
+                    type="password"
                     name="password"
                     onIonChange={(e: any) => setPassword(e.target.value)}
                   />

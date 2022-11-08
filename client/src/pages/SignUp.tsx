@@ -90,7 +90,7 @@ const SignUp: React.FC = () => {
                     class="color"
                     onIonChange={handleChange}
                     placeholder="Enter Password"
-                    type="text"
+                    type="password"
                     name="password"
                     value={newUser.password}
                   />

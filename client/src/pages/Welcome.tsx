@@ -21,7 +21,7 @@ const Welcome: React.FC = () => {
           <IonRow class="ion-padding ion-text-center welcomeText">
             <IonCol size="12">
               <h1>Welcome To HomeTasktic!</h1>
-              <h2>The one stop place to manage your house chores</h2>
+              <h2>The one stop place to manage your household chores</h2>
             </IonCol>
             <IonCol size="12">
               <IonThumbnail>

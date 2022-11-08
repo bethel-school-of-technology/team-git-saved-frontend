@@ -3,6 +3,7 @@ import {
   IonApp,
   IonContent,
   IonHeader,
+  IonIcon,
   IonMenu,
   IonRouterOutlet,
   IonTitle,
@@ -10,7 +11,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import Home from "./pages/Home";
+import Tasks from "./pages/Tasks";
 import Welcome from "./pages/Welcome";
 
 /* Core CSS required for Ionic components to work properly */
@@ -59,7 +60,9 @@ const App: React.FC = () => (
         <IonMenu side="end" menuId="first" contentId="main">
           <IonHeader>
             <IonToolbar>
-              <IonTitle>Menu</IonTitle>
+              <IonTitle>
+                Menu <IonIcon name="menu-outline"></IonIcon>
+              </IonTitle>
             </IonToolbar>
           </IonHeader>
           <IonContent>
@@ -67,9 +70,9 @@ const App: React.FC = () => (
           </IonContent>
         </IonMenu>
         <IonRouterOutlet id="main">
-          <Route exact path="/home">
+          <Route exact path="/tasks">
             <TaskProvider>
-              <Home />
+              <Tasks />
             </TaskProvider>
           </Route>
           <Route path="/tasks/:id">

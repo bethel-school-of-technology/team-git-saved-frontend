@@ -20,9 +20,9 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import TaskContext from "../contexts/TaskContext";
 import UserContext from "../contexts/UserContext";
-import "./Home.css";
+import "./Tasks.css";
 
-const Home: React.FC = () => {
+const Tasks: React.FC = () => {
   /* Start User Info */
 
   //Use User Context
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
       await getUsers().then((user) => setUsers(user));
     }
     fetch();
-  }, []);
+  }, [getUsers]);
 
   let { userId, username, roleId } = user;
 
@@ -80,7 +80,7 @@ const Home: React.FC = () => {
   function handleSubmit(event: any) {
     event.preventDefault();
     addTask(newTask).then(() => {
-      history.push("/home");
+      history.push("/tasks");
       window.location.reload();
     });
   }
@@ -96,7 +96,7 @@ const Home: React.FC = () => {
   function markComplete(taskId: any) {
     console.log(updateTask);
     editTask(updateTask, taskId).then(() => {
-      history.push("/home");
+      history.push("/tasks");
       //window.location.reload();
     });
   }
@@ -115,7 +115,7 @@ const Home: React.FC = () => {
   };
 
   function viewEditPage(taskId: any) {
-    history.push(`/tasks/${taskId}/update`);
+    history.push(`/tasks/${taskId}`);
     window.location.reload();
   }
 
@@ -123,7 +123,7 @@ const Home: React.FC = () => {
   function removeTask(taskId: any) {
     deleteTask(taskId)
       .then(() => {
-        history.push("/home");
+        history.push("/tasks");
         window.location.reload();
       })
       .catch((error: any) => {
@@ -223,7 +223,7 @@ const Home: React.FC = () => {
                                                   <a
                                                     href={`/users/${t.userId}`}
                                                   >
-                                                    {t.userId}
+                                                    {user.username}
                                                   </a>
                                                 </span>
                                               </span>
@@ -303,7 +303,7 @@ const Home: React.FC = () => {
                                                   <a
                                                     href={`/users/${t.userId}`}
                                                   >
-                                                    {t.userId}
+                                                    {username}
                                                   </a>
                                                 </span>
                                               </span>
@@ -339,6 +339,8 @@ const Home: React.FC = () => {
                                           </IonItemOptions>
                                         </IonItemSliding>
                                       );
+                                    } else {
+                                      return <div>No Tasks Complete</div>;
                                     }
                                   })}
                                 </div>
@@ -391,7 +393,7 @@ const Home: React.FC = () => {
                                                   <a
                                                     href={`/users/${t.userId}`}
                                                   >
-                                                    {t.userId}
+                                                    {username}
                                                   </a>
                                                 </span>
                                               </span>
@@ -408,6 +410,8 @@ const Home: React.FC = () => {
                                           </IonItem>
                                         </IonItemSliding>
                                       );
+                                    }else {
+                                      return <div>No Tasks Complete</div>;
                                     }
                                   })}
                                 </div>
@@ -451,7 +455,7 @@ const Home: React.FC = () => {
                                                   <a
                                                     href={`/users/${t.userId}`}
                                                   >
-                                                    {t.userId}
+                                                    {username}
                                                   </a>
                                                 </span>
                                               </span>
@@ -469,6 +473,8 @@ const Home: React.FC = () => {
                                           </IonItem>
                                         </IonItemSliding>
                                       );
+                                    }else {
+                                      return <div>No Tasks Complete</div>;
                                     }
                                   })}
                                 </div>
@@ -490,4 +496,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Tasks;

@@ -13,14 +13,14 @@ const AppMenu: React.FC = () => {
   // Get Url Params
   let { id } = useParams<{ id: string }>();
   //Use UserContext
-  let { user, getOneUser } = useContext(UserContext);
+  let { user, getUsers } = useContext(UserContext);
 
   useEffect(() => {
     async function fetch() {
-      await getOneUser(id).then((user) => setUserInfo(user));
+      await getUsers(id).then((user) => setUserInfo(user));
     }
     fetch();
-  }, [id, getOneUser]);
+  }, [id, getUsers]);
 
   let { userId } = user;
 
@@ -53,10 +53,16 @@ const AppMenu: React.FC = () => {
             </IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/home">Home</IonItem>
+            <IonItem routerLink="/tasks">Tasks</IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/discussion">Discussion</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
             <IonItem routerLink="/rewards">Rewards</IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/signout">Sign Out</IonItem>
           </IonMenuToggle>
         </IonList>
       ) : (
@@ -65,10 +71,10 @@ const AppMenu: React.FC = () => {
             <IonItem routerLink="/welcome">Welcome</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/signin">SignIn</IonItem>
+            <IonItem routerLink="/signin">Sign In</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
-            <IonItem routerLink="/signup">SignUp</IonItem>
+            <IonItem routerLink="/signup">Sign Up</IonItem>
           </IonMenuToggle>
         </IonList>
       )}
