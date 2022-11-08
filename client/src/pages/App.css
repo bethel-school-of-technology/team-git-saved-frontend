@@ -24,6 +24,18 @@ ion-button {
 }
 
 /*****************
+Welcome Page Styles
+****************/
+.welcomeText {
+  color: rgb(0, 0, 0);
+}
+
+.welcomeText h2 {
+  font-style: italic;
+  color: rgb(8, 74, 87);
+}
+
+/*****************
 Task Page Styles
 ****************/
 
@@ -112,7 +124,9 @@ ion-list.homeTasklist ion-checkbox {
   --border: none;
 }
 
-.signupform {
+/** SignUp and SignIn Page **/
+.signupform,
+.signinform {
   max-width: 380px;
   width: 100%;
   margin: 0 auto;
@@ -125,7 +139,7 @@ ion-list.homeTasklist ion-checkbox {
 
 .color {
   background-color: white;
-  color:rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
   border: 2px solid gray;
 }
 
