@@ -39,7 +39,7 @@ import { DiscussionProvider } from "./contexts/DiscussionProvider";
 import Rewards from "./pages/Rewards";
 import { TaskProvider } from "./contexts/TaskProvider";
 import EditTask from "./components/EditTask";
-import EditDiscussion from "./components/editDiscussion";
+import EditDiscussion from "./components/EditDiscussion";
 import { UserProvider } from "./contexts/UserProvider";
 import EditProfile from "./components/EditProfile";
 import Profile from "./pages/Profile";
@@ -107,7 +107,7 @@ const App: React.FC = () => (
           </Route>
           <Route path="/discussion/:id">
             <DiscussionProvider>
-              <EditPost />
+              <EditDiscussion />
             </DiscussionProvider>
           </Route>
           <Route exact path="/">
