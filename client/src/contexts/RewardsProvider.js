@@ -25,12 +25,12 @@ export const RewardsProvider = (props) => {
   }
 
   function addReward(reward) {
-    let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
-    };
+    // let myHeaders = {
+    //   Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+    // };
 
     return axios
-      .post(baseUrl, reward, { headers: myHeaders })
+      .post(baseUrl, reward /*{ headers: myHeaders }*/)
       .then((response) => {
         getAllRewards();
         return new Promise((resolve) => resolve(response.data));
