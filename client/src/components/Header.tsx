@@ -19,7 +19,7 @@ const Header: React.FC<ContainerProps> = () => {
           <IonBackButton></IonBackButton>
         </IonButtons>
         <IonTitle>
-          <a href="/home">
+          <a href="/tasks">
             <IonImg
               src="../../assets/HomeTasktic-Logo-Top.png"
               alt="HomeTasktic Logo"

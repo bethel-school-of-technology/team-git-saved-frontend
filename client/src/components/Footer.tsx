@@ -17,7 +17,7 @@ const Footer: React.FC<ContainerProps> = () => {
         <IonGrid>
           <IonRow class="ion-padding footerRow ion-text-center">
             <IonCol size-lg="4" size-xs="12">
-              <a href="/thedevs">Meet The Devs</a>
+              <a href="/devs">Meet The Devs</a>
             </IonCol>
             <IonCol size-lg="4" size-xs="12">
               <a href="/home">
@@ -28,7 +28,7 @@ const Footer: React.FC<ContainerProps> = () => {
               </a>
             </IonCol>
             <IonCol size-lg="4" size-xs="12">
-              <a href="/home">Back To Top</a>
+              <a href="/">Back To Top</a>
             </IonCol>
           </IonRow>
         </IonGrid>

@@ -62,6 +62,9 @@ const AppMenu: React.FC = () => {
             <IonItem routerLink="/rewards">Rewards</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
+            <IonItem routerLink="/devs">Meet The Devs</IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
             <IonItem routerLink="/signout">Sign Out</IonItem>
           </IonMenuToggle>
         </IonList>
@@ -69,6 +72,9 @@ const AppMenu: React.FC = () => {
         <IonList>
           <IonMenuToggle>
             <IonItem routerLink="/welcome">Welcome</IonItem>
+          </IonMenuToggle>
+          <IonMenuToggle>
+            <IonItem routerLink="/devs">Meet The Devs</IonItem>
           </IonMenuToggle>
           <IonMenuToggle>
             <IonItem routerLink="/signin">Sign In</IonItem>
