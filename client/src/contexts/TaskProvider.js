@@ -24,9 +24,10 @@ export const TaskProvider = (props) => {
     });
   }
 
+  // Add Task
   function addTask(task) {
     let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("myUserToken")}`,
     };
 
     return axios
@@ -39,7 +40,7 @@ export const TaskProvider = (props) => {
 
   function editTask(task, taskId) {
     let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("myUserToken")}`,
     };
     return axios
       .put(baseUrl + taskId, task, { headers: myHeaders })
@@ -51,7 +52,7 @@ export const TaskProvider = (props) => {
 
   function deleteTask(taskId) {
     let myHeaders = {
-      Authorization: `Bearer ${localStorage.getItem("myTaskToken")}`,
+      Authorization: `Bearer ${localStorage.getItem("myUserToken")}`,
     };
     return axios
       .delete(baseUrl + taskId, task, { headers: myHeaders })

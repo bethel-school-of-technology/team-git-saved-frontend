@@ -48,7 +48,7 @@ const Home: React.FC = () => {
     let flag = false;
 
     //check user has JWT token
-    localStorage.getItem("myRantToken") ? (flag = true) : (flag = false);
+    localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
 
     return flag;
   }
@@ -115,7 +115,7 @@ const Home: React.FC = () => {
   };
 
   function viewEditPage(taskId: any) {
-    history.push(`/tasks/${taskId}`);
+    history.push(`/tasks/${taskId}/update`);
     window.location.reload();
   }
 
@@ -144,7 +144,7 @@ const Home: React.FC = () => {
           </IonRow>
           <UserContext.Consumer>
             {({ user }) => {
-              if (hasJWT()&& user.roleId === "parent") {
+              if (hasJWT()) {
                 return (
                   <div>
                     <IonRow class="ion-padding ion-text-center">
@@ -197,7 +197,7 @@ const Home: React.FC = () => {
                                     if (t.completed === false) {
                                       return (
                                         <IonItemSliding key={t.taskId}>
-                                          <IonItem lines="none">
+                                          <IonItem key={t.taskId} lines="none">
                                             <IonLabel>
                                               <span className="labelTitle">
                                                 Task:
@@ -215,6 +215,16 @@ const Home: React.FC = () => {
                                                 Assigned To:
                                                 <span className="labelValue">
                                                   {t.assignedTo}
+                                                </span>
+                                              </span>
+                                              <span className="labelTitle">
+                                                Created By:
+                                                <span className="labelValue">
+                                                  <a
+                                                    href={`/users/${t.userId}`}
+                                                  >
+                                                    {t.userId}
+                                                  </a>
                                                 </span>
                                               </span>
                                             </IonLabel>
@@ -285,6 +295,16 @@ const Home: React.FC = () => {
                                                 Assigned To:
                                                 <span className="labelValue">
                                                   {t.assignedTo}
+                                                </span>
+                                              </span>
+                                              <span className="labelTitle">
+                                                Created By:
+                                                <span className="labelValue">
+                                                  <a
+                                                    href={`/users/${t.userId}`}
+                                                  >
+                                                    {t.userId}
+                                                  </a>
                                                 </span>
                                               </span>
                                             </IonLabel>
@@ -365,6 +385,16 @@ const Home: React.FC = () => {
                                                   **add username**
                                                 </span>
                                               </span>
+                                              <span className="labelTitle">
+                                                Created By:
+                                                <span className="labelValue">
+                                                  <a
+                                                    href={`/users/${t.userId}`}
+                                                  >
+                                                    {t.userId}
+                                                  </a>
+                                                </span>
+                                              </span>
                                             </IonLabel>
                                             <IonCheckbox
                                               slot="start"
@@ -413,6 +443,16 @@ const Home: React.FC = () => {
                                                 Assigned To:
                                                 <span className="labelValue">
                                                   **add username**
+                                                </span>
+                                              </span>
+                                              <span className="labelTitle">
+                                                Created By:
+                                                <span className="labelValue">
+                                                  <a
+                                                    href={`/users/${t.userId}`}
+                                                  >
+                                                    {t.userId}
+                                                  </a>
                                                 </span>
                                               </span>
                                             </IonLabel>
