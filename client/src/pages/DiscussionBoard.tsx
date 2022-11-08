@@ -44,7 +44,7 @@ const DiscussionBoard: React.FC = () => {
     });
   }
 
-  function removePost(discussionId: any) {
+  function removeDiscussion(discussionId: any) {
     deletePost(discussionId)
       .then(() => {
         history.push("/discussion");
@@ -54,6 +54,10 @@ const DiscussionBoard: React.FC = () => {
         history.push("/discussion");
         console.log(error);
       });
+  }
+  function viewEditDiscussion(discussionId: any) {
+    history.push(`/discussion/${discussionId}`);
+    window.location.reload();
   }
 
   return (
@@ -84,7 +88,7 @@ const DiscussionBoard: React.FC = () => {
                   />
                 </IonItem>
                 <IonButton type="submit" expand="block">
-                  Add Task
+                  Add Post
                 </IonButton>
               </form>
             </IonCol>
@@ -98,19 +102,23 @@ const DiscussionBoard: React.FC = () => {
                       <div>
                         {discussion.map((p: any) => {
                           return (
-                            <IonItem key={p.postId}>
+                            <IonItem key={p.discussionId}>
                               <p>{p.headline}</p>
+                              <br></br><br></br>
                               <p>{p.content}</p>
                               <IonButton
                                 color="danger"
-                                href={`/discussion/${p.discussionId}`}
+                                onClick= {() =>
+                                  viewEditDiscussion(`${p.discussionId}`)
+                                }
                               >
                                 Edit Post
                               </IonButton>
                               <IonButton
                                 color="danger"
-                                href="#"
-                                onClick={() => removePost(`${p.postId}`)}
+                                onClick= {() =>
+                                  removeDiscussion(`${p.discussionId}`)
+                                }
                               >
                                 Delete Post
                               </IonButton>
