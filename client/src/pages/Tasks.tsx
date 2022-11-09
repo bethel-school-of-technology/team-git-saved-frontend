@@ -46,7 +46,9 @@ const Tasks: React.FC = (props) => {
   /* End User Info */
 
   // Create Task Functions
+
   let [newTask, setNewTask] = useState({
+    taskId: 0,
     title: "",
     pointValue: "",
     assignedTo: "",
@@ -142,131 +144,63 @@ const Tasks: React.FC = (props) => {
               <h1>Your Tasks</h1>
             </IonCol>
           </IonRow>
+          {hasJWT() ? (
+            <IonRow class="ion-padding ion-text-center">
+              <IonCol size="12">
+                <h1>Add Tasks</h1>
+                <form onSubmit={handleSubmit} className="taskSubmit">
+                  <IonItem>
+                    <IonLabel position="stacked">Enter task title</IonLabel>
+                    <IonInput
+                      type="text"
+                      placeholder="Do Stuff"
+                      name="title"
+                      value={newTask.title}
+                      onIonChange={handleChange}
+                    />
+                    <IonLabel position="stacked">Point Value</IonLabel>
+                    <IonInput
+                      type="text"
+                      placeholder="2000"
+                      name="pointValue"
+                      value={newTask.pointValue}
+                      onIonChange={handleChange}
+                    />
+                    <IonLabel position="stacked">Assigned To</IonLabel>
+                    <IonInput
+                      type="text"
+                      placeholder="Jimmy"
+                      name="assignedTo"
+                      value={newTask.assignedTo}
+                      onIonChange={handleChange}
+                    />
+                  </IonItem>
+                  <IonButton type="submit" expand="block">
+                    Add Task
+                  </IonButton>
+                </form>
+              </IonCol>
+            </IonRow>
+          ) : (
+            ""
+          )}
+
           <UserContext.Consumer>
             {({ user }) => {
-              console.log(user.roleId);
               if (hasJWT()) {
                 return (
-                  <div>
-                    <IonRow class="ion-padding ion-text-center">
-                      <IonCol size="12">
-                        <h1>Add Tasks</h1>
-                        <form onSubmit={handleSubmit} className="taskSubmit">
-                          <IonItem>
-                            <IonLabel position="stacked">
-                              Enter task title
-                            </IonLabel>
-                            <IonInput
-                              type="text"
-                              placeholder="Do Stuff"
-                              name="title"
-                              value={newTask.title}
-                              onIonChange={handleChange}
-                            />
-                            <IonLabel position="stacked">Point Value</IonLabel>
-                            <IonInput
-                              type="text"
-                              placeholder="2000"
-                              name="pointValue"
-                              value={newTask.pointValue}
-                              onIonChange={handleChange}
-                            />
-                            <IonLabel position="stacked">Assigned To</IonLabel>
-                            <IonInput
-                              type="text"
-                              placeholder="Jimmy"
-                              name="assignedTo"
-                              value={newTask.assignedTo}
-                              onIonChange={handleChange}
-                            />
-                          </IonItem>
-                          <IonButton type="submit" expand="block">
-                            Add Task
-                          </IonButton>
-                        </form>
-                      </IonCol>
-                    </IonRow>
-                    <IonRow class="ion-padding ion-text-center">
-                      <IonCol size="12">
-                        <IonList className="homeTasklist">
-                          <TaskContext.Consumer>
-                            {({ task }) => {
-                              return (
-                                <div>
-                                  <h2>To Do</h2>
-                                  {task.map((t: any) => {
-                                    if (
-                                      user.roleId === "parent" &&
-                                      t.completed === false
-                                    ) {
-                                      return (
-                                        <IonItemSliding key={t.taskId}>
-                                          <IonItem key={t.taskId} lines="none">
-                                            <IonLabel>
-                                              <span className="labelTitle">
-                                                Task:
-                                                <span className="labelValue">
-                                                  {t.title}
-                                                </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                Points:
-                                                <span className="labelValue">
-                                                  {t.pointValue}
-                                                </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                Assigned To:
-                                                <span className="labelValue">
-                                                  {t.assignedTo}
-                                                </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                Created By:
-                                                <span className="labelValue">
-                                                  <a
-                                                    href={`/users/${t.userId}`}
-                                                  >
-                                                    {user.username}
-                                                  </a>
-                                                </span>
-                                              </span>
-                                            </IonLabel>
-                                            <IonCheckbox
-                                              slot="start"
-                                              onIonChange={isChecked}
-                                              name={`completed`}
-                                              value={t.completed}
-                                              onClick={() =>
-                                                markComplete(`${t.taskId}`)
-                                              }
-                                            ></IonCheckbox>
-                                          </IonItem>
-                                          <IonItemOptions side="end">
-                                            <IonItemOption
-                                              color="tertiary"
-                                              onClick={() =>
-                                                viewEditPage(`${t.taskId}`)
-                                              }
-                                            >
-                                              Edit
-                                            </IonItemOption>
-                                            <IonItemOption
-                                              color="danger"
-                                              onClick={() =>
-                                                removeTask(`${t.taskId}`)
-                                              }
-                                            >
-                                              Delete
-                                            </IonItemOption>
-                                          </IonItemOptions>
-                                        </IonItemSliding>
-                                      );
-                                    } else if (
-                                      user.roleId === "child" &&
-                                      t.completed === false
-                                    ) {
-                                      return (
+                  <TaskContext.Consumer>
+                    {({ task }) => {
+                      if (hasJWT()) {
+                        return (
+                          <IonRow class="ion-padding ion-text-center">
+                            <IonCol size="12">
+                              <IonList className="homeTasklist parent todo">
+                                <h2>To Do</h2>
+                                {task.map((t: any) => {
+                                  if (t.completed === false) {
+                                    return (
+                                      <IonItemSliding key={t.taskId}>
                                         <IonItem key={t.taskId} lines="none">
                                           <IonLabel>
                                             <span className="labelTitle">
@@ -278,7 +212,7 @@ const Tasks: React.FC = (props) => {
                                             <span className="labelTitle">
                                               Points:
                                               <span className="labelValue">
-                                                {t.pointValue}
+                                                {t.pointValue}+
                                               </span>
                                             </span>
                                             <span className="labelTitle">
@@ -306,97 +240,40 @@ const Tasks: React.FC = (props) => {
                                             }
                                           ></IonCheckbox>
                                         </IonItem>
-                                      );
-                                    } else {
-                                      return <p>No Tasks To Do</p>;
-                                    }
-                                  })}
-                                </div>
-                              );
-                            }}
-                          </TaskContext.Consumer>
-                        </IonList>
-                        <IonList className="homeTasklist">
-                          <TaskContext.Consumer>
-                            {({ task }) => {
-                              return (
-                                <div>
-                                  <h2>Complete</h2>
-                                  {task.map((t: any) => {
-                                    if (
-                                      user.roleId === "parent" &&
-                                      t.completed === true
-                                    ) {
-                                      return (
-                                        <IonItemSliding key={t.taskId}>
-                                          <IonItem lines="none">
-                                            <IonLabel>
-                                              <span className="labelTitle">
-                                                Task:
-                                                <span className="labelValue">
-                                                  {t.title}
-                                                </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                Points:
-                                                <span className="labelValue">
-                                                  {t.pointValue}
-                                                </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                Assigned To:
-                                                <span className="labelValue">
-                                                  {t.assignedTo}
-                                                </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                Created By:
-                                                <span className="labelValue">
-                                                  <a
-                                                    href={`/users/${t.userId}`}
-                                                  >
-                                                    {user.username}
-                                                  </a>
-                                                </span>
-                                              </span>
-                                            </IonLabel>
-                                            <IonCheckbox
-                                              slot="start"
-                                              onIonChange={isChecked}
-                                              checked={updateTask.completed}
-                                              name={`completed`}
-                                              value={t.completed}
-                                              onClick={() =>
-                                                markComplete(`${t.taskId}`)
-                                              }
-                                            ></IonCheckbox>
-                                          </IonItem>
-                                          <IonItemOptions side="end">
-                                            <IonItemOption
-                                              color="tertiary"
-                                              onClick={() =>
-                                                viewEditPage(`${t.taskId}`)
-                                              }
-                                            >
-                                              Edit
-                                            </IonItemOption>
-                                            <IonItemOption
-                                              color="danger"
-                                              onClick={() =>
-                                                removeTask(`${t.taskId}`)
-                                              }
-                                            >
-                                              Delete
-                                            </IonItemOption>
-                                          </IonItemOptions>
-                                        </IonItemSliding>
-                                      );
-                                    } else if (
-                                      user.roleId === "child" &&
-                                      t.completed === true
-                                    ) {
-                                      return (
-                                        <IonItem lines="none" key={t.taskId}>
+                                        <IonItemOptions side="end">
+                                          <IonItemOption
+                                            color="tertiary"
+                                            onClick={() =>
+                                              viewEditPage(`${t.taskId}`)
+                                            }
+                                          >
+                                            Edit
+                                          </IonItemOption>
+                                          <IonItemOption
+                                            color="danger"
+                                            onClick={() =>
+                                              removeTask(`${t.taskId}`)
+                                            }
+                                          >
+                                            Delete
+                                          </IonItemOption>
+                                        </IonItemOptions>
+                                      </IonItemSliding>
+                                    );
+                                  } else {
+                                    return <p></p>;
+                                  }
+                                })}
+                              </IonList>
+                            </IonCol>
+                            <IonCol size="12">
+                              <IonList className="homeTasklist parent done">
+                                <h2>Done</h2>
+                                {task.map((t: any) => {
+                                  if (t.completed === true) {
+                                    return (
+                                      <IonItemSliding key={t.taskId}>
+                                        <IonItem key={t.taskId} lines="none">
                                           <IonLabel>
                                             <span className="labelTitle">
                                               Task:
@@ -436,25 +313,146 @@ const Tasks: React.FC = (props) => {
                                             }
                                           ></IonCheckbox>
                                         </IonItem>
-                                      );
-                                    } else {
-                                      return <div>No Tasks Complete</div>;
-                                    }
-                                  })}
-                                </div>
-                              );
-                            }}
-                          </TaskContext.Consumer>
-                        </IonList>
-                      </IonCol>
-                    </IonRow>
-                  </div>
-                );
-              } else {
-                return (
-                  <div>
-                    <p>Please sign in to view tasks.</p>
-                  </div>
+                                        <IonItemOptions side="end">
+                                          <IonItemOption
+                                            color="tertiary"
+                                            onClick={() =>
+                                              viewEditPage(`${t.taskId}`)
+                                            }
+                                          >
+                                            Edit
+                                          </IonItemOption>
+                                          <IonItemOption
+                                            color="danger"
+                                            onClick={() =>
+                                              removeTask(`${t.taskId}`)
+                                            }
+                                          >
+                                            Delete
+                                          </IonItemOption>
+                                        </IonItemOptions>
+                                      </IonItemSliding>
+                                    );
+                                  } else {
+                                    return <p></p>;
+                                  }
+                                })}
+                              </IonList>
+                            </IonCol>
+                          </IonRow>
+                        );
+                      } else if (!hasJWT()) {
+                        return (
+                          <IonRow class="ion-padding ion-text-center">
+                            <IonCol size="12">
+                              <IonList className="homeTasklist parent todo">
+                                <h2>To Do</h2>
+                                {task.map((t: any) => {
+                                  if (t.completed === false) {
+                                    return (
+                                      <IonItem key={t.taskId} lines="none">
+                                        <IonLabel>
+                                          <span className="labelTitle">
+                                            Task:
+                                            <span className="labelValue">
+                                              {t.title}
+                                            </span>
+                                          </span>
+                                          <span className="labelTitle">
+                                            Points:
+                                            <span className="labelValue">
+                                              {t.pointValue}
+                                            </span>
+                                          </span>
+                                          <span className="labelTitle">
+                                            Assigned To:
+                                            <span className="labelValue">
+                                              {t.assignedTo}
+                                            </span>
+                                          </span>
+                                          <span className="labelTitle">
+                                            Created By:
+                                            <span className="labelValue">
+                                              <a href={`/users/${t.userId}`}>
+                                                {user.username}
+                                              </a>
+                                            </span>
+                                          </span>
+                                        </IonLabel>
+                                        <IonCheckbox
+                                          slot="start"
+                                          onIonChange={isChecked}
+                                          name={`completed`}
+                                          value={t.completed}
+                                          onClick={() =>
+                                            markComplete(`${t.taskId}`)
+                                          }
+                                        ></IonCheckbox>
+                                      </IonItem>
+                                    );
+                                  } else {
+                                    return <p></p>;
+                                  }
+                                })}
+                              </IonList>
+                            </IonCol>
+                            <IonCol size="12">
+                              <IonList className="homeTasklist parent done">
+                                <h2>Done</h2>
+                                {task.map((t: any) => {
+                                  if (t.completed === true) {
+                                    return (
+                                      <IonItem key={t.taskId} lines="none">
+                                        <IonLabel>
+                                          <span className="labelTitle">
+                                            Task:
+                                            <span className="labelValue">
+                                              {t.title}
+                                            </span>
+                                          </span>
+                                          <span className="labelTitle">
+                                            Points:
+                                            <span className="labelValue">
+                                              {t.pointValue}
+                                            </span>
+                                          </span>
+                                          <span className="labelTitle">
+                                            Assigned To:
+                                            <span className="labelValue">
+                                              {t.assignedTo}
+                                            </span>
+                                          </span>
+                                          <span className="labelTitle">
+                                            Created By:
+                                            <span className="labelValue">
+                                              <a href={`/users/${t.userId}`}>
+                                                {user.username}
+                                              </a>
+                                            </span>
+                                          </span>
+                                        </IonLabel>
+                                        <IonCheckbox
+                                          slot="start"
+                                          onIonChange={isChecked}
+                                          name={`completed`}
+                                          value={t.completed}
+                                          onClick={() =>
+                                            markComplete(`${t.taskId}`)
+                                          }
+                                        ></IonCheckbox>
+                                      </IonItem>
+                                    );
+                                  } else {
+                                    return <p></p>;
+                                  }
+                                })}
+                              </IonList>
+                            </IonCol>
+                          </IonRow>
+                        );
+                      }
+                    }}
+                  </TaskContext.Consumer>
                 );
               }
             }}

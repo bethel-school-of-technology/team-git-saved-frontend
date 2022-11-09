@@ -52,7 +52,7 @@ const SignUp: React.FC = () => {
     createUser(newUser)
       .then(() => {
         navigate.push("/signin");
-        createHousehold(newUser.householdName);
+        createHousehold({name: newUser.householdName});
       })
       .catch((error) => {
         console.log(error);

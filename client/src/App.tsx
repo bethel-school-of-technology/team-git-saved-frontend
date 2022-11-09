@@ -44,6 +44,7 @@ import { UserProvider } from "./contexts/UserProvider";
 import EditProfile from "./components/EditProfile";
 import Profile from "./pages/Profile";
 import { RewardsProvider } from "./contexts/RewardsProvider";
+import { HouseholdProvider } from "./contexts/HouseholdProvider";
 
 import EditReward from "./components/EditReward";
 
@@ -84,7 +85,9 @@ const App: React.FC = () => (
             <MeetTheDevs />
           </Route>
           <Route path="/signup">
-            <SignUp />
+            <HouseholdProvider>
+              <SignUp />
+            </HouseholdProvider>
           </Route>
           <Route path="/signin">
             <SignIn />

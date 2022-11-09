@@ -26,6 +26,7 @@ const SignIn: React.FC = () => {
     signInUser(username, password)
       .then(() => {
         history.push("/tasks");
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);

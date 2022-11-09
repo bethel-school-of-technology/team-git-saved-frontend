@@ -10,6 +10,11 @@ div {
   color: rgb(0, 0, 0);
 }
 
+body {
+  font-size: 18px;
+  line-height: 24px;
+}
+
 ion-content {
   --background: rgb(209, 245, 242);
 }

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import HouseholdContext from "./HouseholdContext";
 
-export const UserProvider = (props) => {
+export const HouseholdProvider = (props) => {
   const baseUrl = "http://localhost:3001/household/";
 
   const [household, setHousehold] = useState([]);

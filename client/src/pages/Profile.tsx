@@ -101,7 +101,7 @@ const Profile: React.FC = () => {
           {/* Start Parent Profile Content */}
           <UserContext.Consumer>
             { ({ user }) => 
-            { if (hasJWT() && user.roleId === "parent"){
+            { if (hasJWT() ){
               return (
                 <div>
               <IonRow class="ion-padding ion-text-center">
@@ -175,7 +175,7 @@ const Profile: React.FC = () => {
                 </IonRow>
               </div>
               )
-             } else if (user.roleId === "child") {
+             } else if (!hasJWT()) {
               return (
                 <div>
                    <IonRow class="ion-padding">
