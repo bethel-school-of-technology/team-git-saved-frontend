@@ -48,7 +48,7 @@ const EditTask: React.FC = (props) => {
     event.preventDefault();
     editTask(updateTask, updateTask.taskId)
       .then(() => {
-        history.push("/home");
+        history.push("/task");
       })
       .catch((error: any) => {
         history.push("/signin");
