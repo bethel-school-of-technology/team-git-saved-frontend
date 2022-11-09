@@ -92,11 +92,17 @@ const MeetTheDevs: React.FC = () => {
             </IonCol>
             <IonCol size-lg="4" size-xs="12" class="ion-text-center">
               <IonThumbnail>
-                <img alt="dev profile" src="../../assets/de.jpg" />
+                <img alt="dev profile" src="../../assets/josiahvargas.jpg" />
               </IonThumbnail>
               <h3>Josiah Vargas</h3>
               <h4>Project Role: Backend</h4>
-              <p>Dev Bio</p>
+              <p>
+                Josiah is thrilled to be a newcomer to the technology space. He
+                enjoys chess and sleeping and also is a practicing blue belt in
+                the 10th Planet Jiu-Jitsu system. He is looking forward to a
+                bright future of his own and those going through the Bethel
+                College program.
+              </p>
             </IonCol>
           </IonRow>
         </IonGrid>
