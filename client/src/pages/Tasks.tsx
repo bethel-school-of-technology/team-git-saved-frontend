@@ -212,7 +212,7 @@ const Tasks: React.FC = (props) => {
                                             <span className="labelTitle">
                                               Points:
                                               <span className="labelValue">
-                                                {t.pointValue}+
+                                                {t.pointValue}
                                               </span>
                                             </span>
                                             <span className="labelTitle">
