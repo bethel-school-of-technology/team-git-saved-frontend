@@ -32,12 +32,11 @@ export const UserProvider = (props) => {
   }
 
   // Get User Posts
-  function getUserTasks(id){
-    return axios.get(`${baseUrl}${id}`)
-        .then(response => {
-            return new Promise(resolve => resolve(response.data))
-        })
-}
+  function getUserTasks(id) {
+    return axios.get(`${baseUrl}/tasks/${id}`).then((response) => {
+      return new Promise((resolve) => resolve(response.data));
+    });
+  }
 
   function signInUser(username, password) {
     let user = { username, password };
@@ -55,7 +54,7 @@ export const UserProvider = (props) => {
     };
 
     return axios
-      .get(`${baseUrl}/profile/${id}`, user, { headers: myHeaders })
+      .get(`${baseUrl}${id}`, user, { headers: myHeaders })
       .then((response) => {
         return new Promise((resolve) => resolve(response.data));
       });
@@ -76,9 +75,7 @@ export const UserProvider = (props) => {
 
   return (
     <UserContext.Provider
-    
       value={{
-        username,
         user,
         getOneUser,
         createUser,

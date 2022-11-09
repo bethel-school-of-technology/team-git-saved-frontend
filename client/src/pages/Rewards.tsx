@@ -21,7 +21,6 @@ import RewardsContext from "../contexts/RewardsContext";
 import "./App.css";
 
 const Rewards: React.FC = () => {
-
   let [newRewards, setNewRewards] = useState({
     title: "",
     pointValue: "",
@@ -69,9 +68,8 @@ const Rewards: React.FC = () => {
         <IonGrid>
           <IonRow>
             <IonCol size="12">
-              
               <h1>Add Reward</h1>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="rewardSubmit">
                 <IonItem>
                   <IonLabel position="stacked">Title</IonLabel>
                   <IonInput
@@ -96,39 +94,39 @@ const Rewards: React.FC = () => {
               </form>
             </IonCol>
           </IonRow>
-          
-          <RewardsContext.Consumer>
-                  {({ reward }) => {
-                    return (
-                      <IonRow>
-                        {reward.map((r: any) => {
-                          return (
-                            <IonCol size-lg="3" size-xs="12">
-              
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>{r.title}</IonCardTitle>
-                  <IonCardSubtitle>{r.pointValue}</IonCardSubtitle>
-                </IonCardHeader>
 
-                <IonButton  color="tertiary"
-                                
-                                onClick={() => vieweditRewards(`${r.rewardId}`)}>Edit</IonButton>
-                <IonButton   
-                color="danger"
-                                
-                                onClick={() => removeRewards(`${r.rewardId}`)}>Delete</IonButton>
-              </IonCard>
-            </IonCol>
-                          );
-                        })}
-                      </IonRow>
+          <RewardsContext.Consumer>
+            {({ reward }) => {
+              return (
+                <IonRow>
+                  {reward.map((r: any) => {
+                    return (
+                      <IonCol size-lg="3" size-xs="12" class="ion-text-center">
+                        <IonCard className="ion-padding">
+                          <IonCardHeader>
+                            <IonCardTitle>{r.title}</IonCardTitle>
+                            <IonCardSubtitle>{r.pointValue}</IonCardSubtitle>
+                          </IonCardHeader>
+                          <IonButton
+                            color="tertiary"
+                            onClick={() => vieweditRewards(`${r.rewardId}`)}
+                          >
+                            Edit
+                          </IonButton>
+                          <IonButton
+                            color="danger"
+                            onClick={() => removeRewards(`${r.rewardId}`)}
+                          >
+                            Delete
+                          </IonButton>
+                        </IonCard>
+                      </IonCol>
                     );
-                  }}
-                </RewardsContext.Consumer>
-            
-           
-          
+                  })}
+                </IonRow>
+              );
+            }}
+          </RewardsContext.Consumer>
         </IonGrid>
       </IonContent>
       <Footer />

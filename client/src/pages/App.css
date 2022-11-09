@@ -1,7 +1,18 @@
 body,
 h1,
-h2 {
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div {
   color: rgb(0, 0, 0);
+}
+
+body {
+  font-size: 18px;
+  line-height: 24px;
 }
 
 ion-content {
@@ -41,20 +52,38 @@ Task Page Styles
 
 /* Task Form */
 
-.taskSubmit ion-item {
+.taskSubmit ion-item,
+.dissSubmit ion-item,
+.rewardSubmit ion-item {
   --background: rgb(253, 248, 232);
   color: rgb(0, 0, 0);
 }
 
-.taskSubmit ion-item ion-input {
+.taskSubmit ion-item ion-input,
+.dissSubmit ion-item ion-input,
+.rewardSubmit ion-item ion-input {
   --border-bottom: 1px solid black;
   --padding-top: 25px;
 }
 
-.taskSubmit ion-button {
+.taskSubmit ion-button,
+.dissSubmit ion-button,
+.rewardSubmit ion-button {
   --background: rgb(8, 74, 87);
 }
 
+.dissContent.list-md {
+  background: none;
+  color: rgb(255, 255, 255);
+}
+
+ion-card {
+  --background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+ion-card-title {
+  color: rgb(0, 0, 0);
+}
 /* Task List */
 
 ion-list.homeTasklist {

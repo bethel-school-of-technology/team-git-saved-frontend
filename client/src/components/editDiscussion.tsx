@@ -1,7 +1,16 @@
-import { IonButton, IonContent, IonGrid, IonInput, IonItem, IonLabel, IonPage } from '@ionic/react';
-import React, { useContext, useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import DiscussionContext from '../contexts/DiscussionContext';
+import {
+  IonButton,
+  IonContent,
+  IonGrid,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonPage,
+} from "@ionic/react";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory, useParams } from "react-router-dom";
+import DiscussionContext from "../contexts/DiscussionContext";
+import Header from "./Header";
 
 const EditDiscussion: React.FC = (props) => {
   let { id } = useParams<{ id: string }>();
@@ -21,8 +30,7 @@ const EditDiscussion: React.FC = (props) => {
   let [changePost, setChangePost] = useState({
     discussionId: discussionId,
     headline: headline,
-    content: content
-  
+    content: content,
   });
 
   console.log(changePost.discussionId);
@@ -45,35 +53,36 @@ const EditDiscussion: React.FC = (props) => {
       });
   }
   return (
-    <IonContent fullscreen>
-      <IonGrid>
-       
-            <form onSubmit={handleSubmit}>
-              <IonItem>
-          <IonLabel position="stacked">Discussion Headline</IonLabel>
-                <IonInput
-                  type="text"
-                  name="headline"
-                  value={changePost.headline}
-                  onIonChange={handleChange}
-                />
-          <IonLabel position="stacked">Content</IonLabel>
-                <IonInput
-                  type="text"
-            placeholder="Start Post Here"
-            name="content"
-                  value={changePost.content}
-                  onIonChange={handleChange}
-                />
-              </IonItem>
-              <IonButton type="submit" expand="block">
-          Confirm Edit
-              </IonButton>
-            </form>
-     
-      </IonGrid>
-    </IonContent>
-    )
+    <IonPage>
+      <Header />
+      <IonContent fullscreen>
+        <IonGrid>
+          <form onSubmit={handleSubmit} className="dissSubmit">
+            <IonItem>
+              <IonLabel position="stacked">Discussion Headline</IonLabel>
+              <IonInput
+                type="text"
+                name="headline"
+                value={changePost.headline}
+                onIonChange={handleChange}
+              />
+              <IonLabel position="stacked">Content</IonLabel>
+              <IonInput
+                type="text"
+                placeholder="Start Post Here"
+                name="content"
+                value={changePost.content}
+                onIonChange={handleChange}
+              />
+            </IonItem>
+            <IonButton type="submit" expand="block">
+              Confirm Edit
+            </IonButton>
+          </form>
+        </IonGrid>
+      </IonContent>
+    </IonPage>
+  );
 };
 
-export default EditDiscussion
+export default EditDiscussion;

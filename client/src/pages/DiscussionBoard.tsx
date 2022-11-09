@@ -9,14 +9,18 @@ import {
   IonInput,
   IonItem,
   IonList,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCardContent,
 } from "@ionic/react";
 import { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
-import UserContext from "../contexts/UserContext";
-import { postDialog } from "../hooks/discussiondialog";
+// import UserContext from "../contexts/UserContext";
 
 const DiscussionBoard: React.FC = () => {
   let [newPost, setNewPost] = useState({
@@ -68,12 +72,12 @@ const DiscussionBoard: React.FC = () => {
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
               <h1>Discussion Board</h1>
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} className="dissSubmit">
                 <IonItem>
                   <IonLabel position="stacked">Discussion Headline</IonLabel>
                   <IonInput
                     type="text"
-                    placeholder="headline"
+                    placeholder="Headline"
                     name="headline"
                     value={newPost.headline}
                     onIonChange={handleChange}
@@ -93,36 +97,39 @@ const DiscussionBoard: React.FC = () => {
               </form>
             </IonCol>
           </IonRow>
-          <IonRow class="ion-padding ion-text-center">
+          <IonRow class="ion-padding">
             <IonCol size="12">
-              <IonList>
+              <IonList className="dissContent">
                 <DiscussionContext.Consumer>
                   {({ discussion }) => {
                     return (
                       <div>
                         {discussion.map((p: any) => {
                           return (
-                            <IonItem key={p.discussionId}>
-                              <p>{p.headline}</p>
-                              <br></br><br></br>
-                              <p>{p.content}</p>
-                              <IonButton
-                                color="danger"
-                                onClick= {() =>
-                                  viewEditDiscussion(`${p.discussionId}`)
-                                }
-                              >
-                                Edit Post
-                              </IonButton>
-                              <IonButton
-                                color="danger"
-                                onClick= {() =>
-                                  removeDiscussion(`${p.discussionId}`)
-                                }
-                              >
-                                Delete Post
-                              </IonButton>
-                            </IonItem>
+                            <IonCard key={p.discussionId}>
+                              <IonCardHeader>
+                                <IonCardSubtitle>{p.headline}</IonCardSubtitle>
+                                <IonCardTitle>{p.content}</IonCardTitle>
+                              </IonCardHeader>
+                              <IonCardContent>
+                                <IonButton
+                                  color="tertiary"
+                                  onClick={() =>
+                                    viewEditDiscussion(`${p.discussionId}`)
+                                  }
+                                >
+                                  Edit Post
+                                </IonButton>
+                                <IonButton
+                                  color="danger"
+                                  onClick={() =>
+                                    removeDiscussion(`${p.discussionId}`)
+                                  }
+                                >
+                                  Delete Post
+                                </IonButton>
+                              </IonCardContent>
+                            </IonCard>
                           );
                         })}
                       </div>

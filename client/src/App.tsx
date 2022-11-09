@@ -3,7 +3,6 @@ import {
   IonApp,
   IonContent,
   IonHeader,
-  IonIcon,
   IonMenu,
   IonRouterOutlet,
   IonTitle,
@@ -45,11 +44,12 @@ import { UserProvider } from "./contexts/UserProvider";
 import EditProfile from "./components/EditProfile";
 import Profile from "./pages/Profile";
 import { RewardsProvider } from "./contexts/RewardsProvider";
+import { HouseholdProvider } from "./contexts/HouseholdProvider";
 
 import EditReward from "./components/EditReward";
 
 import AppMenu from "./components/AppMenu";
-
+import MeetTheDevs from "./pages/MeetTheDevs";
 
 setupIonicReact();
 
@@ -60,9 +60,7 @@ const App: React.FC = () => (
         <IonMenu side="end" menuId="first" contentId="main">
           <IonHeader>
             <IonToolbar>
-              <IonTitle>
-                Menu <IonIcon name="menu-outline"></IonIcon>
-              </IonTitle>
+              <IonTitle>Menu</IonTitle>
             </IonToolbar>
           </IonHeader>
           <IonContent>
@@ -83,8 +81,13 @@ const App: React.FC = () => (
           <Route path="/welcome">
             <Welcome />
           </Route>
+          <Route path="/devs">
+            <MeetTheDevs />
+          </Route>
           <Route path="/signup">
-            <SignUp />
+            <HouseholdProvider>
+              <SignUp />
+            </HouseholdProvider>
           </Route>
           <Route path="/signin">
             <SignIn />
