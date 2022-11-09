@@ -100,86 +100,85 @@ const Profile: React.FC = () => {
           </IonRow>
           {/* Start Parent Profile Content */}
           <UserContext.Consumer>
-            {
-            {
-              (hasJWT() && userInfo.roleId === "parent") ?
-                return <IonRow class="ion-padding ion-text-center">
-                    <IonCol size-lg="6" size-xs="12">
-                      <IonRow class="ion-padding">
-                        <IonCol size-lg="6" size-xs="12">
-                          <h2>{userInfo.username}</h2>
-                        </IonCol>
-                        <IonCol size-lg="6" size-xs="12">
-                          <IonButton>Send Reminder</IonButton>
-                          <IonButton color="danger">Edit</IonButton>
-                        </IonCol>
-                      </IonRow>
-                      <IonRow class="ion-padding">
-                        <IonCol size-lg="6" size-xs="12">
-                          <h3>Completed Tasks</h3>
-                          <div className="tasklist">
-                            child 1 has 8 complete out of 20 tasks
-                          </div>
-                        </IonCol>
-                      </IonRow>
+            { ({ user }) => 
+            { if (hasJWT() && user.roleId === "parent"){
+              return (
+                <div>
+              <IonRow class="ion-padding ion-text-center">
+                  <IonCol size-lg="6" size-xs="12">
+                      <IonCol size-lg="6" size-xs="12" class="ion-padding">
+                        <h2>{userInfo.username}</h2>
+                      </IonCol>
+                      <IonCol size-lg="6" size-xs="12">
+                        <IonButton>Send Reminder</IonButton>
+                        <IonButton color="danger">Edit</IonButton>
+                      </IonCol>
+                      <IonCol size-lg="6" size-xs="12" class="ion-padding">
+                        <h3>Completed Tasks</h3>
+                        <div className="tasklist">
+                          child 1 has 8 complete out of 20 tasks
+                        </div>
+                      </IonCol>
+                  </IonCol>
+              <IonCol size-lg="6" size-xs="12" class="ion-text-center">
+                    <IonCol size="12" class="ion-padding">
+                      <IonThumbnail>
+                        <img
+                          alt="placeholder"
+                          src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+                        />
+                      </IonThumbnail>
                     </IonCol>
-                    <IonCol size-lg="6" size-xs="12" class="ion-text-center">
-                      <IonRow class="ion-padding">
-                        <IonCol size="12">
-                          <IonThumbnail>
-                            <img
-                              alt="placeholder"
-                              src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
-                            />
-                          </IonThumbnail>
-                        </IonCol>
-                        <IonCol size="12">
-                          <div>
-                            <span>Age: add me</span>
-                            <span>Household: {userInfo.householdName}</span>
-                            <span>Bio: {userInfo.bio}</span>
-                          </div>
-                        </IonCol>
-                      </IonRow>
-                      <IonRow class="ion-padding">
-                        <IonCol size="12">
-                          <h2>Options</h2>
-                          <div className="options">
-                            <IonList>
-                              <IonItem>
-                                <IonButton
-                                  size="default"
-                                  onClick={() => editProfile(`${userInfo.id}`)}
-                                >
-                                  Edit Profile
-                                </IonButton>
-                              </IonItem>
-                              <IonItem>
-                                <IonButton
-                                  size="default"
-                                  onClick={() =>
-                                    deleteProfile(`${userInfo.id}`)
-                                  }
-                                >
-                                  Delete Profile
-                                </IonButton>
-                              </IonItem>
-                              <IonItem>
-                                <IonButton size="default">Add Child</IonButton>
-                              </IonItem>
-                              <IonItem>
-                                <IonButton size="default">
-                                  Family Discussion
-                                </IonButton>
-                              </IonItem>
-                            </IonList>
-                          </div>
-                        </IonCol>
-                      </IonRow>
+                    <IonCol size="12">
+                      <div>
+                        <span>Age: add me</span>
+                        <span>Household: {userInfo.householdName}</span>
+                        <span>Bio: {userInfo.bio}</span>
+                      </div>
                     </IonCol>
-                  </IonRow>
-               : (user.roleId === "child") ?
-                  <IonRow class="ion-padding">
+                  </IonCol>
+                </IonRow>
+                <IonRow class="ion-padding">
+                  <IonCol size="12">
+                    <h2>Options</h2>
+                    <div className="options">
+                      <IonList>
+                        <IonItem>
+                          <IonButton
+                            size="default"
+                            onClick={() => editProfile(`${userInfo.id}`)}
+                          >
+                            Edit Profile
+                          </IonButton>
+                        </IonItem>
+                        <IonItem>
+                          <IonButton
+                            size="default"
+                            onClick={() =>
+                              deleteProfile(`${userInfo.id}`)
+                            }
+                          >
+                            Delete Profile
+                          </IonButton>
+                        </IonItem>
+                        <IonItem>
+                          <IonButton size="default">Add Child</IonButton>
+                        </IonItem>
+                        <IonItem>
+                          <IonButton size="default">
+                            Family Discussion
+                          </IonButton>
+                        </IonItem>
+                      </IonList>
+                    </div>
+                  </IonCol>
+                </IonRow>
+              </div>
+              )
+             } else if (user.roleId === "child") {
+              return (
+                <div>
+                   <IonRow class="ion-padding">
                     <IonCol size-lg="6" size-xs="12">
                       <IonRow class="ion-padding">
                         <IonCol size-lg="6" size-xs="12">
@@ -261,7 +260,13 @@ const Profile: React.FC = () => {
                     </IonCol>
                     {/* End Progess Bar */}
                   </IonRow>
-            }}
+              </div>
+              )
+             } else {
+              
+             }
+            }
+            }
           </UserContext.Consumer>
           {/* End Parent Profile Content */}
           {/* Start Child Profile Content */}
