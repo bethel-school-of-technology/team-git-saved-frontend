@@ -175,3 +175,15 @@ ion-list.homeTasklist ion-checkbox {
 ion-modal ion-header {
   --ion-toolbar-background: white;
 }
+
+/************
+Meet The Devs
+*************/
+
+.thedevs ion-card {
+  padding: 25px;
+}
+
+.thedevs ion-card-content {
+  font-size: 16px;
+}
