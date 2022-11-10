@@ -23,28 +23,6 @@ import UserContext from "../contexts/UserContext";
 import "./Tasks.css";
 
 const Tasks: React.FC = (props) => {
-  /* Start User Info */
-
-  //Use User Context
-  let { user, getUsers } = useContext(UserContext);
-
-  useEffect(() => {
-    async function fetch() {
-      await getUsers().then((user) => setUsers(user));
-    }
-    fetch();
-  }, [getUsers]);
-
-  let { userId, username, roleId } = user;
-
-  const [users, setUsers] = useState({
-    userId: userId,
-    username: username,
-    roleId: roleId,
-  });
-
-  /* End User Info */
-
   // Create Task Functions
 
   let [newTask, setNewTask] = useState({
@@ -56,10 +34,56 @@ const Tasks: React.FC = (props) => {
   });
 
   //use the TaskContext
-  let { deleteTask, addTask, editTask } = useContext(TaskContext);
+  let { task, deleteTask, addTask, editTask } = useContext(TaskContext);
 
   //set history variable to useHistory for Navigation
   let history = useHistory();
+
+  /* Start User Info */
+  //Check if logged in
+  function hasJWT() {
+    let flag = false;
+    //check user has JWT token
+    localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
+    return flag;
+  }
+  function parseJwt(token) {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    return JSON.parse(window.atob(base64));
+  }
+
+  //get current user
+  function getUserFromToken() {
+    let user = localStorage.getItem("myUserToken");
+    let userToken = parseJwt(user);
+    return userToken.userId;
+  }
+
+  console.log(getUserFromToken());
+
+  //Use User Context
+  let { user, getOneUser } = useContext(UserContext);
+
+  useEffect(() => {
+    async function fetch() {
+      await getOneUser(getUserFromToken()).then((user) => setUsers(user));
+    }
+    fetch();
+  },);
+
+  let { userId, username, roleId } = user;
+
+  const [users, setUsers] = useState({
+    userId: userId,
+    username: username,
+    roleId: roleId,
+  });
+
+  /* End User Info */
 
   //Listen for the input value of the task creation form
   function handleChange(event: any) {
@@ -122,16 +146,6 @@ const Tasks: React.FC = (props) => {
         history.push("/signin");
         console.log(error);
       });
-  }
-
-  //Check if logged in
-  function hasJWT() {
-    let flag = false;
-
-    //check user has JWT token
-    localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
-
-    return flag;
   }
 
   return (
