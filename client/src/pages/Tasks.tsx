@@ -197,11 +197,11 @@ const Tasks: React.FC = (props) => {
                             <IonCol size="12">
                               <IonList className="homeTasklist parent todo">
                                 <h2>To Do</h2>
-                                {task.map((t: any) => {
+                                {task.map((t: any, index) => {
                                   if (t.completed === false) {
                                     return (
-                                      <IonItemSliding key={t.taskId}>
-                                        <IonItem key={t.taskId} lines="none">
+                                      <IonItemSliding key={index}>
+                                        <IonItem lines="none">
                                           <IonLabel>
                                             <span className="labelTitle">
                                               Task:
@@ -225,7 +225,7 @@ const Tasks: React.FC = (props) => {
                                               Created By:
                                               <span className="labelValue">
                                                 <a href={`/users/${t.userId}`}>
-                                                  {user.username}
+                                                  {users.username}
                                                 </a>
                                               </span>
                                             </span>
@@ -269,11 +269,11 @@ const Tasks: React.FC = (props) => {
                             <IonCol size="12">
                               <IonList className="homeTasklist parent done">
                                 <h2>Done</h2>
-                                {task.map((t: any) => {
+                                {task.map((t: any, index) => {
                                   if (t.completed === true) {
                                     return (
-                                      <IonItemSliding key={t.taskId}>
-                                        <IonItem key={t.taskId} lines="none">
+                                      <IonItemSliding key={index}>
+                                        <IonItem lines="none">
                                           <IonLabel>
                                             <span className="labelTitle">
                                               Task:
@@ -297,7 +297,7 @@ const Tasks: React.FC = (props) => {
                                               Created By:
                                               <span className="labelValue">
                                                 <a href={`/users/${t.userId}`}>
-                                                  {user.username}
+                                                  {users.username}
                                                 </a>
                                               </span>
                                             </span>
@@ -347,10 +347,10 @@ const Tasks: React.FC = (props) => {
                             <IonCol size="12">
                               <IonList className="homeTasklist parent todo">
                                 <h2>To Do</h2>
-                                {task.map((t: any) => {
+                                {task.map((t: any, index) => {
                                   if (t.completed === false) {
                                     return (
-                                      <IonItem key={t.taskId} lines="none">
+                                      <IonItem key={index} lines="none">
                                         <IonLabel>
                                           <span className="labelTitle">
                                             Task:
@@ -374,7 +374,7 @@ const Tasks: React.FC = (props) => {
                                             Created By:
                                             <span className="labelValue">
                                               <a href={`/users/${t.userId}`}>
-                                                {user.username}
+                                                {users.username}
                                               </a>
                                             </span>
                                           </span>
@@ -399,10 +399,10 @@ const Tasks: React.FC = (props) => {
                             <IonCol size="12">
                               <IonList className="homeTasklist parent done">
                                 <h2>Done</h2>
-                                {task.map((t: any) => {
+                                {task.map((t: any, index) => {
                                   if (t.completed === true) {
                                     return (
-                                      <IonItem key={t.taskId} lines="none">
+                                      <IonItem key={index} lines="none">
                                         <IonLabel>
                                           <span className="labelTitle">
                                             Task:
@@ -426,7 +426,7 @@ const Tasks: React.FC = (props) => {
                                             Created By:
                                             <span className="labelValue">
                                               <a href={`/users/${t.userId}`}>
-                                                {user.username}
+                                                {users.username}
                                               </a>
                                             </span>
                                           </span>
