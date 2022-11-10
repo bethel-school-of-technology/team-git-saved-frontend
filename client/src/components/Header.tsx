@@ -14,7 +14,7 @@ interface ContainerProps {}
 const Header: React.FC<ContainerProps> = () => {
   return (
     <IonHeader>
-      <IonToolbar class="ion-text-center">
+      <IonToolbar>
         <IonButtons slot="start">
           <IonBackButton></IonBackButton>
         </IonButtons>
