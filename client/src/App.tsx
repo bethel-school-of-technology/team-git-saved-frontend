@@ -54,84 +54,94 @@ import MeetTheDevs from "./pages/MeetTheDevs";
 setupIonicReact();
 
 const App: React.FC = () => (
-  <UserProvider>
-    <IonApp>
-      <IonReactRouter>
-        <IonMenu side="end" menuId="first" contentId="main">
-          <IonHeader>
-            <IonToolbar>
-              <IonTitle>Menu</IonTitle>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent>
+  <IonApp>
+    <IonReactRouter>
+      <IonMenu side="end" menuId="first" contentId="main">
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Menu</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
+          <UserProvider>
             <AppMenu />
-          </IonContent>
-        </IonMenu>
-        <IonRouterOutlet id="main">
-          <Route exact path="/tasks">
+          </UserProvider>
+        </IonContent>
+      </IonMenu>
+      <IonRouterOutlet id="main">
+        <Route exact path="/tasks">
+          <UserProvider>
             <TaskProvider>
               <Tasks />
             </TaskProvider>
-          </Route>
-          <Route path="/tasks/:id">
-            <TaskProvider>
-              <EditTask />
-            </TaskProvider>
-          </Route>
-          <Route path="/welcome">
-            <Welcome />
-          </Route>
-          <Route path="/devs">
-            <MeetTheDevs />
-          </Route>
-          <Route path="/signup">
-            <HouseholdProvider>
-              <SignUp />
-            </HouseholdProvider>
-          </Route>
-          <Route path="/signin">
-            <SignIn />
-          </Route>
-          <Route path="/users/:userId">
+          </UserProvider>
+        </Route>
+        <Route path="/tasks/:id">
+        <UserProvider>
+          <TaskProvider>
+            <EditTask />
+          </TaskProvider>
+          </UserProvider>
+        </Route>
+        <Route path="/welcome">
+          <Welcome />
+        </Route>
+        <Route path="/devs">
+          <MeetTheDevs />
+        </Route>
+        <Route path="/signup">
+          <HouseholdProvider>
+            <SignUp />
+          </HouseholdProvider>
+        </Route>
+        <Route path="/signin">
+          <SignIn />
+        </Route>
+        <Route path="/users/:userId">
+          <UserProvider>
             <TaskProvider>
               <Profile />
             </TaskProvider>
-          </Route>
-          <Route path="/users/:userId">
-            <EditProfile />
-          </Route>
-          <Route path="/rewards">
-            <RewardsProvider>
-              <Rewards />
-            </RewardsProvider>
-          </Route>
-          <Route path="/rewards/:id">
-            <RewardsProvider>
-              <Rewards />
-            </RewardsProvider>
-          </Route>
-          <Route path="/rewards/:id">
-            <RewardsProvider>
-              <EditReward />
-            </RewardsProvider>
-          </Route>
-          <Route path="/discussion">
-            <DiscussionProvider>
-              <Discussionboard />
-            </DiscussionProvider>
-          </Route>
-          <Route path="/discussion/:id">
-            <DiscussionProvider>
-              <EditDiscussion />
-            </DiscussionProvider>
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/welcome" />
-          </Route>
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </IonApp>
-  </UserProvider>
+          </UserProvider>
+        </Route>
+        <Route path="/users/:userId">
+          <UserProvider>
+            <TaskProvider>
+              <EditProfile />
+            </TaskProvider>
+          </UserProvider>
+        </Route>
+        <Route path="/rewards">
+          <RewardsProvider>
+            <Rewards />
+          </RewardsProvider>
+        </Route>
+        <Route path="/rewards/:id">
+          <RewardsProvider>
+            <Rewards />
+          </RewardsProvider>
+        </Route>
+        <Route path="/rewards/:id">
+          <RewardsProvider>
+            <EditReward />
+          </RewardsProvider>
+        </Route>
+        <Route path="/discussion">
+          <DiscussionProvider>
+            <Discussionboard />
+          </DiscussionProvider>
+        </Route>
+        <Route path="/discussion/:id">
+          <DiscussionProvider>
+            <EditDiscussion />
+          </DiscussionProvider>
+        </Route>
+        <Route exact path="/">
+          <Redirect to="/welcome" />
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
 );
 
 export default App;
