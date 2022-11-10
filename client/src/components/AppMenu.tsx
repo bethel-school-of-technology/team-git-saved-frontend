@@ -45,10 +45,11 @@ const AppMenu: React.FC = () => {
     fetch();
   });
 
-  let { userId, profileImg } = user;
+  let { userId, name, profileImg } = user;
 
   const [users, setUsers] = useState({
     userId: userId,
+    name: name,
     profileImg: profileImg,
   });
 
@@ -61,7 +62,7 @@ const AppMenu: React.FC = () => {
               <IonMenuToggle>
                 <IonItem routerLink={`/profile`}>
                   <IonAvatar slot="end">
-                    <img src={users.profileImg} alt="test" />
+                    <img src={users.profileImg} alt={users.name} />
                   </IonAvatar>
                   <IonLabel>Profile</IonLabel>
                 </IonItem>
