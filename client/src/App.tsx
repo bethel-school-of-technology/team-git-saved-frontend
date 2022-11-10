@@ -94,12 +94,12 @@ const App: React.FC = () => (
           <Route path="/signin">
             <SignIn />
           </Route>
-          <Route path="/users/:userId">
+          <Route path="/profile">
             <TaskProvider>
               <Profile />
             </TaskProvider>
           </Route>
-          <Route path="/users/:userId">
+          <Route path="/users/:id">
             <TaskProvider>
               <EditProfile />
             </TaskProvider>
