@@ -23,19 +23,6 @@ import UserContext from "../contexts/UserContext";
 import "./Tasks.css";
 
 const Tasks: React.FC = (props) => {
-  // Create Task Functions
-
-  let [newTask, setNewTask] = useState({
-    taskId: 0,
-    title: "",
-    pointValue: "",
-    assignedTo: "",
-    completed: false,
-  });
-
-  //use the TaskContext
-  let { task, deleteTask, addTask, editTask } = useContext(TaskContext);
-
   //set history variable to useHistory for Navigation
   let history = useHistory();
 
@@ -58,22 +45,24 @@ const Tasks: React.FC = (props) => {
 
   //get current user
   function getUserFromToken() {
-    let user = localStorage.getItem("myUserToken");
-    let userToken = parseJwt(user);
-    return userToken.userId;
+    if (hasJWT()) {
+      let user = localStorage.getItem("myUserToken");
+      let userToken = parseJwt(user);
+      return userToken.userId;
+    }
   }
 
-  console.log(getUserFromToken());
+  let getSingleUser = getUserFromToken();
 
   //Use User Context
   let { user, getOneUser } = useContext(UserContext);
 
   useEffect(() => {
     async function fetch() {
-      await getOneUser(getUserFromToken()).then((user) => setUsers(user));
+      await getOneUser(getSingleUser).then((user) => setUsers(user));
     }
     fetch();
-  },);
+  }, [getSingleUser, getOneUser]);
 
   let { userId, username, roleId } = user;
 
@@ -84,6 +73,19 @@ const Tasks: React.FC = (props) => {
   });
 
   /* End User Info */
+
+  // Create Task Functions
+
+  let [newTask, setNewTask] = useState({
+    taskId: 0,
+    title: "",
+    pointValue: "",
+    assignedTo: "",
+    completed: false,
+  });
+
+  //use the TaskContext
+  let { deleteTask, addTask, editTask } = useContext(TaskContext);
 
   //Listen for the input value of the task creation form
   function handleChange(event: any) {
@@ -101,8 +103,6 @@ const Tasks: React.FC = (props) => {
     });
   }
 
-  console.log(newTask);
-
   //Edit Task Functions
   let [updateTask, setUpdateTask] = useState({
     completed: true,
@@ -117,17 +117,17 @@ const Tasks: React.FC = (props) => {
     });
   }
 
-  function isChecked(event: any) {
+  function isChecked(event: any, taskId) {
     //Create Variable to save checkbox selection
     let { checked } = event.target;
-
-    console.log("checked " + checked);
-
+    //console.log("checked " + checked);
     //update the state of completed value
     setUpdateTask((updateTask) => ({
       ...updateTask,
       completed: checked,
     }));
+
+    markComplete(taskId);
   }
 
   function viewEditPage(taskId: any) {
@@ -215,7 +215,7 @@ const Tasks: React.FC = (props) => {
                                   if (t.completed === false) {
                                     return (
                                       <IonItemSliding key={index}>
-                                        <IonItem lines="none">
+                                        <IonItem key={index} lines="none">
                                           <IonLabel>
                                             <span className="labelTitle">
                                               Task:
@@ -246,12 +246,11 @@ const Tasks: React.FC = (props) => {
                                           </IonLabel>
                                           <IonCheckbox
                                             slot="start"
-                                            onIonChange={isChecked}
-                                            name={`completed`}
-                                            value={t.completed}
-                                            onClick={() =>
-                                              markComplete(`${t.taskId}`)
+                                            onIonChange={(e) =>
+                                              isChecked(e, `${t.taskId}`)
                                             }
+                                            name={`completed`}
+                                            value={updateTask.completed}
                                           ></IonCheckbox>
                                         </IonItem>
                                         <IonItemOptions side="end">
@@ -287,7 +286,7 @@ const Tasks: React.FC = (props) => {
                                   if (t.completed === true) {
                                     return (
                                       <IonItemSliding key={index}>
-                                        <IonItem lines="none">
+                                        <IonItem key={index} lines="none">
                                           <IonLabel>
                                             <span className="labelTitle">
                                               Task:
@@ -318,13 +317,12 @@ const Tasks: React.FC = (props) => {
                                           </IonLabel>
                                           <IonCheckbox
                                             slot="start"
-                                            onIonChange={isChecked}
-                                            checked={updateTask.completed}
-                                            name={`completed`}
-                                            value={t.completed}
-                                            onClick={() =>
-                                              markComplete(`${t.taskId}`)
+                                            onIonChange={(e) =>
+                                              isChecked(e, `${t.taskId}`)
                                             }
+                                            checked={t.completed}
+                                            name={`completed`}
+                                            value={updateTask.completed}
                                           ></IonCheckbox>
                                         </IonItem>
                                         <IonItemOptions side="end">
@@ -395,12 +393,11 @@ const Tasks: React.FC = (props) => {
                                         </IonLabel>
                                         <IonCheckbox
                                           slot="start"
-                                          onIonChange={isChecked}
-                                          name={`completed`}
-                                          value={t.completed}
-                                          onClick={() =>
-                                            markComplete(`${t.taskId}`)
+                                          onIonChange={(e) =>
+                                            isChecked(e, `${t.taskId}`)
                                           }
+                                          name={`completed`}
+                                          value={updateTask.completed}
                                         ></IonCheckbox>
                                       </IonItem>
                                     );
@@ -447,12 +444,12 @@ const Tasks: React.FC = (props) => {
                                         </IonLabel>
                                         <IonCheckbox
                                           slot="start"
-                                          onIonChange={isChecked}
-                                          name={`completed`}
-                                          value={t.completed}
-                                          onClick={() =>
-                                            markComplete(`${t.taskId}`)
+                                          onIonChange={(e) =>
+                                            isChecked(e, `${t.taskId}`)
                                           }
+                                          checked={t.completed}
+                                          name={`completed`}
+                                          value={updateTask.completed}
                                         ></IonCheckbox>
                                       </IonItem>
                                     );
