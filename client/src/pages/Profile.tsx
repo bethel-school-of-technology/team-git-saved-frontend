@@ -19,11 +19,13 @@ import Header from "../components/Header";
 
 import UserContext from "../contexts/UserContext";
 import TaskContext from "../contexts/TaskContext";
+import RewardsContext from "../contexts/RewardsContext";
 import { IonCard } from "@ionic/react";
 import { IonCardHeader } from "@ionic/react";
 import { IonCardTitle } from "@ionic/react";
 import { IonCardSubtitle } from "@ionic/react";
 import { IonCardContent } from "@ionic/react";
+import { IonInput } from "@ionic/react";
 
 const Profile: React.FC = () => {
   //set history variable to useHistory for Navigation
@@ -184,7 +186,10 @@ const Profile: React.FC = () => {
                                           taskCreated,
                                           "M/dd/yy"
                                         );
-                                        if (t.completed === false) {
+                                        if (
+                                          t.completed === false &&
+                                          userInfo.userId === t.userId
+                                        ) {
                                           return (
                                             <IonItem key={index} lines="none">
                                               <IonLabel>
@@ -239,7 +244,10 @@ const Profile: React.FC = () => {
                                           taskCreated,
                                           "M/dd/yy"
                                         );
-                                        if (t.completed === true) {
+                                        if (
+                                          t.completed === true &&
+                                          userInfo.userId === t.userId
+                                        ) {
                                           return (
                                             <IonItem key={index} lines="none">
                                               <IonLabel>
@@ -295,10 +303,17 @@ const Profile: React.FC = () => {
                         <IonRow class="ion-padding ion-text-center profileCard">
                           <IonCard>
                             <IonThumbnail>
-                              <img
-                                alt={userInfo.name}
-                                src={userInfo.profileImg}
-                              />
+                              {!userInfo.profileImg ? (
+                                <img
+                                  alt={userInfo.name}
+                                  src="https://via.placeholder.com/500"
+                                />
+                              ) : (
+                                <img
+                                  alt={userInfo.name}
+                                  src={userInfo.profileImg}
+                                />
+                              )}
                             </IonThumbnail>
                             <IonCardHeader>
                               <IonCardTitle>User: {userInfo.name}</IonCardTitle>
@@ -364,87 +379,206 @@ const Profile: React.FC = () => {
               } else if (hasJWT() && userInfo.roleId === "child") {
                 return (
                   <div>
-                    <IonRow class="ion-padding">
-                      <IonCol size-lg="6" size-xs="12">
-                        <IonRow class="ion-padding">
-                          <IonCol size-lg="6" size-xs="12">
-                            <h2>Incomplete Tasks</h2>
-                            <div className="tasklist">
-                              <IonList>
-                                <IonItem>
-                                  <IonLabel>Walk The Dogs</IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                  <IonLabel>Take Out Trash</IonLabel>
-                                </IonItem>
-                              </IonList>
+                    <IonRow class="ion-padding ion-text-center">
+                      <IonCol size-lg="6" size-xs="12" class="ion-padding">
+                        <h3>Your Household's Tasks</h3>
+                        <TaskContext.Consumer>
+                          {({ task }) => {
+                            return (
+                              <IonRow class="ion-padding ion-text-center">
+                                <IonCol size-lg="6" size-xs="12">
+                                  <IonList className="homeTasklist profile todo">
+                                    <h4>To Do</h4>
+                                    {task.map((t: any, index) => {
+                                      let userHouseHold =
+                                        userInfo.householdName;
+                                      let taskCreated = parseISO(t.createdAt);
+                                      let taskCreatedDate = format(
+                                        taskCreated,
+                                        "M/dd/yy"
+                                      );
+                                      if (
+                                        t.completed === false &&
+                                        userInfo.householdName === userHouseHold
+                                      ) {
+                                        return (
+                                          <IonItem key={index} lines="none">
+                                            <IonLabel>
+                                              <span className="labelTitle">
+                                                <span className="labelValue">
+                                                  {t.title}
+                                                </span>
+                                              </span>
+                                              <span className="labelTitle">
+                                                On:
+                                                <span className="labelValue">
+                                                  {taskCreatedDate}
+                                                </span>
+                                              </span>
+                                            </IonLabel>
+                                          </IonItem>
+                                        );
+                                      } else {
+                                        return <p></p>;
+                                      }
+                                    })}
+                                  </IonList>
+                                </IonCol>
+                                <IonCol size-lg="6" size-xs="12">
+                                  <IonList className="homeTasklist profile done">
+                                    <h4>Done</h4>
+                                    {task.map((t: any, index) => {
+                                      let userHouseHold =
+                                        userInfo.householdName;
+                                      let taskCreated = parseISO(t.createdAt);
+                                      let taskCreatedDate = format(
+                                        taskCreated,
+                                        "M/dd/yy"
+                                      );
+                                      if (
+                                        t.completed === true &&
+                                        userInfo.householdName === userHouseHold
+                                      ) {
+                                        return (
+                                          <IonItem key={index} lines="none">
+                                            <IonLabel>
+                                              <span className="labelTitle">
+                                                <span className="labelValue">
+                                                  {t.title}
+                                                </span>
+                                              </span>
+                                              <span className="labelTitle">
+                                                On:
+                                                <span className="labelValue">
+                                                  {taskCreatedDate}
+                                                </span>
+                                              </span>
+                                            </IonLabel>
+                                          </IonItem>
+                                        );
+                                      } else {
+                                        return <p></p>;
+                                      }
+                                    })}
+                                  </IonList>
+                                </IonCol>
+                              </IonRow>
+                            );
+                          }}
+                        </TaskContext.Consumer>
+                        <IonRow class="ion-text-center progress">
+                          {/* Start Progess Bar */}
+                          <IonCol size="12">
+                            <div className="rewardProgress">
+                              {/* <IonItem counter={true} lines="none">
+                                <IonLabel position="floating">
+                                  Reward Progress
+                                </IonLabel>
+                                <IonInput
+                                  maxlength={1000}
+                                  value={task.pointValue}
+                                ></IonInput>
+                              </IonItem> */}
                             </div>
                           </IonCol>
-                          <IonCol size-lg="6" size-xs="12">
-                            <h2>Completed Tasks</h2>
-                            <div className="tasklist">
-                              <IonList>
-                                <IonItem>
-                                  <IonLabel>Wash The Car</IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                  <IonLabel>Cut The Grass</IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                  <IonLabel>Make Dad Lunch</IonLabel>
-                                </IonItem>
-                              </IonList>
-                            </div>
+                          {/* End Progess Bar */}
+                        </IonRow>
+                        <IonRow class="ion-text-center rewards">
+                          {/* Start Progess Bar */}
+                          <IonCol size="12">
+                            <RewardsContext.Consumer>
+                              {({ reward }) => {
+                                return (
+                                  <IonRow class="ion-padding ion-text-center">
+                                    <IonCol size-lg="12">
+                                      <IonList className="homeTasklist profile todo">
+                                        <h4>Available Rewards</h4>
+                                        {reward.map((r: any, index) => {
+                                          if (r && r.pointValue >= 50) {
+                                            return (
+                                              <IonItem key={index} lines="none">
+                                                <IonLabel>
+                                                  <span className="labelTitle">
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                  <span className="labelTitle">
+                                                    On:
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                </IonLabel>
+                                              </IonItem>
+                                            );
+                                          } else {
+                                            return <p></p>;
+                                          }
+                                        })}
+                                      </IonList>
+                                    </IonCol>
+                                  </IonRow>
+                                );
+                              }}
+                            </RewardsContext.Consumer>
                           </IonCol>
-                          <IonCol size-lg="6" size-xs="12">
-                            <h2>Available Rewards</h2>
-                            <div className="tasklist">
-                              <IonList>
-                                <IonItem>
-                                  <IonLabel>Go to the park</IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                  <IonLabel>Go to friends house</IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                  <IonLabel>Get Ice Cream</IonLabel>
-                                </IonItem>
-                              </IonList>
-                            </div>
-                          </IonCol>
-                          <IonCol size-lg="6" size-xs="12">
-                            <h2>Redeemed Rewards</h2>
-                            <div className="tasklist">
-                              <IonList>
-                                <IonItem>
-                                  <IonLabel>Read A Book</IonLabel>
-                                </IonItem>
-                                <IonItem>
-                                  <IonLabel>Play Switch for 1 Hour</IonLabel>
-                                </IonItem>
-                              </IonList>
-                            </div>
-                          </IonCol>
+                          {/* End Progess Bar */}
                         </IonRow>
                       </IonCol>
                       <IonCol size-lg="6" size-xs="12" class="ion-text-center">
-                        <IonThumbnail>
-                          <img
-                            alt="placeholder"
-                            src="https://images.unsplash.com/photo-1519308870258-457c2540d826?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
-                          />
-                        </IonThumbnail>
+                        <IonRow class="ion-padding ion-text-center profileCard">
+                          <IonCard>
+                            <IonThumbnail>
+                              {!userInfo.profileImg ? (
+                                <img
+                                  alt={userInfo.name}
+                                  src="https://via.placeholder.com/500"
+                                />
+                              ) : (
+                                <img
+                                  alt={userInfo.name}
+                                  src={userInfo.profileImg}
+                                />
+                              )}
+                            </IonThumbnail>
+                            <IonCardHeader>
+                              <IonCardTitle>User: {userInfo.name}</IonCardTitle>
+                              <IonCardSubtitle>
+                                Household: {userInfo.householdName}
+                              </IonCardSubtitle>
+                            </IonCardHeader>
+                            <IonCardContent>
+                              <div>Bio: {userInfo.bio}</div>
+                              <div className="options">
+                                <IonList>
+                                  <IonItem lines="none">
+                                    <IonButton
+                                      color="tertiary"
+                                      expand="block"
+                                      size="default"
+                                      onClick={() =>
+                                        editProfile(`${userInfo.userId}`)
+                                      }
+                                    >
+                                      Edit Profile
+                                    </IonButton>
+                                  </IonItem>
+                                  <IonItem lines="none">
+                                    <IonButton
+                                      expand="block"
+                                      size="default"
+                                      href="/discussion"
+                                    >
+                                      Family Discussion
+                                    </IonButton>
+                                  </IonItem>
+                                </IonList>
+                              </div>
+                            </IonCardContent>
+                          </IonCard>
+                        </IonRow>
                       </IonCol>
-                      {/* Start Progess Bar */}
-                      <IonCol size="12">
-                        <hr />
-                        <div>
-                          <h3>
-                            Progress : <span>40/100</span>
-                          </h3>
-                        </div>
-                      </IonCol>
-                      {/* End Progess Bar */}
                     </IonRow>
                   </div>
                 );

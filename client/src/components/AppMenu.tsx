@@ -75,7 +75,14 @@ const AppMenu: React.FC = () => {
               <IonMenuToggle>
                 <IonItem routerLink={`/profile`}>
                   <IonAvatar slot="end">
-                    <img src={users.profileImg} alt={users.name} />
+                    {!users.profileImg ? (
+                      <img
+                        alt={users.name}
+                        src="https://via.placeholder.com/500"
+                      />
+                    ) : (
+                      <img src={users.profileImg} alt={users.name} />
+                    )}
                   </IonAvatar>
                   <IonLabel>Profile</IonLabel>
                 </IonItem>
