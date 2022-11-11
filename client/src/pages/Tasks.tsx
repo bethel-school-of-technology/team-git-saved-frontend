@@ -16,6 +16,7 @@ import {
 } from "@ionic/react";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { format, parseISO } from "date-fns";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import TaskContext from "../contexts/TaskContext";
@@ -363,6 +364,11 @@ const Tasks: React.FC = (props) => {
                                 {task.map((t: any, index) => {
                                   let userHouseHold = users.householdName;
                                   console.log(householdName);
+                                  let taskCreated = parseISO(t.createdAt);
+                                  let taskCreatedDate = format(
+                                    taskCreated,
+                                    "M/dd/yy"
+                                  );
                                   if (
                                     t.completed === false &&
                                     users.householdName === userHouseHold
@@ -389,11 +395,9 @@ const Tasks: React.FC = (props) => {
                                             </span>
                                           </span>
                                           <span className="labelTitle">
-                                            Created By:
+                                            Created:
                                             <span className="labelValue">
-                                              <a href={`/profile`}>
-                                                {users.username}
-                                              </a>
+                                              {taskCreatedDate}
                                             </span>
                                           </span>
                                         </IonLabel>
@@ -418,6 +422,11 @@ const Tasks: React.FC = (props) => {
                                 <h2>Done</h2>
                                 {task.map((t: any, index) => {
                                   let userHouseHold = users.householdName;
+                                  let taskCreated = parseISO(t.createdAt);
+                                  let taskCreatedDate = format(
+                                    taskCreated,
+                                    "M/dd/yy"
+                                  );
                                   if (
                                     t.completed === true &&
                                     users.householdName === userHouseHold
@@ -444,11 +453,9 @@ const Tasks: React.FC = (props) => {
                                             </span>
                                           </span>
                                           <span className="labelTitle">
-                                            Created By:
+                                            Created:
                                             <span className="labelValue">
-                                              <a href={`/users/${t.userId}`}>
-                                                {users.username}
-                                              </a>
+                                              {taskCreatedDate}
                                             </span>
                                           </span>
                                         </IonLabel>
