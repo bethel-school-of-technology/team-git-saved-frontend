@@ -103,8 +103,6 @@ const Profile: React.FC = () => {
     createdAt: createdAt,
   });
 
-  console.log(userInfo.userId);
-
   function editProfile(userId: any) {
     history.push(`/users/${userId}`);
     window.location.reload();
@@ -198,7 +196,10 @@ const Profile: React.FC = () => {
                                     </IonButton>
                                   </IonItem>
                                   <IonItem lines="none">
-                                    <IonButton size="default">
+                                    <IonButton
+                                      size="default"
+                                      href="/signupchild"
+                                    >
                                       Add Child
                                     </IonButton>
                                   </IonItem>
