@@ -158,7 +158,7 @@ const Tasks: React.FC = (props) => {
               <h1>Your Tasks</h1>
             </IonCol>
           </IonRow>
-          {hasJWT() ? (
+          {hasJWT() && users.roleId === "parent" ? (
             <IonRow class="ion-padding ion-text-center">
               <IonCol size="12">
                 <h1>Add Tasks</h1>
@@ -201,7 +201,7 @@ const Tasks: React.FC = (props) => {
 
           <UserContext.Consumer>
             {({ user }) => {
-              if (hasJWT()) {
+              if (hasJWT() && users.roleId === "parent") {
                 return (
                   <TaskContext.Consumer>
                     {({ task }) => {
@@ -353,7 +353,7 @@ const Tasks: React.FC = (props) => {
                             </IonCol>
                           </IonRow>
                         );
-                      } else if (!hasJWT()) {
+                      } else if (hasJWT() && users.roleId === "child") {
                         return (
                           <IonRow class="ion-padding ion-text-center">
                             <IonCol size="12">

@@ -18,14 +18,16 @@ const EditProfile: React.FC = (props) => {
   let { id } = useParams<{ id: string }>();
   let history = useHistory();
 
-  let { editUser, getUser, user } = useContext(UserContext);
+  let { editUser, getOneUser, user } = useContext(UserContext);
 
   useEffect(() => {
     async function fetch() {
-      await getUser(id).then((user: any) => setUpdateUser(user));
+      await getOneUser(id).then((user: any) => setUpdateUser(user));
     }
     fetch();
-  }, [id, getUser]);
+  }, [id, getOneUser]);
+
+  //console.log(getUser(id));
 
   let { userId, username, name, bio, profileImg, householdName } = user;
 
@@ -50,7 +52,7 @@ const EditProfile: React.FC = (props) => {
     event.preventDefault();
     editUser(updateUser, updateUser.userId)
       .then(() => {
-        history.push("/profile");
+        history.go(-1);
       })
       .catch((error: any) => {
         history.push("/signin");

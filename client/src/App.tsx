@@ -34,6 +34,7 @@ import "./theme/variables.css";
 import "./pages/App.css";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import SignUpChild from "./pages/SignUpChild";
 import Discussionboard from "./pages/DiscussionBoard";
 import { DiscussionProvider } from "./contexts/DiscussionProvider";
 import Rewards from "./pages/Rewards";
@@ -89,6 +90,11 @@ const App: React.FC = () => (
           <Route path="/signup">
             <HouseholdProvider>
               <SignUp />
+            </HouseholdProvider>
+          </Route>
+          <Route path="/signupchild">
+            <HouseholdProvider>
+              <SignUpChild />
             </HouseholdProvider>
           </Route>
           <Route path="/signin">
