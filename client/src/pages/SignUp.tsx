@@ -45,14 +45,14 @@ const SignUp: React.FC = () => {
   // Set Role Values
   
   // Create Household
-  let { createHousehold } = useContext(HouseholdContext);
+  //let { createHousehold } = useContext(HouseholdContext);
 
   function handleSubmit(event: any) {
     event.preventDefault();
     createUser(newUser)
       .then(() => {
         navigate.push("/signin");
-        createHousehold({name: newUser.householdName});
+        // createHousehold({name: newUser.householdName});
       })
       .catch((error: any) => {
         console.log(error);
