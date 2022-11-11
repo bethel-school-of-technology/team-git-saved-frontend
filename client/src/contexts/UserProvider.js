@@ -66,7 +66,7 @@ export const UserProvider = (props) => {
     };
 
     return axios
-      .put(`${baseUrl}/profile/${id}`, user, { headers: myHeaders })
+      .put(`${baseUrl}${id}`, user, { headers: myHeaders })
       .then((response) => {
         getUsers();
         return new Promise((resolve) => resolve(response.data));

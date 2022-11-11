@@ -76,7 +76,22 @@ Task Page Styles
   background: none;
   color: rgb(255, 255, 255);
 }
+/*** Profile Page **/
+.profileCard ion-card {
+  margin: 0 auto;
+  width: 80%;
+  padding: 25px;
+}
 
+.profileCard ion-button{
+  width: 100%;
+}
+
+.profileCard ion-card-header{
+  font-size: 18px;
+}
+
+/*** End Profile page **/
 ion-card {
   --background: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
@@ -130,6 +145,11 @@ ion-list.homeTasklist ion-checkbox {
   --background: rgb(253, 248, 232);
   --border-color: rgb(8, 74, 87);
   --border-radius: 20px;
+}
+
+ion-list.profile ion-label span.labelValue,
+ion-list.profile ion-label span.labelTitle{
+  font-size: 16px;
 }
 
 .tasklist ion-list,
