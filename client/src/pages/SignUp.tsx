@@ -54,7 +54,7 @@ const SignUp: React.FC = () => {
         navigate.push("/signin");
         createHousehold({name: newUser.householdName});
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log(error);
         window.alert("Failed registration: error creating user");
       });

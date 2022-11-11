@@ -99,7 +99,7 @@ const Rewards: React.FC = () => {
             {({ reward }) => {
               return (
                 <IonRow>
-                  {reward.map((r: any, index) => {
+                  {reward.map((r: any, index: any) => {
                     return (
                       <IonCol
                         size-lg="3"

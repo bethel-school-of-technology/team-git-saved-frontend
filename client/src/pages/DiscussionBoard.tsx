@@ -104,7 +104,7 @@ const DiscussionBoard: React.FC = () => {
                   {({ discussion }) => {
                     return (
                       <div>
-                        {discussion.map((p: any, index) => {
+                        {discussion.map((p: any, index: any) => {
                           return (
                             <IonCard key={index}>
                               <IonCardHeader>
