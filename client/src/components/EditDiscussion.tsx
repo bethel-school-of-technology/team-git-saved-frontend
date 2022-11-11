@@ -18,12 +18,12 @@ const EditDiscussion: React.FC = (props) => {
 
   let { editPost, getPost, discussion } = useContext(DiscussionContext);
 
-  useEffect(() => {
-    async function fetch() {
-      await getPost(id).then((discussion: any) => setChangePost(discussion));
-    }
-    fetch();
-  }, [id, getPost]);
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getPost(id).then((discussion: any) => setChangePost(discussion));
+  //   }
+  //   fetch();
+  // }, [id, getPost]);
 
   let { discussionId, headline, content } = discussion;
 
