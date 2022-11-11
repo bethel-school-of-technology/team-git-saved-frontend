@@ -29,10 +29,13 @@ const AppMenu: React.FC = () => {
     return JSON.parse(window.atob(base64));
   }
 
-  function signOutUser() {
+  function signOutUser(event) {
     //check user has JWT token
+    event.preventDefault();
     localStorage.removeItem("myUserToken");
     history.push("/welcome");
+    window.location.reload();
+
   }
 
   //get current user
@@ -89,7 +92,10 @@ const AppMenu: React.FC = () => {
                 <IonItem routerLink="/devs">Meet The Devs</IonItem>
               </IonMenuToggle>
               <IonMenuToggle>
-                <IonItem routerLink="/signout" onClick={() => signOutUser()}>
+                <IonItem
+                  routerLink="/signout"
+                  onClick={(event) => signOutUser(event)}
+                >
                   Sign Out
                 </IonItem>
               </IonMenuToggle>
