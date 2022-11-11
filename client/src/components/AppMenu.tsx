@@ -35,6 +35,7 @@ const AppMenu: React.FC = () => {
     localStorage.removeItem("myUserToken");
     history.push("/welcome");
     window.location.reload();
+
   }
 
   //get current user
