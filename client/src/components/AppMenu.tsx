@@ -6,9 +6,12 @@ import {
   IonAvatar,
 } from "@ionic/react";
 import { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import UserContext from "../contexts/UserContext";
 
 const AppMenu: React.FC = () => {
+  //set history variable to useHistory for Navigation
+  let history = useHistory();
   /* Start User Info */
   //Check if logged in
   function hasJWT() {
@@ -24,6 +27,14 @@ const AppMenu: React.FC = () => {
     const base64Url = token.split(".")[1];
     const base64 = base64Url.replace("-", "+").replace("_", "/");
     return JSON.parse(window.atob(base64));
+  }
+
+  function signOutUser(event) {
+    //check user has JWT token
+    event.preventDefault();
+    localStorage.removeItem("myUserToken");
+    history.push("/welcome");
+    window.location.reload();
   }
 
   //get current user
@@ -80,7 +91,12 @@ const AppMenu: React.FC = () => {
                 <IonItem routerLink="/devs">Meet The Devs</IonItem>
               </IonMenuToggle>
               <IonMenuToggle>
-                <IonItem routerLink="/signout">Sign Out</IonItem>
+                <IonItem
+                  routerLink="/signout"
+                  onClick={(event) => signOutUser(event)}
+                >
+                  Sign Out
+                </IonItem>
               </IonMenuToggle>
             </IonList>
           );
