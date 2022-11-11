@@ -16,6 +16,7 @@ import {
 } from "@ionic/react";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { format, parseISO } from "date-fns";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import TaskContext from "../contexts/TaskContext";
@@ -64,12 +65,13 @@ const Tasks: React.FC = (props) => {
     fetch();
   }, [getSingleUser, getOneUser]);
 
-  let { userId, username, roleId } = user;
+  let { userId, username, roleId, householdName } = user;
 
   const [users, setUsers] = useState({
     userId: userId,
     username: username,
     roleId: roleId,
+    householdName: householdName,
   });
 
   /* End User Info */
@@ -201,11 +203,11 @@ const Tasks: React.FC = (props) => {
 
           <UserContext.Consumer>
             {({ user }) => {
-              if (hasJWT() && users.roleId === "parent") {
+              if (hasJWT()) {
                 return (
                   <TaskContext.Consumer>
                     {({ task }) => {
-                      if (hasJWT()) {
+                      if (hasJWT() && users.roleId === "parent") {
                         return (
                           <IonRow class="ion-padding ion-text-center">
                             <IonCol size="12">
@@ -360,7 +362,17 @@ const Tasks: React.FC = (props) => {
                               <IonList className="homeTasklist parent todo">
                                 <h2>To Do</h2>
                                 {task.map((t: any, index) => {
-                                  if (t.completed === false) {
+                                  let userHouseHold = users.householdName;
+                                  console.log(householdName);
+                                  let taskCreated = parseISO(t.createdAt);
+                                  let taskCreatedDate = format(
+                                    taskCreated,
+                                    "M/dd/yy"
+                                  );
+                                  if (
+                                    t.completed === false &&
+                                    users.householdName === userHouseHold
+                                  ) {
                                     return (
                                       <IonItem key={index} lines="none">
                                         <IonLabel>
@@ -383,11 +395,9 @@ const Tasks: React.FC = (props) => {
                                             </span>
                                           </span>
                                           <span className="labelTitle">
-                                            Created By:
+                                            Created:
                                             <span className="labelValue">
-                                              <a href={`/profile`}>
-                                                {users.username}
-                                              </a>
+                                              {taskCreatedDate}
                                             </span>
                                           </span>
                                         </IonLabel>
@@ -411,7 +421,16 @@ const Tasks: React.FC = (props) => {
                               <IonList className="homeTasklist parent done">
                                 <h2>Done</h2>
                                 {task.map((t: any, index) => {
-                                  if (t.completed === true) {
+                                  let userHouseHold = users.householdName;
+                                  let taskCreated = parseISO(t.createdAt);
+                                  let taskCreatedDate = format(
+                                    taskCreated,
+                                    "M/dd/yy"
+                                  );
+                                  if (
+                                    t.completed === true &&
+                                    users.householdName === userHouseHold
+                                  ) {
                                     return (
                                       <IonItem key={index} lines="none">
                                         <IonLabel>
@@ -434,11 +453,9 @@ const Tasks: React.FC = (props) => {
                                             </span>
                                           </span>
                                           <span className="labelTitle">
-                                            Created By:
+                                            Created:
                                             <span className="labelValue">
-                                              <a href={`/users/${t.userId}`}>
-                                                {users.username}
-                                              </a>
+                                              {taskCreatedDate}
                                             </span>
                                           </span>
                                         </IonLabel>
