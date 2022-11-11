@@ -99,9 +99,14 @@ const Rewards: React.FC = () => {
             {({ reward }) => {
               return (
                 <IonRow>
-                  {reward.map((r: any) => {
+                  {reward.map((r: any, index: any) => {
                     return (
-                      <IonCol size-lg="3" size-xs="12" class="ion-text-center">
+                      <IonCol
+                        size-lg="3"
+                        size-xs="12"
+                        class="ion-text-center"
+                        key={index}
+                      >
                         <IonCard className="ion-padding">
                           <IonCardHeader>
                             <IonCardTitle>{r.title}</IonCardTitle>

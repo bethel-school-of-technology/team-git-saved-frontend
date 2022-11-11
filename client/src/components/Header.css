@@ -2,10 +2,17 @@ ion-header {
   --ion-toolbar-background: rgb(255, 255, 255);
 }
 
-ion-header ion-img {
-  max-width: 120px;
-  margin: 0 auto;
+ion-header ion-title {
+  width: 100%;
   padding: 10px;
+}
+
+ion-header ion-title a{
+  text-align: center;
+  max-width: 140px;
+  margin:0 auto;
+  padding:0.5rem;
+  display:block;
 }
 
 ion-menu ion-header {

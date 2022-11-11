@@ -34,6 +34,7 @@ import "./theme/variables.css";
 import "./pages/App.css";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
+import SignUpChild from "./pages/SignUpChild";
 import Discussionboard from "./pages/DiscussionBoard";
 import { DiscussionProvider } from "./contexts/DiscussionProvider";
 import Rewards from "./pages/Rewards";
@@ -71,9 +72,11 @@ const App: React.FC = () => (
         </IonMenu>
         <IonRouterOutlet id="main">
           <Route exact path="/tasks">
-            <TaskProvider>
-              <Tasks />
-            </TaskProvider>
+            <UserProvider>
+              <TaskProvider>
+                <Tasks />
+              </TaskProvider>
+            </UserProvider>
           </Route>
           <Route path="/tasks/:id">
             <TaskProvider>
@@ -91,16 +94,23 @@ const App: React.FC = () => (
               <SignUp />
             </HouseholdProvider>
           </Route>
+          <Route path="/signupchild">
+            <HouseholdProvider>
+              <SignUpChild />
+            </HouseholdProvider>
+          </Route>
           <Route path="/signin">
             <SignIn />
           </Route>
-          <Route path="/users/:userId">
+          <Route path="/profile">
             <TaskProvider>
               <Profile />
             </TaskProvider>
           </Route>
-          <Route path="/users/:userId">
-            <EditProfile />
+          <Route path="/users/:id">
+            <TaskProvider>
+              <EditProfile />
+            </TaskProvider>
           </Route>
           <Route path="/rewards">
             <RewardsProvider>

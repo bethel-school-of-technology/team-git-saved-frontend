@@ -28,7 +28,7 @@ const SignIn: React.FC = () => {
         history.push("/tasks");
         window.location.reload();
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log(error);
         window.alert("Failed login");
       });
