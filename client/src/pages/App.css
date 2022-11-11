@@ -83,12 +83,22 @@ Task Page Styles
   padding: 25px;
 }
 
-.profileCard ion-button{
+.profileCard ion-button {
   width: 100%;
 }
 
-.profileCard ion-card-header{
+.profileCard ion-card-header {
   font-size: 18px;
+}
+
+.rewardProgress ion-item {
+  --background: none;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+}
+
+.rewardProgress ion-label {
+  color: rgb(0, 0, 0);
 }
 
 /*** End Profile page **/
@@ -148,7 +158,7 @@ ion-list.homeTasklist ion-checkbox {
 }
 
 ion-list.profile ion-label span.labelValue,
-ion-list.profile ion-label span.labelTitle{
+ion-list.profile ion-label span.labelTitle {
   font-size: 16px;
 }
 
