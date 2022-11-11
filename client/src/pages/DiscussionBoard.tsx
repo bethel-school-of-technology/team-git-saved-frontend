@@ -15,11 +15,12 @@ import {
   IonCardTitle,
   IonCardContent,
 } from "@ionic/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
+import UserContext from "../contexts/UserContext";
 // import UserContext from "../contexts/UserContext";
 
 const DiscussionBoard: React.FC = () => {
@@ -63,6 +64,19 @@ const DiscussionBoard: React.FC = () => {
     history.push(`/discussion/${discussionId}`);
     window.location.reload();
   }
+
+  let { user, getUsers } = useContext(UserContext);
+  let myUserToken = localStorage.getItem("myUserToken")
+
+
+let { userId, username, } = user;
+
+const [users, setUsers] = useState({
+  userId: userId,
+  username: username,
+});
+
+
 
   return (
     <IonPage>

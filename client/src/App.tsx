@@ -39,7 +39,7 @@ import { DiscussionProvider } from "./contexts/DiscussionProvider";
 import Rewards from "./pages/Rewards";
 import { TaskProvider } from "./contexts/TaskProvider";
 import EditTask from "./components/EditTask";
-import EditDiscussion from "./components/EditDiscussion";
+
 import { UserProvider } from "./contexts/UserProvider";
 import EditProfile from "./components/EditProfile";
 import Profile from "./pages/Profile";
@@ -50,6 +50,9 @@ import EditReward from "./components/EditReward";
 
 import AppMenu from "./components/AppMenu";
 import MeetTheDevs from "./pages/MeetTheDevs";
+import EditDiscussion from "./components/EditDiscussion";
+import DiscussionBoard from "./pages/DiscussionBoard";
+
 
 setupIonicReact();
 
@@ -117,7 +120,7 @@ const App: React.FC = () => (
           </Route>
           <Route path="/discussion">
             <DiscussionProvider>
-              <Discussionboard />
+              <DiscussionBoard/>
             </DiscussionProvider>
           </Route>
           <Route path="/discussion/:id">
