@@ -14,6 +14,7 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonCardContent,
+  IonAvatar,
 } from "@ionic/react";
 import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -68,13 +69,19 @@ const DiscussionBoard: React.FC = () => {
   let { user, getUsers } = useContext(UserContext);
   let myUserToken = localStorage.getItem("myUserToken")
 
+  // useEffect(() => {
+  //   async function fetch() {
+  //     await getUsers().then((user) => setUsers(user));
+  //   }
+  //   fetch();
+  // }, []);
 
-let { userId, username, } = user;
+  let { userId, username, } = user;
 
-const [users, setUsers] = useState({
-  userId: userId,
-  username: username,
-});
+  const [users, setUsers] = useState({
+    userId: userId,
+    username: username,
+  });
 
 
 
@@ -114,13 +121,19 @@ const [users, setUsers] = useState({
           <IonRow class="ion-padding">
             <IonCol size="12">
               <IonList className="dissContent">
+
                 <DiscussionContext.Consumer>
                   {({ discussion }) => {
                     return (
+
                       <div>
+                        <IonAvatar>
+                          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+                        </IonAvatar>
                         {discussion.map((p: any) => {
                           return (
                             <IonCard key={p.discussionId}>
+
                               <IonCardHeader>
                                 <IonCardSubtitle>{p.headline}</IonCardSubtitle>
                                 <IonCardTitle>{p.content}</IonCardTitle>
@@ -149,7 +162,11 @@ const [users, setUsers] = useState({
                       </div>
                     );
                   }}
+
                 </DiscussionContext.Consumer>
+
+
+
               </IonList>
             </IonCol>
           </IonRow>
