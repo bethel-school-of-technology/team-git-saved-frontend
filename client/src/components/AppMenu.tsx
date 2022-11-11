@@ -5,21 +5,54 @@ import {
   IonList,
   IonAvatar,
 } from "@ionic/react";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 
 const AppMenu: React.FC = () => {
-  //Use UserContext
-  let { user } = useContext(UserContext);
-
+  /* Start User Info */
+  //Check if logged in
   function hasJWT() {
     let flag = false;
-
     //check user has JWT token
     localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
-
     return flag;
   }
+  function parseJwt(token) {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    return JSON.parse(window.atob(base64));
+  }
+
+  //get current user
+  function getUserFromToken() {
+    if (hasJWT()) {
+      let user = localStorage.getItem("myUserToken");
+      let userToken = parseJwt(user);
+      return userToken.userId;
+    }
+  }
+
+  //Use User Context
+  let { user, getOneUser } = useContext(UserContext);
+
+  useEffect(() => {
+    async function fetch() {
+      await getOneUser(getUserFromToken()).then((user) => setUsers(user));
+    }
+    fetch();
+  });
+
+  let { userId, name, profileImg } = user;
+
+  const [users, setUsers] = useState({
+    userId: userId,
+    name: name,
+    profileImg: profileImg,
+  });
+
   return (
     <UserContext.Consumer>
       {({ user }) => {
@@ -27,9 +60,9 @@ const AppMenu: React.FC = () => {
           return (
             <IonList>
               <IonMenuToggle>
-                <IonItem routerLink={`/users/${user.userId}`}>
+                <IonItem routerLink={`/profile`}>
                   <IonAvatar slot="end">
-                    <img src={user.profileImg} alt="test" />
+                    <img src={users.profileImg} alt={users.name} />
                   </IonAvatar>
                   <IonLabel>Profile</IonLabel>
                 </IonItem>

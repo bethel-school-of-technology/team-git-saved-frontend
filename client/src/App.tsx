@@ -69,9 +69,11 @@ const App: React.FC = () => (
         </IonMenu>
         <IonRouterOutlet id="main">
           <Route exact path="/tasks">
-            <TaskProvider>
-              <Tasks />
-            </TaskProvider>
+            <UserProvider>
+              <TaskProvider>
+                <Tasks />
+              </TaskProvider>
+            </UserProvider>
           </Route>
           <Route path="/tasks/:id">
             <TaskProvider>
@@ -92,13 +94,15 @@ const App: React.FC = () => (
           <Route path="/signin">
             <SignIn />
           </Route>
-          <Route path="/users/:userId">
+          <Route path="/profile">
             <TaskProvider>
               <Profile />
             </TaskProvider>
           </Route>
-          <Route path="/users/:userId">
-            <EditProfile />
+          <Route path="/users/:id">
+            <TaskProvider>
+              <EditProfile />
+            </TaskProvider>
           </Route>
           <Route path="/rewards">
             <RewardsProvider>

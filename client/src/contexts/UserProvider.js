@@ -15,12 +15,12 @@ export const UserProvider = (props) => {
   }, []);
 
   function getUsers() {
-    return axios.get(`${baseUrl}`).then((response) => setUser(response.data));
+    return axios.get(baseUrl).then((response) => setUser(response.data));
   }
 
   // Get One User
   function getOneUser(id) {
-    return axios.get(`${baseUrl}${id}`).then((response) => {
+    return axios.get(baseUrl + id).then((response) => {
       return new Promise((resolve) => resolve(response.data));
     });
   }
