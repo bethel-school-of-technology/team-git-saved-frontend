@@ -390,6 +390,8 @@ const Profile: React.FC = () => {
                                   <IonList className="homeTasklist profile todo">
                                     <h4>To Do</h4>
                                     {task.map((t: any, index) => {
+                                      let userHouseHold =
+                                        userInfo.householdName;
                                       let taskCreated = parseISO(t.createdAt);
                                       let taskCreatedDate = format(
                                         taskCreated,
@@ -397,7 +399,7 @@ const Profile: React.FC = () => {
                                       );
                                       if (
                                         t.completed === false &&
-                                        userInfo.userId === t.userId
+                                        userInfo.householdName === userHouseHold
                                       ) {
                                         return (
                                           <IonItem key={index} lines="none">
@@ -426,6 +428,8 @@ const Profile: React.FC = () => {
                                   <IonList className="homeTasklist profile done">
                                     <h4>Done</h4>
                                     {task.map((t: any, index) => {
+                                      let userHouseHold =
+                                        userInfo.householdName;
                                       let taskCreated = parseISO(t.createdAt);
                                       let taskCreatedDate = format(
                                         taskCreated,
@@ -433,7 +437,7 @@ const Profile: React.FC = () => {
                                       );
                                       if (
                                         t.completed === true &&
-                                        userInfo.userId === t.userId
+                                        userInfo.householdName === userHouseHold
                                       ) {
                                         return (
                                           <IonItem key={index} lines="none">
@@ -466,7 +470,7 @@ const Profile: React.FC = () => {
                           {/* Start Progess Bar */}
                           <IonCol size="12">
                             <div className="rewardProgress">
-                              <IonItem counter={true} lines="none">
+                              {/* <IonItem counter={true} lines="none">
                                 <IonLabel position="floating">
                                   Reward Progress
                                 </IonLabel>
@@ -474,7 +478,7 @@ const Profile: React.FC = () => {
                                   maxlength={1000}
                                   value={task.pointValue}
                                 ></IonInput>
-                              </IonItem>
+                              </IonItem> */}
                             </div>
                           </IonCol>
                           {/* End Progess Bar */}

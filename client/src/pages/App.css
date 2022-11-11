@@ -95,10 +95,16 @@ Task Page Styles
   --background: none;
   color: rgb(0, 0, 0);
   font-size: 18px;
+  text-align: center;
 }
 
 .rewardProgress ion-label {
   color: rgb(0, 0, 0);
+}
+
+.rewardProgress ion-item .item-counter {
+  margin-left: 0;
+  margin-inline-start: none;
 }
 
 /*** End Profile page **/

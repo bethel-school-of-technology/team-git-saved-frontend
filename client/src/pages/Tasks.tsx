@@ -64,15 +64,14 @@ const Tasks: React.FC = (props) => {
     fetch();
   }, [getSingleUser, getOneUser]);
 
-  let { userId, username, roleId } = user;
+  let { userId, username, roleId, householdName } = user;
 
   const [users, setUsers] = useState({
     userId: userId,
     username: username,
     roleId: roleId,
+    householdName: householdName,
   });
-
-  console.log(users.roleId);
 
   /* End User Info */
 
@@ -203,11 +202,11 @@ const Tasks: React.FC = (props) => {
 
           <UserContext.Consumer>
             {({ user }) => {
-              if (hasJWT() && users.roleId === "parent") {
+              if (hasJWT()) {
                 return (
                   <TaskContext.Consumer>
                     {({ task }) => {
-                      if (hasJWT()) {
+                      if (hasJWT() && users.roleId === "parent") {
                         return (
                           <IonRow class="ion-padding ion-text-center">
                             <IonCol size="12">
@@ -362,7 +361,12 @@ const Tasks: React.FC = (props) => {
                               <IonList className="homeTasklist parent todo">
                                 <h2>To Do</h2>
                                 {task.map((t: any, index) => {
-                                  if (t.completed === false) {
+                                  let userHouseHold = users.householdName;
+                                  console.log(householdName);
+                                  if (
+                                    t.completed === false &&
+                                    users.householdName === userHouseHold
+                                  ) {
                                     return (
                                       <IonItem key={index} lines="none">
                                         <IonLabel>
@@ -413,7 +417,11 @@ const Tasks: React.FC = (props) => {
                               <IonList className="homeTasklist parent done">
                                 <h2>Done</h2>
                                 {task.map((t: any, index) => {
-                                  if (t.completed === true) {
+                                  let userHouseHold = users.householdName;
+                                  if (
+                                    t.completed === true &&
+                                    users.householdName === userHouseHold
+                                  ) {
                                     return (
                                       <IonItem key={index} lines="none">
                                         <IonLabel>
