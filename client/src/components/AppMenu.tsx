@@ -35,7 +35,6 @@ const AppMenu: React.FC = () => {
     localStorage.removeItem("myUserToken");
     history.push("/welcome");
     window.location.reload();
-
   }
 
   //get current user
@@ -50,12 +49,14 @@ const AppMenu: React.FC = () => {
   //Use User Context
   let { user, getOneUser } = useContext(UserContext);
 
+  const getSingleUser = getUserFromToken();
+
   useEffect(() => {
     async function fetch() {
-      await getOneUser(getUserFromToken()).then((user) => setUsers(user));
+      await getOneUser(getSingleUser).then((user) => setUsers(user));
     }
     fetch();
-  });
+  }, [getSingleUser, getOneUser]);
 
   let { userId, name, profileImg } = user;
 

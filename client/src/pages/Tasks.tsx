@@ -238,7 +238,7 @@ const Tasks: React.FC = (props) => {
                                             <span className="labelTitle">
                                               Created By:
                                               <span className="labelValue">
-                                                <a href={`/users/${t.userId}`}>
+                                                <a href={`/profile`}>
                                                   {users.username}
                                                 </a>
                                               </span>
@@ -309,7 +309,7 @@ const Tasks: React.FC = (props) => {
                                             <span className="labelTitle">
                                               Created By:
                                               <span className="labelValue">
-                                                <a href={`/users/${t.userId}`}>
+                                                <a href={`/profile`}>
                                                   {users.username}
                                                 </a>
                                               </span>
@@ -385,7 +385,7 @@ const Tasks: React.FC = (props) => {
                                           <span className="labelTitle">
                                             Created By:
                                             <span className="labelValue">
-                                              <a href={`/users/${t.userId}`}>
+                                              <a href={`/profile`}>
                                                 {users.username}
                                               </a>
                                             </span>
