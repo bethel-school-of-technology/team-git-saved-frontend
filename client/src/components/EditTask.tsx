@@ -36,7 +36,7 @@ const EditTask: React.FC = (props) => {
     assignedTo: assignedTo,
   });
 
-  console.log(updateTask.taskId);
+  // console.log(updateTask.taskId);
 
   function handleChange(event: any) {
     setUpdateTask((prevValue) => {

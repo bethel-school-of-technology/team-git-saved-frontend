@@ -12,7 +12,6 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router";
 import UserContext from "../contexts/UserContext";
-
 import Header from "../components/Header";
 
 const EditProfile: React.FC = (props) => {
@@ -23,10 +22,10 @@ const EditProfile: React.FC = (props) => {
 
   useEffect(() => {
     async function fetch() {
-      await getUser(id).then((reward: any) => setUpdateUser(user));
+      await getUser(id).then((user: any) => setUpdateUser(user));
     }
     fetch();
-  }, [id, getUser, user]);
+  }, [id, getUser]);
 
   let { userId, username, name, bio, profileImg, householdName } = user;
 
@@ -71,7 +70,7 @@ const EditProfile: React.FC = (props) => {
                   <IonLabel position="stacked">Username</IonLabel>
                   <IonInput
                     type="text"
-                    placeholder="Do Stuff"
+                    placeholder="bob123"
                     name="username"
                     value={updateUser.username}
                     onIonChange={handleChange}

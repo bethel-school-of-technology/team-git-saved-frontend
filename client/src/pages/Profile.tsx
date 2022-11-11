@@ -11,7 +11,7 @@ import {
   IonLabel,
 } from "@ionic/react";
 import { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router";
+import { useHistory } from "react-router";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
@@ -27,8 +27,6 @@ const Profile: React.FC = () => {
   let { task } = useContext(TaskContext);
 
   let { taskId, title } = task;
-
-  let taskUserId = task.userId;
 
   /* Start User Info */
   //Check if logged in
@@ -88,10 +86,11 @@ const Profile: React.FC = () => {
   } = user;
 
   /* End User Info */
+  let taskUserId = user.userId;
 
   //Set User Info
   let [userInfo, setUserInfo] = useState({
-    id: userId,
+    userId: userId,
     username: username,
     name: name,
     bio: bio,
@@ -103,6 +102,8 @@ const Profile: React.FC = () => {
     title: title,
     createdAt: createdAt,
   });
+
+  console.log(userInfo.userId);
 
   function editProfile(userId: any) {
     history.push(`/users/${userId}`);
@@ -142,7 +143,7 @@ const Profile: React.FC = () => {
                     <IonRow class="ion-padding ion-text-center">
                       <IonCol size-lg="6" size-xs="12">
                         <IonCol size-lg="6" size-xs="12" class="ion-padding">
-                          <h2>{userInfo.username}</h2>
+                          <h2>{userInfo.name}</h2>
                         </IonCol>
                         <IonCol size-lg="6" size-xs="12">
                           <IonButton>Send Reminder</IonButton>
@@ -167,7 +168,7 @@ const Profile: React.FC = () => {
                           </IonCol>
                           <IonCol size="12">
                             <div>
-                              <span>Bio: {userInfo.bio}</span>,&nbsp;
+                              <span>Bio: {userInfo.bio}</span>.&nbsp;
                               <span>Household: {userInfo.householdName}</span>
                             </div>
                           </IonCol>
@@ -180,7 +181,7 @@ const Profile: React.FC = () => {
                                     <IonButton
                                       size="default"
                                       onClick={() =>
-                                        editProfile(`${userInfo.id}`)
+                                        editProfile(`${userInfo.userId}`)
                                       }
                                     >
                                       Edit Profile
@@ -190,7 +191,7 @@ const Profile: React.FC = () => {
                                     <IonButton
                                       size="default"
                                       onClick={() =>
-                                        deleteProfile(`${userInfo.id}`)
+                                        deleteProfile(`${userInfo.userId}`)
                                       }
                                     >
                                       Delete Profile
@@ -202,7 +203,10 @@ const Profile: React.FC = () => {
                                     </IonButton>
                                   </IonItem>
                                   <IonItem lines="none">
-                                    <IonButton size="default">
+                                    <IonButton
+                                      size="default"
+                                      href="/discussion"
+                                    >
                                       Family Discussion
                                     </IonButton>
                                   </IonItem>
