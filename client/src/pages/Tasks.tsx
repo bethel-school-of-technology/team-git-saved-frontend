@@ -158,7 +158,7 @@ const Tasks: React.FC = (props) => {
               <h1>Your Tasks</h1>
             </IonCol>
           </IonRow>
-          {hasJWT() ? (
+          {hasJWT() && users.roleId === "parent" ? (
             <IonRow class="ion-padding ion-text-center">
               <IonCol size="12">
                 <h1>Add Tasks</h1>
