@@ -15,14 +15,64 @@ import {
   IonCardTitle,
   IonCardContent,
 } from "@ionic/react";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
-// import UserContext from "../contexts/UserContext";
+import UserContext from "../contexts/UserContext";
 
 const DiscussionBoard: React.FC = () => {
+  /* Start User Info */
+  //Check if logged in
+  function hasJWT() {
+    let flag = false;
+    //check user has JWT token
+    localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
+    return flag;
+  }
+  function parseJwt(token) {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    return JSON.parse(window.atob(base64));
+  }
+
+  //get current user
+  function getUserFromToken() {
+    if (hasJWT()) {
+      let user = localStorage.getItem("myUserToken");
+      let userToken = parseJwt(user);
+      return userToken.userId;
+    }
+  }
+
+  let getSingleUser = getUserFromToken();
+
+  //Use User Context
+  let { user, getOneUser } = useContext(UserContext);
+
+  useEffect(() => {
+    async function fetch() {
+      await getOneUser(getSingleUser).then((user) => setUsers(user));
+    }
+    fetch();
+  }, [getSingleUser, getOneUser]);
+
+  let { userId, username, name, roleId, householdName } = user;
+
+  const [users, setUsers] = useState({
+    userId: userId,
+    username: username,
+    name: name,
+    roleId: roleId,
+    householdName: householdName,
+  });
+
+  /* End User Info */
+
   let [newPost, setNewPost] = useState({
     headline: "",
     content: "",
@@ -71,32 +121,50 @@ const DiscussionBoard: React.FC = () => {
         <IonGrid>
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
-              <h1>Discussion Board</h1>
-              <form onSubmit={handleSubmit} className="dissSubmit">
-                <IonItem>
-                  <IonLabel position="stacked">Discussion Headline</IonLabel>
-                  <IonInput
-                    type="text"
-                    placeholder="Headline"
-                    name="headline"
-                    value={newPost.headline}
-                    onIonChange={handleChange}
-                  />
-                  <IonLabel position="stacked">Content</IonLabel>
-                  <IonInput
-                    type="text"
-                    placeholder="Start Post Here"
-                    name="content"
-                    value={newPost.content}
-                    onIonChange={handleChange}
-                  />
-                </IonItem>
-                <IonButton type="submit" expand="block">
-                  Add Post
-                </IonButton>
-              </form>
+              <h1>Family Discussion</h1>
             </IonCol>
           </IonRow>
+          <UserContext.Consumer>
+            {({ user }) => {
+              if (hasJWT() && users.roleId === "parent") {
+                return (
+                  <IonRow class="ion-padding ion-text-center">
+                    <IonCol size="12">
+                      <h2>Add Discussion</h2>
+                      <form onSubmit={handleSubmit} className="dissSubmit">
+                        <IonItem>
+                          <IonLabel position="stacked">
+                            Discussion Headline
+                          </IonLabel>
+                          <IonInput
+                            type="text"
+                            placeholder="Headline"
+                            name="headline"
+                            value={newPost.headline}
+                            onIonChange={handleChange}
+                          />
+                          <IonLabel position="stacked">Content</IonLabel>
+                          <IonInput
+                            type="text"
+                            placeholder="Start Post Here"
+                            name="content"
+                            value={newPost.content}
+                            onIonChange={handleChange}
+                          />
+                        </IonItem>
+                        <IonButton type="submit" expand="block">
+                          Add Post
+                        </IonButton>
+                      </form>
+                    </IonCol>
+                  </IonRow>
+                );
+              } else {
+                return <p></p>;
+              }
+            }}
+          </UserContext.Consumer>
+
           <IonRow class="ion-padding">
             <IonCol size="12">
               <IonList className="dissContent">
