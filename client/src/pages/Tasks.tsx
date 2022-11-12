@@ -67,11 +67,12 @@ const Tasks: React.FC = (props) => {
     fetch();
   }, [getSingleUser, getOneUser]);
 
-  let { userId, username, roleId, householdName } = user;
+  let { userId, username, name, roleId, householdName } = user;
 
   const [users, setUsers] = useState({
     userId: userId,
     username: username,
+    name: name,
     roleId: roleId,
     householdName: householdName,
   });
@@ -87,6 +88,8 @@ const Tasks: React.FC = (props) => {
     assignedTo: "",
     completed: false,
   });
+
+  console.log(newTask);
 
   //use the TaskContext
   let { deleteTask, addTask, editTask } = useContext(TaskContext);
@@ -152,20 +155,24 @@ const Tasks: React.FC = (props) => {
       });
   }
 
-  let userHouseHold = users.householdName;
-
-  function getHouseholdMembers() {
-    const household = [{ value: "household", text: "Parent" }];
-    const householdResults = household.map(function(household){
-      return <IonSelectOption
-        key={household.value}
-        value={household.value}
-      >
-        {household.text}
+  function pointOptions() {
+    const options = [
+      { value: 500, text: 500 },
+      { value: 600, text: 600 },
+      { value: 700, text: 700 },
+      { value: 800, text: 800 },
+      { value: 900, text: 900 },
+      { value: 1000, text: 1000 },
+    ];
+    let pointOptionSelect = options.map((option) => (
+      <IonSelectOption key={option.value} value={option.value}>
+        {option.text}
       </IonSelectOption>
-  })
-    return householdResults;
+    ));
+
+    return pointOptionSelect;
   }
+
   return (
     <IonPage>
       <Header />
@@ -196,31 +203,43 @@ const Tasks: React.FC = (props) => {
                             onIonChange={handleChange}
                           />
                           <IonLabel position="stacked">Point Value</IonLabel>
-                          <IonInput
-                            type="text"
-                            placeholder="2000"
-                            name="pointValue"
+                          <IonSelect
                             value={newTask.pointValue}
+                            placeholder="500"
+                            name="pointValue"
                             onIonChange={handleChange}
-                          />
-                          {users.householdName === userHouseHold ? (
-                            <div>
-                              <IonLabel position="stacked">
-                                Assigned To
-                              </IonLabel>
-                              <IonSelect
-                                value={newTask.assignedTo}
-                                placeholder="Assign Household Member"
-                                name="roleId"
-                                onIonChange={handleChange}
-                                className="color"
-                              >
-                                {getHouseholdMembers()}
-                              </IonSelect>
-                            </div>
-                          ) : (
-                            <p></p>
-                          )}
+                          >
+                            {pointOptions()}
+                          </IonSelect>
+                          <IonLabel position="stacked">Assigned To</IonLabel>
+                          <IonSelect
+                            value={newTask.assignedTo}
+                            placeholder="Assign Household Member"
+                            name="assignedTo"
+                            onIonChange={handleChange}
+                          >
+                            {user.map((u) => {
+                              if (
+                                u.roleId === "child" &&
+                                users.householdName === u.householdName
+                              ) {
+                                return (
+                                  <IonSelectOption
+                                    key={u.userId}
+                                    value={u.name}
+                                  >
+                                    {u.name}
+                                  </IonSelectOption>
+                                );
+                              } else {
+                                return (
+                                  <IonSelectOption>
+                                    No Children In Household
+                                  </IonSelectOption>
+                                );
+                              }
+                            })}
+                          </IonSelect>
                         </IonItem>
                         <IonButton type="submit" expand="block">
                           Add Task

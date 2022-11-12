@@ -66,6 +66,12 @@ Task Page Styles
   --padding-top: 25px;
 }
 
+.taskSubmit ion-select,
+.dissSubmit ion-select,
+.rewardSubmit ion-select {
+  max-width: 100%;
+}
+
 .taskSubmit ion-button,
 .dissSubmit ion-button,
 .rewardSubmit ion-button {
