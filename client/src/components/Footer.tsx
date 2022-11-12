@@ -1,5 +1,7 @@
 import {
+  IonButton,
   IonCol,
+  IonContent,
   IonFooter,
   IonGrid,
   IonImg,
@@ -11,8 +13,11 @@ import "./Footer.css";
 interface ContainerProps {}
 
 const Footer: React.FC<ContainerProps> = () => {
+
+
   return (
-    <IonFooter collapse="fade">
+  
+    <IonFooter collapse="fade" >
       <IonToolbar>
         <IonGrid>
           <IonRow class="ion-padding footerRow ion-text-center">
@@ -28,12 +33,13 @@ const Footer: React.FC<ContainerProps> = () => {
               </a>
             </IonCol>
             <IonCol size-lg="4" size-xs="12">
-              <a href="/">Back To Top</a>
+              <a href="#" >Back To Top</a>
             </IonCol>
           </IonRow>
         </IonGrid>
       </IonToolbar>
     </IonFooter>
+   
   );
 };
 

@@ -15,14 +15,17 @@ import {
   IonCardTitle,
   IonCardContent,
   IonAvatar,
+  IonThumbnail,
+  IonChip,
 } from "@ionic/react";
-import { useContext, useEffect, useState } from "react";
+import { createRef, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
 import UserContext from "../contexts/UserContext";
 // import UserContext from "../contexts/UserContext";
+import './App.css'
 
 const DiscussionBoard: React.FC = () => {
   let [newPost, setNewPost] = useState({
@@ -97,12 +100,6 @@ const DiscussionBoard: React.FC = () => {
   //Use User Context
   let { user, getOneUser, } = useContext(UserContext);
 
-  // useEffect(() => {
-  //   async function fetch() {
-  //     await getUserTasks().then((user) => setUserInfo(user));
-  //   }
-  //   fetch();
-  // }, [getUserTasks]);
 
   useEffect(() => {
     async function fetch() {
@@ -134,8 +131,12 @@ const DiscussionBoard: React.FC = () => {
     roleId: roleId,
     profileImg: profileImg,
   });
-
-
+  const contentRef = createRef<HTMLIonContentElement>();
+  function scrollToTop() {
+    // Passing a duration to the method makes it so the scroll slowly
+    // goes to the bottom instead of instantly
+    contentRef.current?.scrollToTop(0);
+  }
 
   return (
     <IonPage>
@@ -182,21 +183,33 @@ const DiscussionBoard: React.FC = () => {
                             return (
 
                               <div>
-                                {discussion.map((p: any) => {
+                                {discussion.map((p: any, index) => {
                                   return (
                                     <IonCard key={p.discussionId}>
-                                      <span className="labelTitle">
-                                        Created By:
-                                        <span className="labelValue">
-                                          <a href={`/profile`}>
-                                            {user.name}
-                                            {user.profileImg}
-                                          </a>
-                                        </span>
-                                      </span>
                                       <IonCardHeader>
-                                        <IonCardSubtitle>{p.headline}</IonCardSubtitle>
-                                        <IonCardTitle>{p.content}</IonCardTitle>
+                                   
+                                        <span className="labelTitle">
+                                        <IonItem>
+  <IonAvatar slot="start">
+  {!userInfo.profileImg ? (
+                                <img
+                                  alt={userInfo.name}
+                                  src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                                />
+                              ) : (
+                                <img
+                                  alt={userInfo.name}
+                                  src={userInfo.profileImg}
+                                />
+                              )}
+  </IonAvatar>
+  <IonLabel>{userInfo.name}</IonLabel>
+</IonItem>
+ 
+                                        </span>
+
+                                        <IonCardTitle>{p.headline}</IonCardTitle>
+                                        <IonCardSubtitle>{p.content}</IonCardSubtitle>
                                       </IonCardHeader>
                                       <IonCardContent>
                                         <IonButton
@@ -235,6 +248,9 @@ const DiscussionBoard: React.FC = () => {
           </IonRow>
 
         </IonGrid>
+        <IonButton expand="block" onClick={scrollToTop}>
+               test me out
+              </IonButton>
         <Footer />
       </IonContent>
     </IonPage>
