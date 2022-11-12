@@ -40,7 +40,7 @@ import { DiscussionProvider } from "./contexts/DiscussionProvider";
 import Rewards from "./pages/Rewards";
 import { TaskProvider } from "./contexts/TaskProvider";
 import EditTask from "./components/EditTask";
-import EditDiscussion from "./components/EditDiscussion";
+
 import { UserProvider } from "./contexts/UserProvider";
 import EditProfile from "./components/EditProfile";
 import Profile from "./pages/Profile";
@@ -51,9 +51,11 @@ import EditReward from "./components/EditReward";
 
 import AppMenu from "./components/AppMenu";
 import MeetTheDevs from "./pages/MeetTheDevs";
+import EditDiscussion from "./components/EditDiscussion";
+import DiscussionBoard from "./pages/DiscussionBoard";
+// import AddPhotos from "./pages/AddPhotos";
 
 setupIonicReact();
-
 const App: React.FC = () => (
   <UserProvider>
     <IonApp>
@@ -129,7 +131,7 @@ const App: React.FC = () => (
           </Route>
           <Route path="/discussion">
             <DiscussionProvider>
-              <Discussionboard />
+              <DiscussionBoard/>
             </DiscussionProvider>
           </Route>
           <Route path="/discussion/:id">
@@ -137,6 +139,9 @@ const App: React.FC = () => (
               <EditDiscussion />
             </DiscussionProvider>
           </Route>
+          {/* <Route exact path="/addPhotoOfTask">
+          <AddPhotos/>
+        </Route> */}
           <Route exact path="/">
             <Redirect to="/welcome" />
           </Route>
