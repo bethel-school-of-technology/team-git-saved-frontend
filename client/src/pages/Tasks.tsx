@@ -155,7 +155,16 @@ const Tasks: React.FC = (props) => {
   let userHouseHold = users.householdName;
 
   function getHouseholdMembers() {
-    const household = [{ value: "parent", text: "Parent" }];
+    const household = [{ value: "household", text: "Parent" }];
+    const householdResults = household.map(function(household){
+      return <IonSelectOption
+        key={household.value}
+        value={household.value}
+      >
+        {household.text}
+      </IonSelectOption>
+  })
+    return householdResults;
   }
   return (
     <IonPage>
@@ -206,14 +215,7 @@ const Tasks: React.FC = (props) => {
                                 onIonChange={handleChange}
                                 className="color"
                               >
-                                {household.map((household) => (
-                                  <IonSelectOption
-                                    key={household.value}
-                                    value={household.value}
-                                  >
-                                    {household.text}
-                                  </IonSelectOption>
-                                ))}
+                                {getHouseholdMembers()}
                               </IonSelect>
                             </div>
                           ) : (
