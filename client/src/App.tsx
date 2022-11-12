@@ -53,7 +53,7 @@ import AppMenu from "./components/AppMenu";
 import MeetTheDevs from "./pages/MeetTheDevs";
 import EditDiscussion from "./components/EditDiscussion";
 import DiscussionBoard from "./pages/DiscussionBoard";
-import AddPhotos from "./pages/AddPhotos";
+// import AddPhotos from "./pages/AddPhotos";
 
 setupIonicReact();
 const App: React.FC = () => (
@@ -139,9 +139,9 @@ const App: React.FC = () => (
               <EditDiscussion />
             </DiscussionProvider>
           </Route>
-          <Route exact path="/addPhotoOfTask">
+          {/* <Route exact path="/addPhotoOfTask">
           <AddPhotos/>
-        </Route>
+        </Route> */}
           <Route exact path="/">
             <Redirect to="/welcome" />
           </Route>
