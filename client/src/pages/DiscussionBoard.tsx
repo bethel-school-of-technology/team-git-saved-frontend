@@ -66,21 +66,73 @@ const DiscussionBoard: React.FC = () => {
     window.location.reload();
   }
 
-  let { user, getUsers } = useContext(UserContext);
-  let myUserToken = localStorage.getItem("myUserToken")
+  /* Start User Info */
+  //Check if logged in
+  function hasJWT() {
+    let flag = false;
+    //check user has JWT token
+    localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
+    return flag;
+  }
+  function parseJwt(token) {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    return JSON.parse(window.atob(base64));
+  }
+
+  //get current user
+  function getUserFromToken() {
+    if (hasJWT()) {
+      let user = localStorage.getItem("myUserToken");
+      let userToken = parseJwt(user);
+      return userToken.userId;
+    }
+  }
+
+  let getSingleUser = getUserFromToken();
+
+  //Use User Context
+  let { user, getOneUser, } = useContext(UserContext);
 
   // useEffect(() => {
   //   async function fetch() {
-  //     await getUsers().then((user) => setUsers(user));
+  //     await getUserTasks().then((user) => setUserInfo(user));
   //   }
   //   fetch();
-  // }, []);
+  // }, [getUserTasks]);
 
-  let { userId, username, } = user;
+  useEffect(() => {
+    async function fetch() {
+      await getOneUser(getSingleUser).then((user) => setUserInfo(user));
+    }
+    fetch();
+  }, [getSingleUser, getOneUser]);
 
-  const [users, setUsers] = useState({
-    userId: userId,
+  //Get Profile data
+  let {
+    userId,
+    username,
+    name,
+    roleId,
+    discussionId,
+    householdName,
+    profileImg,
+  } = user;
+
+  /* End User Info */
+
+  //Set User Info
+  let [userInfo, setUserInfo] = useState({
+    id: userId,
     username: username,
+    name: name,
+    disucssionId: discussionId,
+    householdName: householdName,
+    roleId: roleId,
+    profileImg: profileImg,
   });
 
 
@@ -121,55 +173,67 @@ const DiscussionBoard: React.FC = () => {
           <IonRow class="ion-padding">
             <IonCol size="12">
               <IonList className="dissContent">
+                <UserContext.Consumer>
+                  {({ user }) => {
+                    if (hasJWT()) {
+                      return (
+                        <DiscussionContext.Consumer>
+                          {({ discussion }) => {
+                            return (
 
-                <DiscussionContext.Consumer>
-                  {({ discussion }) => {
-                    return (
+                              <div>
+                                {discussion.map((p: any) => {
+                                  return (
+                                    <IonCard key={p.discussionId}>
+                                      <span className="labelTitle">
+                                        Created By:
+                                        <span className="labelValue">
+                                          <a href={`/profile`}>
+                                            {user.name}
+                                            {user.profileImg}
+                                          </a>
+                                        </span>
+                                      </span>
+                                      <IonCardHeader>
+                                        <IonCardSubtitle>{p.headline}</IonCardSubtitle>
+                                        <IonCardTitle>{p.content}</IonCardTitle>
+                                      </IonCardHeader>
+                                      <IonCardContent>
+                                        <IonButton
+                                          color="tertiary"
+                                          onClick={() =>
+                                            viewEditDiscussion(`${p.discussionId}`)
+                                          }
+                                        >
+                                          Edit Post
+                                        </IonButton>
+                                        <IonButton
+                                          color="danger"
+                                          onClick={() =>
+                                            removeDiscussion(`${p.discussionId}`)
+                                          }
+                                        >
+                                          Delete Post
+                                        </IonButton>
+                                      </IonCardContent>
+                                    </IonCard>
+                                  );
+                                })}
+                              </div>
+                            );
+                          }}
 
-                      <div>
-                        <IonAvatar>
-                          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
-                        </IonAvatar>
-                        {discussion.map((p: any) => {
-                          return (
-                            <IonCard key={p.discussionId}>
-
-                              <IonCardHeader>
-                                <IonCardSubtitle>{p.headline}</IonCardSubtitle>
-                                <IonCardTitle>{p.content}</IonCardTitle>
-                              </IonCardHeader>
-                              <IonCardContent>
-                                <IonButton
-                                  color="tertiary"
-                                  onClick={() =>
-                                    viewEditDiscussion(`${p.discussionId}`)
-                                  }
-                                >
-                                  Edit Post
-                                </IonButton>
-                                <IonButton
-                                  color="danger"
-                                  onClick={() =>
-                                    removeDiscussion(`${p.discussionId}`)
-                                  }
-                                >
-                                  Delete Post
-                                </IonButton>
-                              </IonCardContent>
-                            </IonCard>
-                          );
-                        })}
-                      </div>
-                    );
+                        </DiscussionContext.Consumer>
+                      );
+                    }
                   }}
-
-                </DiscussionContext.Consumer>
-
+                </UserContext.Consumer>
 
 
               </IonList>
             </IonCol>
           </IonRow>
+
         </IonGrid>
         <Footer />
       </IonContent>

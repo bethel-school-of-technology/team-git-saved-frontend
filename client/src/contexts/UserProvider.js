@@ -18,12 +18,14 @@ export const UserProvider = (props) => {
     return axios.get(baseUrl).then((response) => setUser(response.data));
   }
 
+
   // Get One User
-  function getOneUser(id) {
-    return axios.get(baseUrl + id).then((response) => {
+  function getOneUser(userId) {
+    return axios.get(baseUrl + userId).then((response) => {
       return new Promise((resolve) => resolve(response.data));
     });
   }
+
 
   function createUser(user) {
     return axios.post(baseUrl, user).then((response) => {
