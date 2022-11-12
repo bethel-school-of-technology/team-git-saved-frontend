@@ -58,12 +58,14 @@ const EditReward: React.FC = (props) => {
   }
   function pointOptions() {
     const options = [
-      { value: 500, text: 500 },
-      { value: 600, text: 600 },
-      { value: 700, text: 700 },
-      { value: 800, text: 800 },
-      { value: 900, text: 900 },
-      { value: 1000, text: 1000 },
+      { value: 2000, text: 2000 },
+      { value: 3000, text: 3000 },
+      { value: 4000, text: 4000 },
+      { value: 4000, text: 4000 },
+      { value: 5000, text: 5000 },
+      { value: 6000, text: 6000 },
+      { value: 7000, text: 7000 },
+      { value: 7000, text: 7000 },
     ];
     let pointOptionSelect = options.map((option) => (
       <IonSelectOption key={option.value} value={option.value}>
@@ -93,7 +95,7 @@ const EditReward: React.FC = (props) => {
                   <IonLabel position="stacked">Point Value</IonLabel>
                   <IonSelect
                     value={updateReward.pointValue}
-                    placeholder="500"
+                    placeholder="2000"
                     name="pointValue"
                     onIonChange={handleChange}
                   >

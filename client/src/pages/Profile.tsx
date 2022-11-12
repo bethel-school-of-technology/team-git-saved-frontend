@@ -25,7 +25,6 @@ import { IonCardHeader } from "@ionic/react";
 import { IonCardTitle } from "@ionic/react";
 import { IonCardSubtitle } from "@ionic/react";
 import { IonCardContent } from "@ionic/react";
-import { IonInput } from "@ionic/react";
 
 const Profile: React.FC = () => {
   //set history variable to useHistory for Navigation
@@ -150,14 +149,6 @@ const Profile: React.FC = () => {
       });
   }
 
-  //update total user points
-  function totalUserPoints(userpoints, taskpoints) {
-    let currentUserPoints = userpoints;
-    let currentTaskPoints = taskpoints;
-    let totalPoints = currentTaskPoints + currentUserPoints;
-    return totalPoints;
-  }
-
   return (
     <IonPage>
       <Header />
@@ -227,7 +218,7 @@ const Profile: React.FC = () => {
                                                   viewEditPage(`${t.taskId}`)
                                                 }
                                               >
-                                                Edit Task
+                                                Edit
                                               </IonButton>
                                               <IonButton
                                                 color="danger"
@@ -235,7 +226,7 @@ const Profile: React.FC = () => {
                                                   removeTask(`${t.taskId}`)
                                                 }
                                               >
-                                                Delete Task
+                                                Delete
                                               </IonButton>
                                             </IonItem>
                                           );
@@ -430,8 +421,6 @@ const Profile: React.FC = () => {
                                               </IonLabel>
                                             </IonItem>
                                           );
-                                        } else {
-                                          return <p></p>;
                                         }
                                       })}
                                     </IonList>
@@ -469,8 +458,6 @@ const Profile: React.FC = () => {
                                               </IonLabel>
                                             </IonItem>
                                           );
-                                        } else {
-                                          return <p></p>;
                                         }
                                       })}
                                     </IonList>
@@ -495,15 +482,8 @@ const Profile: React.FC = () => {
                           {/* Start Progess Bar */}
                           <IonCol size="12">
                             <div className="rewardProgress">
-                              <IonItem counter={true} lines="none">
-                                <IonLabel position="floating">
-                                  Reward Progress
-                                </IonLabel>
-                                <IonInput
-                                  maxlength={1000}
-                                  value={task.pointValue}
-                                ></IonInput>
-                              </IonItem>
+                              <h3>Reward Progress</h3>
+                              <span>{userInfo.points} / 5000</span>
                             </div>
                           </IonCol>
                           {/* End Progess Bar */}
@@ -518,10 +498,15 @@ const Profile: React.FC = () => {
                                     <IonCol size-lg="12">
                                       <IonList className="homeTasklist profile todo">
                                         <h4>Available Rewards</h4>
-                                        {reward.map((r: any, index) => {
-                                          if (r && r.pointValue >= 50) {
+                                        {reward.map((r: any) => {
+                                          if (
+                                            userInfo.points >= 2000 &&
+                                            userInfo.points <= 4000 &&
+                                            r.pointValue >= 2000 &&
+                                            r.pointValue <= 4000
+                                          ) {
                                             return (
-                                              <IonItem key={index} lines="none">
+                                              <IonItem key={r.rewardId} lines="none">
                                                 <IonLabel>
                                                   <span className="labelTitle">
                                                     <span className="labelValue">
@@ -532,6 +517,68 @@ const Profile: React.FC = () => {
                                                     On:
                                                     <span className="labelValue">
                                                       {r.title}
+                                                    </span>
+                                                    <span className="labelTitle">
+                                                      Points:
+                                                      <span className="labelValue">
+                                                        {r.pointValue}
+                                                      </span>
+                                                    </span>
+                                                  </span>
+                                                </IonLabel>
+                                              </IonItem>
+                                            );
+                                          } else if (
+                                            userInfo.points >= 4000 &&
+                                            userInfo.points <= 6000 &&
+                                            r.pointValue >= 4000 &&
+                                            r.pointValue <= 6000
+                                          ) {
+                                            return (
+                                              <IonItem key={r.rewardId} lines="none">
+                                                <IonLabel>
+                                                  <span className="labelTitle">
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                  <span className="labelTitle">
+                                                    On:
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                  <span className="labelTitle">
+                                                    Points:
+                                                    <span className="labelValue">
+                                                      {r.pointValue}
+                                                    </span>
+                                                  </span>
+                                                </IonLabel>
+                                              </IonItem>
+                                            );
+                                          } else if (
+                                            userInfo.points >= 6000 &&
+                                            r.pointValue >= 6000
+                                          ) {
+                                            return (
+                                              <IonItem key={r.rewardId} lines="none">
+                                                <IonLabel>
+                                                  <span className="labelTitle">
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                  <span className="labelTitle">
+                                                    On:
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                  <span className="labelTitle">
+                                                    Points:
+                                                    <span className="labelValue">
+                                                      {r.pointValue}
                                                     </span>
                                                   </span>
                                                 </IonLabel>

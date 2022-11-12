@@ -58,7 +58,7 @@ const Tasks: React.FC = (props) => {
   let getSingleUser = getUserFromToken();
 
   //Use User Context
-  let { user, getOneUser } = useContext(UserContext);
+  let { user, getOneUser, editUser } = useContext(UserContext);
 
   useEffect(() => {
     async function fetch() {
@@ -67,7 +67,7 @@ const Tasks: React.FC = (props) => {
     fetch();
   }, [getSingleUser, getOneUser]);
 
-  let { userId, username, name, roleId, householdName } = user;
+  let { userId, username, name, roleId, householdName, points } = user;
 
   const [users, setUsers] = useState({
     userId: userId,
@@ -75,6 +75,7 @@ const Tasks: React.FC = (props) => {
     name: name,
     roleId: roleId,
     householdName: householdName,
+    points: points,
   });
 
   /* End User Info */
@@ -88,8 +89,6 @@ const Tasks: React.FC = (props) => {
     assignedTo: "",
     completed: false,
   });
-
-  console.log(newTask);
 
   //use the TaskContext
   let { deleteTask, addTask, editTask } = useContext(TaskContext);
@@ -124,7 +123,26 @@ const Tasks: React.FC = (props) => {
     });
   }
 
-  function isChecked(event: any, taskId) {
+  //Update User Points on compilerOption
+  let [updateUserPoints, setUserPoints] = useState({
+    userId: users.userId,
+    points: users.points,
+  });
+
+  function totalUserPoints(taskpoints) {
+    let currentUserPoints = updateUserPoints.points;
+    let currentTaskPoints = taskpoints;
+    let totalPoints = currentTaskPoints + currentUserPoints;
+
+    editUser(updateUserPoints, updateUserPoints.userId).then(() => {
+      history.push("/tasks");
+      //window.location.reload();
+    });
+  }
+
+  console.log(updateUserPoints.userId);
+
+  function isChecked(event: any, taskId, pointValue) {
     //Create Variable to save checkbox selection
     let { checked } = event.target;
     //console.log("checked " + checked);
@@ -135,6 +153,14 @@ const Tasks: React.FC = (props) => {
     }));
 
     markComplete(taskId);
+
+    setUserPoints((updateUserPoints) => ({
+      ...updateUserPoints,
+      userId: users.userId,
+      points: pointValue,
+    }));
+
+    totalUserPoints(pointValue);
   }
 
   function viewEditPage(taskId: any) {
@@ -151,7 +177,6 @@ const Tasks: React.FC = (props) => {
       })
       .catch((error: any) => {
         history.push("/signin");
-        console.log(error);
       });
   }
 
@@ -231,12 +256,6 @@ const Tasks: React.FC = (props) => {
                                     {u.name}
                                   </IonSelectOption>
                                 );
-                              } else {
-                                return (
-                                  <IonSelectOption>
-                                    No Children In Household
-                                  </IonSelectOption>
-                                );
                               }
                             })}
                           </IonSelect>
@@ -266,11 +285,11 @@ const Tasks: React.FC = (props) => {
                             <IonCol size="12">
                               <IonList className="homeTasklist parent todo">
                                 <h2>To Do</h2>
-                                {task.map((t: any, index) => {
+                                {task.map((t: any) => {
                                   if (t.completed === false) {
                                     return (
-                                      <IonItemSliding key={index}>
-                                        <IonItem key={index} lines="none">
+                                      <IonItemSliding key={t.taskId}>
+                                        <IonItem lines="none">
                                           <IonLabel>
                                             <span className="labelTitle">
                                               Task:
@@ -302,7 +321,11 @@ const Tasks: React.FC = (props) => {
                                           <IonCheckbox
                                             slot="start"
                                             onIonChange={(e) =>
-                                              isChecked(e, `${t.taskId}`)
+                                              isChecked(
+                                                e,
+                                                `${t.taskId}`,
+                                                `${t.pointValue}`
+                                              )
                                             }
                                             name={`completed`}
                                             value={updateTask.completed}
@@ -337,11 +360,11 @@ const Tasks: React.FC = (props) => {
                             <IonCol size="12">
                               <IonList className="homeTasklist parent done">
                                 <h2>Done</h2>
-                                {task.map((t: any, index) => {
+                                {task.map((t: any) => {
                                   if (t.completed === true) {
                                     return (
-                                      <IonItemSliding key={index}>
-                                        <IonItem key={index} lines="none">
+                                      <IonItemSliding key={t.taskId}>
+                                        <IonItem lines="none">
                                           <IonLabel>
                                             <span className="labelTitle">
                                               Task:
@@ -373,7 +396,11 @@ const Tasks: React.FC = (props) => {
                                           <IonCheckbox
                                             slot="start"
                                             onIonChange={(e) =>
-                                              isChecked(e, `${t.taskId}`)
+                                              isChecked(
+                                                e,
+                                                `${t.taskId}`,
+                                                `${t.pointValue}`
+                                              )
                                             }
                                             checked={t.completed}
                                             name={`completed`}
@@ -414,9 +441,8 @@ const Tasks: React.FC = (props) => {
                             <IonCol size="12">
                               <IonList className="homeTasklist parent todo">
                                 <h2>To Do</h2>
-                                {task.map((t: any, index) => {
+                                {task.map((t: any) => {
                                   let userHouseHold = users.householdName;
-                                  console.log(householdName);
                                   let taskCreated = parseISO(t.createdAt);
                                   let taskCreatedDate = format(
                                     taskCreated,
@@ -427,7 +453,7 @@ const Tasks: React.FC = (props) => {
                                     users.householdName === userHouseHold
                                   ) {
                                     return (
-                                      <IonItem key={index} lines="none">
+                                      <IonItem key={t.taskId} lines="none">
                                         <IonLabel>
                                           <span className="labelTitle">
                                             Task:
@@ -457,7 +483,11 @@ const Tasks: React.FC = (props) => {
                                         <IonCheckbox
                                           slot="start"
                                           onIonChange={(e) =>
-                                            isChecked(e, `${t.taskId}`)
+                                            isChecked(
+                                              e,
+                                              `${t.taskId}`,
+                                              `${t.pointValue}`
+                                            )
                                           }
                                           name={`completed`}
                                           value={updateTask.completed}
@@ -473,7 +503,7 @@ const Tasks: React.FC = (props) => {
                             <IonCol size="12">
                               <IonList className="homeTasklist parent done">
                                 <h2>Done</h2>
-                                {task.map((t: any, index) => {
+                                {task.map((t: any) => {
                                   let userHouseHold = users.householdName;
                                   let taskCreated = parseISO(t.createdAt);
                                   let taskCreatedDate = format(
@@ -485,7 +515,7 @@ const Tasks: React.FC = (props) => {
                                     users.householdName === userHouseHold
                                   ) {
                                     return (
-                                      <IonItem key={index} lines="none">
+                                      <IonItem key={t.taskId} lines="none">
                                         <IonLabel>
                                           <span className="labelTitle">
                                             Task:
@@ -515,7 +545,11 @@ const Tasks: React.FC = (props) => {
                                         <IonCheckbox
                                           slot="start"
                                           onIonChange={(e) =>
-                                            isChecked(e, `${t.taskId}`)
+                                            isChecked(
+                                              e,
+                                              `${t.taskId}`,
+                                              `${t.pointValue}`
+                                            )
                                           }
                                           checked={t.completed}
                                           name={`completed`}
