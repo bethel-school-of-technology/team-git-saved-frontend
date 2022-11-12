@@ -22,6 +22,8 @@ import Header from "../components/Header";
 import TaskContext from "../contexts/TaskContext";
 import UserContext from "../contexts/UserContext";
 import "./Tasks.css";
+import { IonSelect } from "@ionic/react";
+import { IonSelectOption } from "@ionic/react";
 
 const Tasks: React.FC = (props) => {
   //set history variable to useHistory for Navigation
@@ -150,6 +152,11 @@ const Tasks: React.FC = (props) => {
       });
   }
 
+  let userHouseHold = users.householdName;
+
+  function getHouseholdMembers() {
+    const household = [{ value: "parent", text: "Parent" }];
+  }
   return (
     <IonPage>
       <Header />
@@ -160,46 +167,71 @@ const Tasks: React.FC = (props) => {
               <h1>Your Tasks</h1>
             </IonCol>
           </IonRow>
-          {hasJWT() && users.roleId === "parent" ? (
-            <IonRow class="ion-padding ion-text-center">
-              <IonCol size="12">
-                <h1>Add Tasks</h1>
-                <form onSubmit={handleSubmit} className="taskSubmit">
-                  <IonItem>
-                    <IonLabel position="stacked">Enter task title</IonLabel>
-                    <IonInput
-                      type="text"
-                      placeholder="Do Stuff"
-                      name="title"
-                      value={newTask.title}
-                      onIonChange={handleChange}
-                    />
-                    <IonLabel position="stacked">Point Value</IonLabel>
-                    <IonInput
-                      type="text"
-                      placeholder="2000"
-                      name="pointValue"
-                      value={newTask.pointValue}
-                      onIonChange={handleChange}
-                    />
-                    <IonLabel position="stacked">Assigned To</IonLabel>
-                    <IonInput
-                      type="text"
-                      placeholder="Jimmy"
-                      name="assignedTo"
-                      value={newTask.assignedTo}
-                      onIonChange={handleChange}
-                    />
-                  </IonItem>
-                  <IonButton type="submit" expand="block">
-                    Add Task
-                  </IonButton>
-                </form>
-              </IonCol>
-            </IonRow>
-          ) : (
-            ""
-          )}
+          <UserContext.Consumer>
+            {({ user }) => {
+              if (hasJWT() && users.roleId === "parent") {
+                return (
+                  <IonRow class="ion-padding ion-text-center">
+                    <IonCol size="12">
+                      <h1>Add Tasks</h1>
+                      <form onSubmit={handleSubmit} className="taskSubmit">
+                        <IonItem>
+                          <IonLabel position="stacked">
+                            Enter task title
+                          </IonLabel>
+                          <IonInput
+                            type="text"
+                            placeholder="Do Stuff"
+                            name="title"
+                            value={newTask.title}
+                            onIonChange={handleChange}
+                          />
+                          <IonLabel position="stacked">Point Value</IonLabel>
+                          <IonInput
+                            type="text"
+                            placeholder="2000"
+                            name="pointValue"
+                            value={newTask.pointValue}
+                            onIonChange={handleChange}
+                          />
+                          {users.householdName === userHouseHold ? (
+                            <div>
+                              <IonLabel position="stacked">
+                                Assigned To
+                              </IonLabel>
+                              <IonSelect
+                                value={newTask.assignedTo}
+                                placeholder="Assign Household Member"
+                                name="roleId"
+                                onIonChange={handleChange}
+                                className="color"
+                              >
+                                {household.map((household) => (
+                                  <IonSelectOption
+                                    key={household.value}
+                                    value={household.value}
+                                  >
+                                    {household.text}
+                                  </IonSelectOption>
+                                ))}
+                              </IonSelect>
+                            </div>
+                          ) : (
+                            <p></p>
+                          )}
+                        </IonItem>
+                        <IonButton type="submit" expand="block">
+                          Add Task
+                        </IonButton>
+                      </form>
+                    </IonCol>
+                  </IonRow>
+                );
+              } else {
+                return <p></p>;
+              }
+            }}
+          </UserContext.Consumer>
 
           <UserContext.Consumer>
             {({ user }) => {

@@ -37,9 +37,7 @@ const SignUp: React.FC = () => {
     });
   }
 
-  const options = [
-    { value: "parent", text: "Parent" },
-  ];
+  const options = [{ value: "parent", text: "Parent" }];
 
   // Set Role Values
 

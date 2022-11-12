@@ -89,6 +89,7 @@ const Profile: React.FC = () => {
     bio,
     roleId,
     householdName,
+    points,
     profileImg,
     createdAt,
   } = user;
@@ -108,6 +109,7 @@ const Profile: React.FC = () => {
     taskId: taskId,
     taskUserId: taskUserId,
     title: title,
+    points: points,
     createdAt: createdAt,
   });
 
@@ -146,6 +148,14 @@ const Profile: React.FC = () => {
         history.push("/signin");
         console.log(error);
       });
+  }
+
+  //update total user points
+  function totalUserPoints(userpoints, taskpoints) {
+    let currentUserPoints = userpoints;
+    let currentTaskPoints = taskpoints;
+    let totalPoints = currentTaskPoints + currentUserPoints;
+    return totalPoints;
   }
 
   return (
@@ -385,84 +395,99 @@ const Profile: React.FC = () => {
                         <TaskContext.Consumer>
                           {({ task }) => {
                             return (
-                              <IonRow class="ion-padding ion-text-center">
-                                <IonCol size-lg="6" size-xs="12">
-                                  <IonList className="homeTasklist profile todo">
-                                    <h4>To Do</h4>
-                                    {task.map((t: any, index) => {
-                                      let userHouseHold =
-                                        userInfo.householdName;
-                                      let taskCreated = parseISO(t.createdAt);
-                                      let taskCreatedDate = format(
-                                        taskCreated,
-                                        "M/dd/yy"
-                                      );
-                                      if (
-                                        t.completed === false &&
-                                        userInfo.householdName === userHouseHold
-                                      ) {
-                                        return (
-                                          <IonItem key={index} lines="none">
-                                            <IonLabel>
-                                              <span className="labelTitle">
-                                                <span className="labelValue">
-                                                  {t.title}
-                                                </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                On:
-                                                <span className="labelValue">
-                                                  {taskCreatedDate}
-                                                </span>
-                                              </span>
-                                            </IonLabel>
-                                          </IonItem>
+                              <div>
+                                <IonRow class="ion-padding ion-text-center">
+                                  <IonCol size-lg="6" size-xs="12">
+                                    <IonList className="homeTasklist profile todo">
+                                      <h4>To Do</h4>
+                                      {task.map((t: any, index) => {
+                                        let userHouseHold =
+                                          userInfo.householdName;
+                                        let taskCreated = parseISO(t.createdAt);
+                                        let taskCreatedDate = format(
+                                          taskCreated,
+                                          "M/dd/yy"
                                         );
-                                      } else {
-                                        return <p></p>;
-                                      }
-                                    })}
-                                  </IonList>
-                                </IonCol>
-                                <IonCol size-lg="6" size-xs="12">
-                                  <IonList className="homeTasklist profile done">
-                                    <h4>Done</h4>
-                                    {task.map((t: any, index) => {
-                                      let userHouseHold =
-                                        userInfo.householdName;
-                                      let taskCreated = parseISO(t.createdAt);
-                                      let taskCreatedDate = format(
-                                        taskCreated,
-                                        "M/dd/yy"
-                                      );
-                                      if (
-                                        t.completed === true &&
-                                        userInfo.householdName === userHouseHold
-                                      ) {
-                                        return (
-                                          <IonItem key={index} lines="none">
-                                            <IonLabel>
-                                              <span className="labelTitle">
-                                                <span className="labelValue">
-                                                  {t.title}
+                                        if (
+                                          t.completed === false &&
+                                          userInfo.householdName ===
+                                            userHouseHold
+                                        ) {
+                                          return (
+                                            <IonItem key={index} lines="none">
+                                              <IonLabel>
+                                                <span className="labelTitle">
+                                                  <span className="labelValue">
+                                                    {t.title}
+                                                  </span>
                                                 </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                On:
-                                                <span className="labelValue">
-                                                  {taskCreatedDate}
+                                                <span className="labelTitle">
+                                                  On:
+                                                  <span className="labelValue">
+                                                    {taskCreatedDate}
+                                                  </span>
                                                 </span>
-                                              </span>
-                                            </IonLabel>
-                                          </IonItem>
+                                              </IonLabel>
+                                            </IonItem>
+                                          );
+                                        } else {
+                                          return <p></p>;
+                                        }
+                                      })}
+                                    </IonList>
+                                  </IonCol>
+                                  <IonCol size-lg="6" size-xs="12">
+                                    <IonList className="homeTasklist profile done">
+                                      <h4>Done</h4>
+                                      {task.map((t: any, index) => {
+                                        let userHouseHold =
+                                          userInfo.householdName;
+                                        let taskCreated = parseISO(t.createdAt);
+                                        let taskCreatedDate = format(
+                                          taskCreated,
+                                          "M/dd/yy"
                                         );
-                                      } else {
-                                        return <p></p>;
-                                      }
-                                    })}
-                                  </IonList>
-                                </IonCol>
-                              </IonRow>
+                                        if (
+                                          t.completed === true &&
+                                          userInfo.householdName ===
+                                            userHouseHold
+                                        ) {
+                                          return (
+                                            <IonItem key={index} lines="none">
+                                              <IonLabel>
+                                                <span className="labelTitle">
+                                                  <span className="labelValue">
+                                                    {t.title}
+                                                  </span>
+                                                </span>
+                                                <span className="labelTitle">
+                                                  On:
+                                                  <span className="labelValue">
+                                                    {taskCreatedDate}
+                                                  </span>
+                                                </span>
+                                              </IonLabel>
+                                            </IonItem>
+                                          );
+                                        } else {
+                                          return <p></p>;
+                                        }
+                                      })}
+                                    </IonList>
+                                  </IonCol>
+                                </IonRow>
+                                <IonRow class="ion-padding ion-text-center">
+                                  <IonCol size="12">
+                                    <IonButton
+                                      expand="block"
+                                      size="default"
+                                      href="/tasks"
+                                    >
+                                      View Tasks
+                                    </IonButton>
+                                  </IonCol>
+                                </IonRow>
+                              </div>
                             );
                           }}
                         </TaskContext.Consumer>
@@ -470,7 +495,7 @@ const Profile: React.FC = () => {
                           {/* Start Progess Bar */}
                           <IonCol size="12">
                             <div className="rewardProgress">
-                              {/* <IonItem counter={true} lines="none">
+                              <IonItem counter={true} lines="none">
                                 <IonLabel position="floating">
                                   Reward Progress
                                 </IonLabel>
@@ -478,7 +503,7 @@ const Profile: React.FC = () => {
                                   maxlength={1000}
                                   value={task.pointValue}
                                 ></IonInput>
-                              </IonItem> */}
+                              </IonItem>
                             </div>
                           </IonCol>
                           {/* End Progess Bar */}
