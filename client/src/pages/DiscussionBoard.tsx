@@ -16,15 +16,14 @@ import {
   IonCardContent,
   IonAvatar,
 } from "@ionic/react";
-import { createRef, useContext, useEffect, useState } from "react";
-
+import { useContext, useEffect, useState } from "react";
+import { format, parseISO } from "date-fns";
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
 import UserContext from "../contexts/UserContext";
-import './App.css'
-
+import "./App.css";
 
 const DiscussionBoard: React.FC = () => {
   /* End User Info */
@@ -99,8 +98,7 @@ const DiscussionBoard: React.FC = () => {
   let getSingleUser = getUserFromToken();
 
   //Use User Context
-  let { user, getOneUser, } = useContext(UserContext);
-
+  let { user, getOneUser } = useContext(UserContext);
 
   useEffect(() => {
     async function fetch() {
@@ -118,6 +116,7 @@ const DiscussionBoard: React.FC = () => {
     discussionId,
     householdName,
     profileImg,
+    createdAt,
   } = user;
 
   /* End User Info */
@@ -131,13 +130,8 @@ const DiscussionBoard: React.FC = () => {
     householdName: householdName,
     roleId: roleId,
     profileImg: profileImg,
+    createdAt: createdAt,
   });
-  const contentRef = createRef<HTMLIonContentElement>();
-  function scrollToTop() {
-    // Passing a duration to the method makes it so the scroll slowly
-    // goes to the bottom instead of instantly
-    contentRef.current?.scrollToTop(0);
-  }
 
   return (
     <IonPage>
@@ -170,7 +164,7 @@ const DiscussionBoard: React.FC = () => {
                           />
                         </IonItem>
                         <IonItem>
-                        <IonLabel position="stacked">Content</IonLabel>
+                          <IonLabel position="stacked">Content</IonLabel>
                           <IonInput
                             type="text"
                             placeholder="Start Post Here"
@@ -202,41 +196,65 @@ const DiscussionBoard: React.FC = () => {
                         <DiscussionContext.Consumer>
                           {({ discussion }) => {
                             return (
-
                               <div>
-                                {discussion.map((p: any, index) => {
+                                {discussion.map((p: any) => {
+                                  let taskCreated = parseISO(p.createdAt);
+                                  let taskCreatedDate = format(
+                                    taskCreated,
+                                    "M/dd/yy"
+                                  );
                                   return (
                                     <IonCard key={p.discussionId}>
                                       <IonCardHeader>
-                                   
-                                        <span className="labelTitle">
-                                        <IonItem>
-  <IonAvatar slot="start">
-  {!userInfo.profileImg ? (
-                                <img
-                                  alt={userInfo.name}
-                                  src="https://ionicframework.com/docs/img/demos/avatar.svg"
-                                />
-                              ) : (
-                                <img
-                                  alt={userInfo.name}
-                                  src={userInfo.profileImg}
-                                />
-                              )}
-  </IonAvatar>
-  <IonLabel>{userInfo.name}</IonLabel>
-</IonItem>
- 
-                                        </span>
+                                        <div className="discussionInfo">
+                                          {user.map((u) => {
+                                            if (
+                                              u.roleId === "parent" &&
+                                              userInfo.householdName ===
+                                                u.householdName
+                                            ) {
+                                              return (
+                                                <IonItem key={u.userId}>
+                                                  <IonAvatar slot="start">
+                                                    {!u.profileImg ? (
+                                                      <img
+                                                        alt={userInfo.name}
+                                                        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                                                      />
+                                                    ) : (
+                                                      <img
+                                                        alt={u.name}
+                                                        src={u.profileImg}
+                                                      />
+                                                    )}
+                                                  </IonAvatar>
+                                                  <IonLabel>
+                                                    Post By: {u.name}
+                                                    &nbsp;
+                                                    <span>
+                                                      On: {taskCreatedDate}
+                                                    </span>
+                                                  </IonLabel>
+                                                </IonItem>
+                                              );
+                                            }
+                                          })}
+                                        </div>
 
-                                        <IonCardTitle>{p.headline}</IonCardTitle>
-                                        <IonCardSubtitle>{p.content}</IonCardSubtitle>
+                                        <IonCardTitle>
+                                          {p.headline}
+                                        </IonCardTitle>
+                                        <IonCardSubtitle>
+                                          {p.content}
+                                        </IonCardSubtitle>
                                       </IonCardHeader>
                                       <IonCardContent>
                                         <IonButton
                                           color="tertiary"
                                           onClick={() =>
-                                            viewEditDiscussion(`${p.discussionId}`)
+                                            viewEditDiscussion(
+                                              `${p.discussionId}`
+                                            )
                                           }
                                         >
                                           Edit Post
@@ -244,7 +262,9 @@ const DiscussionBoard: React.FC = () => {
                                         <IonButton
                                           color="danger"
                                           onClick={() =>
-                                            removeDiscussion(`${p.discussionId}`)
+                                            removeDiscussion(
+                                              `${p.discussionId}`
+                                            )
                                           }
                                         >
                                           Delete Post
@@ -256,24 +276,17 @@ const DiscussionBoard: React.FC = () => {
                               </div>
                             );
                           }}
-
                         </DiscussionContext.Consumer>
                       );
                     }
                   }}
                 </UserContext.Consumer>
-
-
               </IonList>
             </IonCol>
           </IonRow>
-
         </IonGrid>
-        <IonButton expand="block" onClick={scrollToTop}>
-               test me out
-              </IonButton>
-        <Footer />
       </IonContent>
+      <Footer />
     </IonPage>
   );
 };

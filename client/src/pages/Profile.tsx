@@ -151,8 +151,8 @@ const Profile: React.FC = () => {
 
   return (
     <IonPage>
-      <Header />
       <IonContent fullscreen>
+        <Header />
         <IonGrid>
           {/* Start Parent Profile Content */}
           <UserContext.Consumer>
@@ -371,7 +371,7 @@ const Profile: React.FC = () => {
                                       size="default"
                                       href="/discussion"
                                     >
-                                      Family Discussion
+                                      Discussion
                                     </IonButton>
                                   </IonItem>
                                 </IonList>
@@ -513,7 +513,7 @@ const Profile: React.FC = () => {
                                         {reward.map((r: any) => {
                                           if (
                                             userInfo.points >= 2000 &&
-                                            userInfo.points <= 4000 &&
+                                            userInfo.points >= 4000 &&
                                             r.pointValue >= 2000 &&
                                             r.pointValue <= 4000
                                           ) {
@@ -545,7 +545,7 @@ const Profile: React.FC = () => {
                                             );
                                           } else if (
                                             userInfo.points >= 4000 &&
-                                            userInfo.points <= 6000 &&
+                                            userInfo.points >= 6000 &&
                                             r.pointValue >= 4000 &&
                                             r.pointValue <= 6000
                                           ) {
@@ -664,7 +664,7 @@ const Profile: React.FC = () => {
                                       size="default"
                                       href="/discussion"
                                     >
-                                      Family Discussion
+                                      Discussion
                                     </IonButton>
                                   </IonItem>
                                 </IonList>
@@ -685,8 +685,8 @@ const Profile: React.FC = () => {
 
           {/* End CHild Profile Content */}
         </IonGrid>
+        <Footer />
       </IonContent>
-      <Footer />
     </IonPage>
   );
 };

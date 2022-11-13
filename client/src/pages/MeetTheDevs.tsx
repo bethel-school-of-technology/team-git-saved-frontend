@@ -18,9 +18,8 @@ import Header from "../components/Header";
 const MeetTheDevs: React.FC = () => {
   return (
     <IonPage>
-      <Header />
-
       <IonContent fullscreen>
+        <Header />
         <IonGrid>
           <IonRow class="ion-padding ion-text-center welcomeText">
             <IonCol size="12">
@@ -154,8 +153,8 @@ const MeetTheDevs: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        <Footer />
       </IonContent>
-      <Footer />
     </IonPage>
   );
 };

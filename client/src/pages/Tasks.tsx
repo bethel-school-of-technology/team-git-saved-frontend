@@ -224,8 +224,8 @@ const Tasks: React.FC = (props) => {
 
   return (
     <IonPage>
-      <Header />
-      <IonContent fullscreen>
+      <IonContent fullscreen scrollEvents={true}>
+        <Header />
         <IonGrid>
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
@@ -605,8 +605,8 @@ const Tasks: React.FC = (props) => {
             }}
           </UserContext.Consumer>
         </IonGrid>
+        <Footer />
       </IonContent>
-      <Footer />
     </IonPage>
   );
 };
