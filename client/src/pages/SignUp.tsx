@@ -15,7 +15,7 @@ import { useHistory } from "react-router";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import UserContext from "../contexts/UserContext";
-//import HouseholdContext from "../contexts/HouseholdContext";
+import HouseholdContext from "../contexts/HouseholdContext";
 
 const SignUp: React.FC = () => {
   let [newUser, setNewUser] = useState({
@@ -42,14 +42,17 @@ const SignUp: React.FC = () => {
   // Set Role Values
 
   // Create Household
-  //let { createHousehold } = useContext(HouseholdContext);
+  let { createHousehold } = useContext(HouseholdContext);
 
   function handleSubmit(event: any) {
     event.preventDefault();
     createUser(newUser)
       .then(() => {
         navigate.push("/signin");
-        //createHousehold({name: newUser.householdName});
+        createHousehold({
+          name: newUser.householdName,
+          userId: newUser.name,
+        });
       })
       .catch((error: any) => {
         console.log(error);

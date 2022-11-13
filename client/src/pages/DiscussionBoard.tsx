@@ -78,7 +78,7 @@ const DiscussionBoard: React.FC = () => {
     content: "",
   });
 
-  console.log(newPost);
+  //console.log(newPost);
 
   let { deletePost, addPost } = useContext(DiscussionContext);
 
@@ -143,7 +143,9 @@ const DiscussionBoard: React.FC = () => {
                             value={newPost.headline}
                             onIonChange={handleChange}
                           />
-                          <IonLabel position="stacked">Content</IonLabel>
+                        </IonItem>
+                        <IonItem>
+                        <IonLabel position="stacked">Content</IonLabel>
                           <IonInput
                             type="text"
                             placeholder="Start Post Here"
@@ -172,9 +174,9 @@ const DiscussionBoard: React.FC = () => {
                   {({ discussion }) => {
                     return (
                       <div>
-                        {discussion.map((p: any, index: any) => {
+                        {discussion.map((p: any) => {
                           return (
-                            <IonCard key={index}>
+                            <IonCard key={p.discussionId}>
                               <IonCardHeader>
                                 <IonCardSubtitle>{p.headline}</IonCardSubtitle>
                                 <IonCardTitle>{p.content}</IonCardTitle>

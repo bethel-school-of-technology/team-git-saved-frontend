@@ -100,7 +100,7 @@ const SignUpChild: React.FC = () => {
     event.preventDefault();
     createUser(newUser)
       .then(() => {
-        navigate.push("/signin");
+        navigate.go(-1);
         //createHousehold({name: newUser.householdName});
       })
       .catch((error: any) => {

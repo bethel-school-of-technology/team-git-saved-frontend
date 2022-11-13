@@ -125,27 +125,51 @@ const Tasks: React.FC = (props) => {
 
   //Update User Points on compilerOption
   let [updateUserPoints, setUserPoints] = useState({
-    userId: users.userId,
-    points: users.points,
+    points: 0,
   });
 
   function totalUserPoints(taskpoints) {
-    let currentUserPoints = updateUserPoints.points;
-    let currentTaskPoints = taskpoints;
-    let totalPoints = currentTaskPoints + currentUserPoints;
+    //set task Points
+    let currentTaskPoints = Number(taskpoints);
+    console.log("current task points are: " + currentTaskPoints);
 
-    editUser(updateUserPoints, updateUserPoints.userId).then(() => {
+    //set current user points
+    let currentUserPoints = Number(users.points);
+    console.log("current user points are: " + currentUserPoints);
+
+    //get new user points
+    let updatedUserPoints = Number(updateUserPoints.points);
+    console.log("updated user points are: " + updatedUserPoints);
+
+    //let newUserPoints = Number(updateUserPoints + currentUserPoints);
+
+    let totalPoints;
+
+    if (updateTask.completed === false) {
+      let totalPoints = currentUserPoints - currentTaskPoints;
+      console.log("total points are: " + totalPoints);
+      return totalPoints;
+    } else if (updateTask.completed === true) {
+      let totalPoints = currentTaskPoints + currentUserPoints;
+      console.log("total points are: " + totalPoints);
+      return totalPoints;
+    }
+
+    let sendPoints = { points: totalPoints };
+    console.log(sendPoints);
+
+    editUser(sendPoints, users.userId).then(() => {
       history.push("/tasks");
       //window.location.reload();
     });
   }
 
-  console.log(updateUserPoints.userId);
+  console.log(users.userId);
 
   function isChecked(event: any, taskId, pointValue) {
     //Create Variable to save checkbox selection
     let { checked } = event.target;
-    //console.log("checked " + checked);
+    console.log("checked " + checked);
     //update the state of completed value
     setUpdateTask((updateTask) => ({
       ...updateTask,
@@ -227,6 +251,8 @@ const Tasks: React.FC = (props) => {
                             value={newTask.title}
                             onIonChange={handleChange}
                           />
+                        </IonItem>
+                        <IonItem>
                           <IonLabel position="stacked">Point Value</IonLabel>
                           <IonSelect
                             value={newTask.pointValue}
@@ -236,6 +262,8 @@ const Tasks: React.FC = (props) => {
                           >
                             {pointOptions()}
                           </IonSelect>
+                        </IonItem>
+                        <IonItem>
                           <IonLabel position="stacked">Assigned To</IonLabel>
                           <IonSelect
                             value={newTask.assignedTo}
@@ -286,6 +314,7 @@ const Tasks: React.FC = (props) => {
                               <IonList className="homeTasklist parent todo">
                                 <h2>To Do</h2>
                                 {task.map((t: any) => {
+                                  let pointsAsNum = parseInt(t.pointValue);
                                   if (t.completed === false) {
                                     return (
                                       <IonItemSliding key={t.taskId}>
@@ -324,7 +353,7 @@ const Tasks: React.FC = (props) => {
                                               isChecked(
                                                 e,
                                                 `${t.taskId}`,
-                                                `${t.pointValue}`
+                                                `${pointsAsNum}`
                                               )
                                             }
                                             name={`completed`}
@@ -361,6 +390,7 @@ const Tasks: React.FC = (props) => {
                               <IonList className="homeTasklist parent done">
                                 <h2>Done</h2>
                                 {task.map((t: any) => {
+                                  let pointsAsNum = parseInt(t.pointValue);
                                   if (t.completed === true) {
                                     return (
                                       <IonItemSliding key={t.taskId}>
@@ -399,7 +429,7 @@ const Tasks: React.FC = (props) => {
                                               isChecked(
                                                 e,
                                                 `${t.taskId}`,
-                                                `${t.pointValue}`
+                                                `${pointsAsNum}`
                                               )
                                             }
                                             checked={t.completed}
@@ -442,6 +472,7 @@ const Tasks: React.FC = (props) => {
                               <IonList className="homeTasklist parent todo">
                                 <h2>To Do</h2>
                                 {task.map((t: any) => {
+                                  let pointsAsNum = parseInt(t.pointValue);
                                   let userHouseHold = users.householdName;
                                   let taskCreated = parseISO(t.createdAt);
                                   let taskCreatedDate = format(
@@ -486,7 +517,7 @@ const Tasks: React.FC = (props) => {
                                             isChecked(
                                               e,
                                               `${t.taskId}`,
-                                              `${t.pointValue}`
+                                              `${pointsAsNum}`
                                             )
                                           }
                                           name={`completed`}
@@ -504,6 +535,7 @@ const Tasks: React.FC = (props) => {
                               <IonList className="homeTasklist parent done">
                                 <h2>Done</h2>
                                 {task.map((t: any) => {
+                                  let pointsAsNum = parseInt(t.pointValue);
                                   let userHouseHold = users.householdName;
                                   let taskCreated = parseISO(t.createdAt);
                                   let taskCreatedDate = format(
@@ -548,7 +580,7 @@ const Tasks: React.FC = (props) => {
                                             isChecked(
                                               e,
                                               `${t.taskId}`,
-                                              `${t.pointValue}`
+                                              `${pointsAsNum}`
                                             )
                                           }
                                           checked={t.completed}

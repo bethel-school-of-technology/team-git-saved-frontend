@@ -92,7 +92,7 @@ const Rewards: React.FC = () => {
     history.push(`/rewards/${rewardId}`);
     window.location.reload();
   }
-  console.log(newRewards);
+  //console.log(newRewards);
 
   function handleSubmit(event: any) {
     event.preventDefault();
@@ -110,7 +110,7 @@ const Rewards: React.FC = () => {
       })
       .catch((error: any) => {
         history.push("/rewards");
-        console.log(error);
+        //console.log(error);
       });
   }
 
@@ -119,11 +119,12 @@ const Rewards: React.FC = () => {
       { value: 2000, text: 2000 },
       { value: 3000, text: 3000 },
       { value: 4000, text: 4000 },
-      { value: 4000, text: 4000 },
       { value: 5000, text: 5000 },
       { value: 6000, text: 6000 },
       { value: 7000, text: 7000 },
-      { value: 7000, text: 7000 },
+      { value: 8000, text: 8000 },
+      { value: 9000, text: 9000 },
+      { value: 10000, text: 10000 },
     ];
     let pointOptionSelect = options.map((option) => (
       <IonSelectOption key={option.value} value={option.value}>
@@ -161,6 +162,8 @@ const Rewards: React.FC = () => {
                             value={newRewards.title}
                             onIonChange={handleChange}
                           />
+                        </IonItem>
+                        <IonItem>
                           <IonLabel position="stacked">Point Value</IonLabel>
                           <IonSelect
                             value={newRewards.pointValue}
@@ -187,13 +190,13 @@ const Rewards: React.FC = () => {
             {({ reward }) => {
               return (
                 <IonRow>
-                  {reward.map((r: any, index: any) => {
+                  {reward.map((r: any) => {
                     return (
                       <IonCol
                         size-lg="3"
                         size-xs="12"
                         class="ion-text-center"
-                        key={index}
+                        key={r.rewardId}
                       >
                         <IonCard className="ion-padding">
                           <IonCardHeader>

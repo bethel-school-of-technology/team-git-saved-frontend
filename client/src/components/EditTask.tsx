@@ -147,6 +147,8 @@ const EditTask: React.FC = (props) => {
                             value={updateTask.title}
                             onIonChange={handleChange}
                           />
+                        </IonItem>
+                        <IonItem>
                           <IonLabel position="stacked">Point Value</IonLabel>
                           <IonSelect
                             value={updateTask.pointValue}
@@ -156,6 +158,8 @@ const EditTask: React.FC = (props) => {
                           >
                             {pointOptions()}
                           </IonSelect>
+                        </IonItem>
+                        <IonItem>
                           <IonLabel position="stacked">Assigned To</IonLabel>
                           <IonSelect
                             value={updateTask.assignedTo}
@@ -174,12 +178,6 @@ const EditTask: React.FC = (props) => {
                                     value={u.name}
                                   >
                                     {u.name}
-                                  </IonSelectOption>
-                                );
-                              } else {
-                                return (
-                                  <IonSelectOption>
-                                    No Children In Household
                                   </IonSelectOption>
                                 );
                               }

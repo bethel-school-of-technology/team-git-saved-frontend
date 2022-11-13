@@ -40,7 +40,7 @@ const EditProfile: React.FC = (props) => {
     householdName: householdName,
   });
 
-  console.log(updateUser.userId);
+  //console.log(updateUser.userId);
 
   function handleChange(event: any) {
     setUpdateUser((prevValue) => {
@@ -77,6 +77,8 @@ const EditProfile: React.FC = (props) => {
                     value={updateUser.username}
                     onIonChange={handleChange}
                   />
+                </IonItem>
+                <IonItem>
                   <IonLabel position="stacked">Name</IonLabel>
                   <IonInput
                     type="text"
@@ -85,6 +87,8 @@ const EditProfile: React.FC = (props) => {
                     value={updateUser.name}
                     onIonChange={handleChange}
                   />
+                </IonItem>
+                <IonItem>
                   <IonLabel position="stacked">Bio</IonLabel>
                   <IonInput
                     type="text"
@@ -93,6 +97,8 @@ const EditProfile: React.FC = (props) => {
                     value={updateUser.bio}
                     onIonChange={handleChange}
                   />
+                </IonItem>
+                <IonItem>
                   <IonLabel position="stacked">Profile Image</IonLabel>
                   <IonInput
                     type="text"
@@ -101,6 +107,8 @@ const EditProfile: React.FC = (props) => {
                     value={updateUser.profileImg}
                     onIonChange={handleChange}
                   />
+                </IonItem>
+                <IonItem>
                   <IonLabel position="stacked">Household Name</IonLabel>
                   <IonInput
                     type="text"

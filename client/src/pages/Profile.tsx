@@ -181,7 +181,7 @@ const Profile: React.FC = () => {
                                   <IonCol size="12">
                                     <IonList className="homeTasklist profile todo">
                                       <h4>To Do</h4>
-                                      {task.map((t: any, index) => {
+                                      {task.map((t: any) => {
                                         let taskCreated = parseISO(t.createdAt);
                                         let taskCreatedDate = format(
                                           taskCreated,
@@ -192,7 +192,10 @@ const Profile: React.FC = () => {
                                           userInfo.userId === t.userId
                                         ) {
                                           return (
-                                            <IonItem key={index} lines="none">
+                                            <IonItem
+                                              key={`${t.taskId} + np`}
+                                              lines="none"
+                                            >
                                               <IonLabel>
                                                 <span className="labelTitle">
                                                   <span className="labelValue">
@@ -239,7 +242,7 @@ const Profile: React.FC = () => {
                                   <IonCol size="12">
                                     <IonList className="homeTasklist profile done">
                                       <h4>Done</h4>
-                                      {task.map((t: any, index) => {
+                                      {task.map((t: any) => {
                                         let taskCreated = parseISO(t.createdAt);
                                         let taskCreatedDate = format(
                                           taskCreated,
@@ -250,7 +253,10 @@ const Profile: React.FC = () => {
                                           userInfo.userId === t.userId
                                         ) {
                                           return (
-                                            <IonItem key={index} lines="none">
+                                            <IonItem
+                                              key={`${t.taskId} + dp`}
+                                              lines="none"
+                                            >
                                               <IonLabel>
                                                 <span className="labelTitle">
                                                   <span className="labelValue">
@@ -391,7 +397,7 @@ const Profile: React.FC = () => {
                                   <IonCol size-lg="6" size-xs="12">
                                     <IonList className="homeTasklist profile todo">
                                       <h4>To Do</h4>
-                                      {task.map((t: any, index) => {
+                                      {task.map((t: any) => {
                                         let userHouseHold =
                                           userInfo.householdName;
                                         let taskCreated = parseISO(t.createdAt);
@@ -405,7 +411,10 @@ const Profile: React.FC = () => {
                                             userHouseHold
                                         ) {
                                           return (
-                                            <IonItem key={index} lines="none">
+                                            <IonItem
+                                              key={`${t.taskId} + nc`}
+                                              lines="none"
+                                            >
                                               <IonLabel>
                                                 <span className="labelTitle">
                                                   <span className="labelValue">
@@ -428,7 +437,7 @@ const Profile: React.FC = () => {
                                   <IonCol size-lg="6" size-xs="12">
                                     <IonList className="homeTasklist profile done">
                                       <h4>Done</h4>
-                                      {task.map((t: any, index) => {
+                                      {task.map((t: any) => {
                                         let userHouseHold =
                                           userInfo.householdName;
                                         let taskCreated = parseISO(t.createdAt);
@@ -442,7 +451,10 @@ const Profile: React.FC = () => {
                                             userHouseHold
                                         ) {
                                           return (
-                                            <IonItem key={index} lines="none">
+                                            <IonItem
+                                              key={`${t.taskId} + dc`}
+                                              lines="none"
+                                            >
                                               <IonLabel>
                                                 <span className="labelTitle">
                                                   <span className="labelValue">
@@ -482,8 +494,8 @@ const Profile: React.FC = () => {
                           {/* Start Progess Bar */}
                           <IonCol size="12">
                             <div className="rewardProgress">
-                              <h3>Reward Progress</h3>
-                              <span>{userInfo.points} / 5000</span>
+                              <h3>Reward Total</h3>
+                              <span>{userInfo.points}</span>
                             </div>
                           </IonCol>
                           {/* End Progess Bar */}
@@ -506,7 +518,10 @@ const Profile: React.FC = () => {
                                             r.pointValue <= 4000
                                           ) {
                                             return (
-                                              <IonItem key={r.rewardId} lines="none">
+                                              <IonItem
+                                                key={`${r.rewardId} + sm`}
+                                                lines="none"
+                                              >
                                                 <IonLabel>
                                                   <span className="labelTitle">
                                                     <span className="labelValue">
@@ -535,7 +550,10 @@ const Profile: React.FC = () => {
                                             r.pointValue <= 6000
                                           ) {
                                             return (
-                                              <IonItem key={r.rewardId} lines="none">
+                                              <IonItem
+                                                key={`${r.rewardId} + md`}
+                                                lines="none"
+                                              >
                                                 <IonLabel>
                                                   <span className="labelTitle">
                                                     <span className="labelValue">
@@ -562,7 +580,10 @@ const Profile: React.FC = () => {
                                             r.pointValue >= 6000
                                           ) {
                                             return (
-                                              <IonItem key={r.rewardId} lines="none">
+                                              <IonItem
+                                                key={`${r.rewardId} + lg`}
+                                                lines="none"
+                                              >
                                                 <IonLabel>
                                                   <span className="labelTitle">
                                                     <span className="labelValue">
@@ -582,6 +603,7 @@ const Profile: React.FC = () => {
                                                     </span>
                                                   </span>
                                                 </IonLabel>
+                                                ß
                                               </IonItem>
                                             );
                                           } else {
