@@ -130,7 +130,7 @@ const App: React.FC = () => (
           </Route>
           <Route path="/discussion">
             <DiscussionProvider>
-              <DiscussionBoard/>
+              <DiscussionBoard />
             </DiscussionProvider>
           </Route>
           <Route path="/discussion/:id">
