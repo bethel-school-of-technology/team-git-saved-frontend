@@ -192,6 +192,16 @@ ion-list.profile ion-label span.labelTitle {
   font-size: 16px;
 }
 
+ion-list.dissContent ion-card-title {
+  font-size: 20px;
+  color: rgb(8, 74, 87);
+}
+
+ion-list.dissContent ion-card-subtitle {
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+}
+
 .tasklist ion-list,
 .options ion-list {
   background: none;
