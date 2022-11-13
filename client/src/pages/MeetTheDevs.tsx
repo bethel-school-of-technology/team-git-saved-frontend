@@ -39,7 +39,7 @@ const MeetTheDevs: React.FC = () => {
                 </IonThumbnail>
                 <IonCardHeader>
                   <IonCardTitle>Destiny Jackson</IonCardTitle>
-                  <IonCardSubtitle>Project Role: Backend</IonCardSubtitle>
+                  <IonCardSubtitle>Project Role: FrontEnd</IonCardSubtitle>
                 </IonCardHeader>
                 <IonCardContent>
                   Destiny has a background in Health Care as a Recreational

@@ -14,13 +14,21 @@ import {
   IonCardSubtitle,
   IonCardTitle,
   IonCardContent,
+  IonAvatar,
+  IonThumbnail,
+  IonChip,
 } from "@ionic/react";
-import { useContext, useEffect, useState } from "react";
+import { createRef, useContext, useEffect, useState } from "react";
+
 import { useHistory } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
 import UserContext from "../contexts/UserContext";
+
+// import UserContext from "../contexts/UserContext";
+import './App.css'
+
 
 const DiscussionBoard: React.FC = () => {
   /* Start User Info */
@@ -114,6 +122,75 @@ const DiscussionBoard: React.FC = () => {
     window.location.reload();
   }
 
+  /* Start User Info */
+  //Check if logged in
+  function hasJWT() {
+    let flag = false;
+    //check user has JWT token
+    localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
+    return flag;
+  }
+  function parseJwt(token) {
+    if (!token) {
+      return;
+    }
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    return JSON.parse(window.atob(base64));
+  }
+
+  //get current user
+  function getUserFromToken() {
+    if (hasJWT()) {
+      let user = localStorage.getItem("myUserToken");
+      let userToken = parseJwt(user);
+      return userToken.userId;
+    }
+  }
+
+  let getSingleUser = getUserFromToken();
+
+  //Use User Context
+  let { user, getOneUser, } = useContext(UserContext);
+
+
+  useEffect(() => {
+    async function fetch() {
+      await getOneUser(getSingleUser).then((user) => setUserInfo(user));
+    }
+    fetch();
+  }, [getSingleUser, getOneUser]);
+
+  //Get Profile data
+  let {
+    userId,
+    username,
+    name,
+    roleId,
+    discussionId,
+    householdName,
+    profileImg,
+  } = user;
+
+  /* End User Info */
+
+  //Set User Info
+  let [userInfo, setUserInfo] = useState({
+    id: userId,
+    username: username,
+    name: name,
+    disucssionId: discussionId,
+    householdName: householdName,
+    roleId: roleId,
+    profileImg: profileImg,
+  });
+  const contentRef = createRef<HTMLIonContentElement>();
+  function scrollToTop() {
+    // Passing a duration to the method makes it so the scroll slowly
+    // goes to the bottom instead of instantly
+    contentRef.current?.scrollToTop(0);
+  }
+
   return (
     <IonPage>
       <Header />
@@ -170,46 +247,83 @@ const DiscussionBoard: React.FC = () => {
           <IonRow class="ion-padding">
             <IonCol size="12">
               <IonList className="dissContent">
-                <DiscussionContext.Consumer>
-                  {({ discussion }) => {
-                    return (
-                      <div>
-                        {discussion.map((p: any) => {
-                          return (
-                            <IonCard key={p.discussionId}>
-                              <IonCardHeader>
-                                <IonCardSubtitle>{p.headline}</IonCardSubtitle>
-                                <IonCardTitle>{p.content}</IonCardTitle>
-                              </IonCardHeader>
-                              <IonCardContent>
-                                <IonButton
-                                  color="tertiary"
-                                  onClick={() =>
-                                    viewEditDiscussion(`${p.discussionId}`)
-                                  }
-                                >
-                                  Edit Post
-                                </IonButton>
-                                <IonButton
-                                  color="danger"
-                                  onClick={() =>
-                                    removeDiscussion(`${p.discussionId}`)
-                                  }
-                                >
-                                  Delete Post
-                                </IonButton>
-                              </IonCardContent>
-                            </IonCard>
-                          );
-                        })}
-                      </div>
-                    );
+                <UserContext.Consumer>
+                  {({ user }) => {
+                    if (hasJWT()) {
+                      return (
+                        <DiscussionContext.Consumer>
+                          {({ discussion }) => {
+                            return (
+
+                              <div>
+                                {discussion.map((p: any, index) => {
+                                  return (
+                                    <IonCard key={p.discussionId}>
+                                      <IonCardHeader>
+                                   
+                                        <span className="labelTitle">
+                                        <IonItem>
+  <IonAvatar slot="start">
+  {!userInfo.profileImg ? (
+                                <img
+                                  alt={userInfo.name}
+                                  src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                                />
+                              ) : (
+                                <img
+                                  alt={userInfo.name}
+                                  src={userInfo.profileImg}
+                                />
+                              )}
+  </IonAvatar>
+  <IonLabel>{userInfo.name}</IonLabel>
+</IonItem>
+ 
+                                        </span>
+
+                                        <IonCardTitle>{p.headline}</IonCardTitle>
+                                        <IonCardSubtitle>{p.content}</IonCardSubtitle>
+                                      </IonCardHeader>
+                                      <IonCardContent>
+                                        <IonButton
+                                          color="tertiary"
+                                          onClick={() =>
+                                            viewEditDiscussion(`${p.discussionId}`)
+                                          }
+                                        >
+                                          Edit Post
+                                        </IonButton>
+                                        <IonButton
+                                          color="danger"
+                                          onClick={() =>
+                                            removeDiscussion(`${p.discussionId}`)
+                                          }
+                                        >
+                                          Delete Post
+                                        </IonButton>
+                                      </IonCardContent>
+                                    </IonCard>
+                                  );
+                                })}
+                              </div>
+                            );
+                          }}
+
+                        </DiscussionContext.Consumer>
+                      );
+                    }
                   }}
-                </DiscussionContext.Consumer>
+                </UserContext.Consumer>
+
+
               </IonList>
             </IonCol>
           </IonRow>
+
         </IonGrid>
+        <IonButton expand="block" onClick={scrollToTop}>
+               test me out
+              </IonButton>
         <Footer />
       </IonContent>
     </IonPage>
