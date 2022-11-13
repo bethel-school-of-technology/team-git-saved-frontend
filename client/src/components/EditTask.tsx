@@ -126,8 +126,8 @@ const EditTask: React.FC = (props) => {
 
   return (
     <IonPage>
-      <Header />
       <IonContent fullscreen>
+        <Header />
         <IonGrid>
           <UserContext.Consumer>
             {({ user }) => {

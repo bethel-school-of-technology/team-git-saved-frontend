@@ -36,8 +36,8 @@ const SignIn: React.FC = () => {
 
   return (
     <IonPage>
-      <Header />
       <IonContent fullscreen>
+        <Header />
         <IonGrid>
           <IonRow class="ion-padding">
             <IonCol size="12">
@@ -74,8 +74,8 @@ const SignIn: React.FC = () => {
             </IonCol>
           </IonRow>
         </IonGrid>
+        <Footer />
       </IonContent>
-      <Footer />
     </IonPage>
   );
 };

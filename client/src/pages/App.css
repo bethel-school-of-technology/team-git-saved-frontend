@@ -24,9 +24,11 @@ ion-menu ion-content {
 }
 
 ion-thumbnail {
-  --size: 280px;
+  max-width: 280px;
   --border-radius: 10px;
   margin: 0 auto;
+  width: 100%;
+  height: auto;
 }
 
 ion-button {
@@ -114,6 +116,17 @@ Task Page Styles
 }
 
 /*** End Profile page **/
+
+/*************
+Discussion Page
+***************/
+.discussionInfo {
+  padding: 5px 0;
+}
+.discussionInfo ion-item {
+  --background: rgba(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
 ion-card {
   --background: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
@@ -179,6 +192,16 @@ ion-list.profile ion-label span.labelTitle {
   font-size: 16px;
 }
 
+ion-list.dissContent ion-card-title {
+  font-size: 20px;
+  color: rgb(8, 74, 87);
+}
+
+ion-list.dissContent ion-card-subtitle {
+  font-size: 16px;
+  color: rgb(0, 0, 0);
+}
+
 .tasklist ion-list,
 .options ion-list {
   background: none;
@@ -235,14 +258,17 @@ Meet The Devs
   font-size: 16px;
 }
 
-
 /***********
 Mobile CSS
 ***********/
 /* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) {
-  .thedevs ion-card-content {
-    font-size: 16px;
+@media (min-width: 380px) {
+  ion-list.profile ion-label {
+    text-align: center;
+  }
+  ion-list.homeTasklist ion-checkbox ion-label {
+    display: block;
+    white-space: pre-wrap;
   }
 }
 

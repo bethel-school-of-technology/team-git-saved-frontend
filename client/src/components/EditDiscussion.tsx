@@ -54,8 +54,8 @@ const EditDiscussion: React.FC = (props) => {
   }
   return (
     <IonPage>
-      <Header />
       <IonContent fullscreen>
+        <Header />
         <IonGrid>
           <form onSubmit={handleSubmit} className="dissSubmit">
             <IonItem>

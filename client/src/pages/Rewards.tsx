@@ -137,8 +137,8 @@ const Rewards: React.FC = () => {
 
   return (
     <IonPage>
-      <Header />
       <IonContent fullscreen>
+        <Header />
         <IonGrid>
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">
@@ -224,8 +224,8 @@ const Rewards: React.FC = () => {
             }}
           </RewardsContext.Consumer>
         </IonGrid>
+        <Footer />
       </IonContent>
-      <Footer />
     </IonPage>
   );
 };

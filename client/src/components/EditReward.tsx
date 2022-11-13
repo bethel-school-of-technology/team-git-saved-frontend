@@ -77,8 +77,8 @@ const EditReward: React.FC = (props) => {
   }
   return (
     <IonPage>
-      <Header />
       <IonContent fullscreen>
+        <Header />
         <IonGrid>
           <IonRow class="ion-padding ion-text-center">
             <IonCol size="12">

@@ -111,9 +111,9 @@ const SignUpChild: React.FC = () => {
 
   return (
     <IonPage>
-      <Header />
       {hasJWT() && userInfo.roleId === "parent" ? (
         <IonContent fullscreen>
+          <Header />
           <IonGrid>
             <IonRow class="ion-padding">
               <IonCol size="12">
@@ -190,11 +190,11 @@ const SignUpChild: React.FC = () => {
               </IonCol>
             </IonRow>
           </IonGrid>
+          <Footer />
         </IonContent>
       ) : (
         <p>Only Parents Can View This Form</p>
       )}
-      <Footer />
     </IonPage>
   );
 };
