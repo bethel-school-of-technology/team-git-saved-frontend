@@ -15,8 +15,6 @@ import {
   IonCardTitle,
   IonCardContent,
   IonAvatar,
-  IonThumbnail,
-  IonChip,
 } from "@ionic/react";
 import { createRef, useContext, useEffect, useState } from "react";
 
@@ -25,60 +23,10 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 import DiscussionContext from "../contexts/DiscussionContext";
 import UserContext from "../contexts/UserContext";
-
-// import UserContext from "../contexts/UserContext";
 import './App.css'
 
 
 const DiscussionBoard: React.FC = () => {
-  /* Start User Info */
-  //Check if logged in
-  function hasJWT() {
-    let flag = false;
-    //check user has JWT token
-    localStorage.getItem("myUserToken") ? (flag = true) : (flag = false);
-    return flag;
-  }
-  function parseJwt(token) {
-    if (!token) {
-      return;
-    }
-    const base64Url = token.split(".")[1];
-    const base64 = base64Url.replace("-", "+").replace("_", "/");
-    return JSON.parse(window.atob(base64));
-  }
-
-  //get current user
-  function getUserFromToken() {
-    if (hasJWT()) {
-      let user = localStorage.getItem("myUserToken");
-      let userToken = parseJwt(user);
-      return userToken.userId;
-    }
-  }
-
-  let getSingleUser = getUserFromToken();
-
-  //Use User Context
-  let { user, getOneUser } = useContext(UserContext);
-
-  useEffect(() => {
-    async function fetch() {
-      await getOneUser(getSingleUser).then((user) => setUsers(user));
-    }
-    fetch();
-  }, [getSingleUser, getOneUser]);
-
-  let { userId, username, name, roleId, householdName } = user;
-
-  const [users, setUsers] = useState({
-    userId: userId,
-    username: username,
-    name: name,
-    roleId: roleId,
-    householdName: householdName,
-  });
-
   /* End User Info */
 
   let [newPost, setNewPost] = useState({
@@ -203,7 +151,7 @@ const DiscussionBoard: React.FC = () => {
           </IonRow>
           <UserContext.Consumer>
             {({ user }) => {
-              if (hasJWT() && users.roleId === "parent") {
+              if (hasJWT() && userInfo.roleId === "parent") {
                 return (
                   <IonRow class="ion-padding ion-text-center">
                     <IonCol size="12">
