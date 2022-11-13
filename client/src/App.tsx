@@ -35,7 +35,6 @@ import "./pages/App.css";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import SignUpChild from "./pages/SignUpChild";
-import Discussionboard from "./pages/DiscussionBoard";
 import { DiscussionProvider } from "./contexts/DiscussionProvider";
 import Rewards from "./pages/Rewards";
 import { TaskProvider } from "./contexts/TaskProvider";
