@@ -1,3 +1,5 @@
+import { IonSelect } from "@ionic/react";
+import { IonSelectOption } from "@ionic/react";
 import {
   IonButton,
   IonCol,
@@ -54,6 +56,25 @@ const EditReward: React.FC = (props) => {
         console.log(error);
       });
   }
+  function pointOptions() {
+    const options = [
+      { value: 2000, text: 2000 },
+      { value: 3000, text: 3000 },
+      { value: 4000, text: 4000 },
+      { value: 4000, text: 4000 },
+      { value: 5000, text: 5000 },
+      { value: 6000, text: 6000 },
+      { value: 7000, text: 7000 },
+      { value: 7000, text: 7000 },
+    ];
+    let pointOptionSelect = options.map((option) => (
+      <IonSelectOption key={option.value} value={option.value}>
+        {option.text}
+      </IonSelectOption>
+    ));
+
+    return pointOptionSelect;
+  }
   return (
     <IonPage>
       <Header />
@@ -72,16 +93,17 @@ const EditReward: React.FC = (props) => {
                     onIonChange={handleChange}
                   />
                   <IonLabel position="stacked">Point Value</IonLabel>
-                  <IonInput
-                    type="number"
+                  <IonSelect
+                    value={updateReward.pointValue}
                     placeholder="2000"
                     name="pointValue"
-                    value={updateReward.pointValue}
                     onIonChange={handleChange}
-                  />
+                  >
+                    {pointOptions()}
+                  </IonSelect>
                 </IonItem>
                 <IonButton type="submit" expand="block">
-                  Update Task
+                  Update Reward
                 </IonButton>
               </form>
             </IonCol>

@@ -25,7 +25,6 @@ import { IonCardHeader } from "@ionic/react";
 import { IonCardTitle } from "@ionic/react";
 import { IonCardSubtitle } from "@ionic/react";
 import { IonCardContent } from "@ionic/react";
-import { IonInput } from "@ionic/react";
 
 const Profile: React.FC = () => {
   //set history variable to useHistory for Navigation
@@ -89,6 +88,7 @@ const Profile: React.FC = () => {
     bio,
     roleId,
     householdName,
+    points,
     profileImg,
     createdAt,
   } = user;
@@ -108,6 +108,7 @@ const Profile: React.FC = () => {
     taskId: taskId,
     taskUserId: taskUserId,
     title: title,
+    points: points,
     createdAt: createdAt,
   });
 
@@ -180,7 +181,7 @@ const Profile: React.FC = () => {
                                   <IonCol size="12">
                                     <IonList className="homeTasklist profile todo">
                                       <h4>To Do</h4>
-                                      {task.map((t: any, index) => {
+                                      {task.map((t: any) => {
                                         let taskCreated = parseISO(t.createdAt);
                                         let taskCreatedDate = format(
                                           taskCreated,
@@ -191,7 +192,10 @@ const Profile: React.FC = () => {
                                           userInfo.userId === t.userId
                                         ) {
                                           return (
-                                            <IonItem key={index} lines="none">
+                                            <IonItem
+                                              key={`${t.taskId} + np`}
+                                              lines="none"
+                                            >
                                               <IonLabel>
                                                 <span className="labelTitle">
                                                   <span className="labelValue">
@@ -217,7 +221,7 @@ const Profile: React.FC = () => {
                                                   viewEditPage(`${t.taskId}`)
                                                 }
                                               >
-                                                Edit Task
+                                                Edit
                                               </IonButton>
                                               <IonButton
                                                 color="danger"
@@ -225,7 +229,7 @@ const Profile: React.FC = () => {
                                                   removeTask(`${t.taskId}`)
                                                 }
                                               >
-                                                Delete Task
+                                                Delete
                                               </IonButton>
                                             </IonItem>
                                           );
@@ -238,7 +242,7 @@ const Profile: React.FC = () => {
                                   <IonCol size="12">
                                     <IonList className="homeTasklist profile done">
                                       <h4>Done</h4>
-                                      {task.map((t: any, index) => {
+                                      {task.map((t: any) => {
                                         let taskCreated = parseISO(t.createdAt);
                                         let taskCreatedDate = format(
                                           taskCreated,
@@ -249,7 +253,10 @@ const Profile: React.FC = () => {
                                           userInfo.userId === t.userId
                                         ) {
                                           return (
-                                            <IonItem key={index} lines="none">
+                                            <IonItem
+                                              key={`${t.taskId} + dp`}
+                                              lines="none"
+                                            >
                                               <IonLabel>
                                                 <span className="labelTitle">
                                                   <span className="labelValue">
@@ -385,84 +392,101 @@ const Profile: React.FC = () => {
                         <TaskContext.Consumer>
                           {({ task }) => {
                             return (
-                              <IonRow class="ion-padding ion-text-center">
-                                <IonCol size-lg="6" size-xs="12">
-                                  <IonList className="homeTasklist profile todo">
-                                    <h4>To Do</h4>
-                                    {task.map((t: any, index) => {
-                                      let userHouseHold =
-                                        userInfo.householdName;
-                                      let taskCreated = parseISO(t.createdAt);
-                                      let taskCreatedDate = format(
-                                        taskCreated,
-                                        "M/dd/yy"
-                                      );
-                                      if (
-                                        t.completed === false &&
-                                        userInfo.householdName === userHouseHold
-                                      ) {
-                                        return (
-                                          <IonItem key={index} lines="none">
-                                            <IonLabel>
-                                              <span className="labelTitle">
-                                                <span className="labelValue">
-                                                  {t.title}
-                                                </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                On:
-                                                <span className="labelValue">
-                                                  {taskCreatedDate}
-                                                </span>
-                                              </span>
-                                            </IonLabel>
-                                          </IonItem>
+                              <div>
+                                <IonRow class="ion-padding ion-text-center">
+                                  <IonCol size-lg="6" size-xs="12">
+                                    <IonList className="homeTasklist profile todo">
+                                      <h4>To Do</h4>
+                                      {task.map((t: any) => {
+                                        let userHouseHold =
+                                          userInfo.householdName;
+                                        let taskCreated = parseISO(t.createdAt);
+                                        let taskCreatedDate = format(
+                                          taskCreated,
+                                          "M/dd/yy"
                                         );
-                                      } else {
-                                        return <p></p>;
-                                      }
-                                    })}
-                                  </IonList>
-                                </IonCol>
-                                <IonCol size-lg="6" size-xs="12">
-                                  <IonList className="homeTasklist profile done">
-                                    <h4>Done</h4>
-                                    {task.map((t: any, index) => {
-                                      let userHouseHold =
-                                        userInfo.householdName;
-                                      let taskCreated = parseISO(t.createdAt);
-                                      let taskCreatedDate = format(
-                                        taskCreated,
-                                        "M/dd/yy"
-                                      );
-                                      if (
-                                        t.completed === true &&
-                                        userInfo.householdName === userHouseHold
-                                      ) {
-                                        return (
-                                          <IonItem key={index} lines="none">
-                                            <IonLabel>
-                                              <span className="labelTitle">
-                                                <span className="labelValue">
-                                                  {t.title}
+                                        if (
+                                          t.completed === false &&
+                                          userInfo.householdName ===
+                                            userHouseHold
+                                        ) {
+                                          return (
+                                            <IonItem
+                                              key={`${t.taskId} + nc`}
+                                              lines="none"
+                                            >
+                                              <IonLabel>
+                                                <span className="labelTitle">
+                                                  <span className="labelValue">
+                                                    {t.title}
+                                                  </span>
                                                 </span>
-                                              </span>
-                                              <span className="labelTitle">
-                                                On:
-                                                <span className="labelValue">
-                                                  {taskCreatedDate}
+                                                <span className="labelTitle">
+                                                  On:
+                                                  <span className="labelValue">
+                                                    {taskCreatedDate}
+                                                  </span>
                                                 </span>
-                                              </span>
-                                            </IonLabel>
-                                          </IonItem>
+                                              </IonLabel>
+                                            </IonItem>
+                                          );
+                                        }
+                                      })}
+                                    </IonList>
+                                  </IonCol>
+                                  <IonCol size-lg="6" size-xs="12">
+                                    <IonList className="homeTasklist profile done">
+                                      <h4>Done</h4>
+                                      {task.map((t: any) => {
+                                        let userHouseHold =
+                                          userInfo.householdName;
+                                        let taskCreated = parseISO(t.createdAt);
+                                        let taskCreatedDate = format(
+                                          taskCreated,
+                                          "M/dd/yy"
                                         );
-                                      } else {
-                                        return <p></p>;
-                                      }
-                                    })}
-                                  </IonList>
-                                </IonCol>
-                              </IonRow>
+                                        if (
+                                          t.completed === true &&
+                                          userInfo.householdName ===
+                                            userHouseHold
+                                        ) {
+                                          return (
+                                            <IonItem
+                                              key={`${t.taskId} + dc`}
+                                              lines="none"
+                                            >
+                                              <IonLabel>
+                                                <span className="labelTitle">
+                                                  <span className="labelValue">
+                                                    {t.title}
+                                                  </span>
+                                                </span>
+                                                <span className="labelTitle">
+                                                  On:
+                                                  <span className="labelValue">
+                                                    {taskCreatedDate}
+                                                  </span>
+                                                </span>
+                                              </IonLabel>
+                                            </IonItem>
+                                          );
+                                        }
+                                      })}
+                                    </IonList>
+                                  </IonCol>
+                                </IonRow>
+                                <IonRow class="ion-padding ion-text-center">
+                                  <IonCol size="12">
+                                    <IonButton
+                                      expand="block"
+                                      size="default"
+                                      href="/tasks"
+                                    >
+                                      View Tasks
+                                    </IonButton>
+                                  </IonCol>
+                                </IonRow>
+                              </div>
                             );
                           }}
                         </TaskContext.Consumer>
@@ -470,15 +494,8 @@ const Profile: React.FC = () => {
                           {/* Start Progess Bar */}
                           <IonCol size="12">
                             <div className="rewardProgress">
-                              {/* <IonItem counter={true} lines="none">
-                                <IonLabel position="floating">
-                                  Reward Progress
-                                </IonLabel>
-                                <IonInput
-                                  maxlength={1000}
-                                  value={task.pointValue}
-                                ></IonInput>
-                              </IonItem> */}
+                              <h3>Reward Total</h3>
+                              <span>{userInfo.points}</span>
                             </div>
                           </IonCol>
                           {/* End Progess Bar */}
@@ -493,10 +510,50 @@ const Profile: React.FC = () => {
                                     <IonCol size-lg="12">
                                       <IonList className="homeTasklist profile todo">
                                         <h4>Available Rewards</h4>
-                                        {reward.map((r: any, index) => {
-                                          if (r && r.pointValue >= 50) {
+                                        {reward.map((r: any) => {
+                                          if (
+                                            userInfo.points >= 2000 &&
+                                            userInfo.points <= 4000 &&
+                                            r.pointValue >= 2000 &&
+                                            r.pointValue <= 4000
+                                          ) {
                                             return (
-                                              <IonItem key={index} lines="none">
+                                              <IonItem
+                                                key={`${r.rewardId} + sm`}
+                                                lines="none"
+                                              >
+                                                <IonLabel>
+                                                  <span className="labelTitle">
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                  <span className="labelTitle">
+                                                    On:
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                    <span className="labelTitle">
+                                                      Points:
+                                                      <span className="labelValue">
+                                                        {r.pointValue}
+                                                      </span>
+                                                    </span>
+                                                  </span>
+                                                </IonLabel>
+                                              </IonItem>
+                                            );
+                                          } else if (
+                                            userInfo.points >= 4000 &&
+                                            userInfo.points <= 6000 &&
+                                            r.pointValue >= 4000 &&
+                                            r.pointValue <= 6000
+                                          ) {
+                                            return (
+                                              <IonItem
+                                                key={`${r.rewardId} + md`}
+                                                lines="none"
+                                              >
                                                 <IonLabel>
                                                   <span className="labelTitle">
                                                     <span className="labelValue">
@@ -509,7 +566,44 @@ const Profile: React.FC = () => {
                                                       {r.title}
                                                     </span>
                                                   </span>
+                                                  <span className="labelTitle">
+                                                    Points:
+                                                    <span className="labelValue">
+                                                      {r.pointValue}
+                                                    </span>
+                                                  </span>
                                                 </IonLabel>
+                                              </IonItem>
+                                            );
+                                          } else if (
+                                            userInfo.points >= 6000 &&
+                                            r.pointValue >= 6000
+                                          ) {
+                                            return (
+                                              <IonItem
+                                                key={`${r.rewardId} + lg`}
+                                                lines="none"
+                                              >
+                                                <IonLabel>
+                                                  <span className="labelTitle">
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                  <span className="labelTitle">
+                                                    On:
+                                                    <span className="labelValue">
+                                                      {r.title}
+                                                    </span>
+                                                  </span>
+                                                  <span className="labelTitle">
+                                                    Points:
+                                                    <span className="labelValue">
+                                                      {r.pointValue}
+                                                    </span>
+                                                  </span>
+                                                </IonLabel>
+                                                ß
                                               </IonItem>
                                             );
                                           } else {

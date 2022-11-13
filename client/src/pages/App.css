@@ -66,6 +66,12 @@ Task Page Styles
   --padding-top: 25px;
 }
 
+.taskSubmit ion-select,
+.dissSubmit ion-select,
+.rewardSubmit ion-select {
+  max-width: 100%;
+}
+
 .taskSubmit ion-button,
 .dissSubmit ion-button,
 .rewardSubmit ion-button {
@@ -124,6 +130,11 @@ ion-list.homeTasklist {
 ion-list.homeTasklist ion-label span {
   padding: 5px;
   font-size: 20px;
+}
+
+ion-list.homeTasklist.profile ion-label span {
+  padding: 2px;
+  text-align: center;
 }
 
 ion-list.homeTasklist ion-label span.labelTitle {
@@ -225,3 +236,40 @@ Meet The Devs
 }
 
 
+/***********
+Mobile CSS
+***********/
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+  .thedevs ion-card-content {
+    font-size: 16px;
+  }
+}
+
+/*  Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .thedevs ion-card-content {
+    font-size: 16px;
+  }
+}
+
+/*  Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .thedevs ion-card-content {
+    font-size: 16px;
+  }
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .thedevs ion-card-content {
+    font-size: 16px;
+  }
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+  .thedevs ion-card-content {
+    font-size: 16px;
+  }
+}
